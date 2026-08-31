@@ -1,0 +1,163 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 160" width="100%" height="100%">
+  <defs>
+    <!-- Metallic Navy Gradient for POWER -->
+    <linearGradient id="powerNavy" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#2a527a"/>
+      <stop offset="35%" stop-color="#143456"/>
+      <stop offset="70%" stop-color="#0b1e36"/>
+      <stop offset="100%" stop-color="#050e1c"/>
+    </linearGradient>
+    <linearGradient id="powerNavyLight" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#60a5fa"/>
+      <stop offset="40%" stop-color="#2563eb"/>
+      <stop offset="100%" stop-color="#1e3a8a"/>
+    </linearGradient>
+
+    <!-- 3D Gold Gradient for SILICON -->
+    <linearGradient id="gold3D" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffe8a3"/>
+      <stop offset="25%" stop-color="#dfb147"/>
+      <stop offset="60%" stop-color="#b88628"/>
+      <stop offset="85%" stop-color="#8a6116"/>
+      <stop offset="100%" stop-color="#fdf0cd"/>
+    </linearGradient>
+
+    <!-- Orange Lightning Bolt -->
+    <linearGradient id="boltGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffb703"/>
+      <stop offset="50%" stop-color="#f5821f"/>
+      <stop offset="100%" stop-color="#d95d00"/>
+    </linearGradient>
+
+    <!-- Ribbon 3D Blue -->
+    <linearGradient id="ribbonFront" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6"/>
+      <stop offset="50%" stop-color="#1d4ed8"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+
+    <!-- Glow Filter -->
+    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- ==================== LEFT ICON EMBLEM ==================== -->
+  <g transform="translate(10, 10)">
+    <!-- Wafer Grid Arc Background -->
+    <g opacity="0.85">
+      <path d="M 65 20 C 35 20 18 45 18 75 C 18 105 38 130 75 130" fill="none" stroke="#2563eb" stroke-width="3"/>
+      <!-- Grid lines inside wafer -->
+      <path d="M 28 50 L 58 50 M 20 68 L 65 68 M 22 86 L 68 86 M 32 104 L 75 104" stroke="#38bdf8" stroke-width="1.2" opacity="0.6"/>
+      <path d="M 35 32 L 35 118 M 48 24 L 48 126 M 62 20 L 62 130" stroke="#38bdf8" stroke-width="1.2" opacity="0.6"/>
+    </g>
+
+    <!-- Circuit traces coming off the left -->
+    <g stroke="#38bdf8" stroke-width="2.5" stroke-linecap="round" fill="#38bdf8">
+      <path d="M 22 55 L 8 55 L 2 62" fill="none"/>
+      <circle cx="2" cy="62" r="3"/>
+      
+      <path d="M 18 72 L 0 72" fill="none"/>
+      <circle cx="0" cy="72" r="3.5"/>
+      
+      <path d="M 20 90 L 8 90 L 2 83" fill="none"/>
+      <circle cx="2" cy="83" r="3"/>
+      
+      <path d="M 25 105 L 14 105 L 8 112" fill="none"/>
+      <circle cx="8" cy="112" r="3"/>
+    </g>
+
+    <!-- 3D P-Ribbon Structure -->
+    <!-- Top & Loop -->
+    <path d="M 65 20 C 105 20 135 38 135 68 C 135 95 110 110 80 112 L 65 112 C 55 112 48 118 45 128 L 40 138 C 75 142 125 138 138 105 C 145 85 145 45 105 20 Z" fill="url(#ribbonFront)"/>
+    <path d="M 52 135 C 75 142 110 138 128 118 C 100 130 68 126 52 135 Z" fill="#09182d"/>
+
+    <!-- Dynamic Orange Lightning Bolt -->
+    <polygon points="78,18 48,78 72,78 52,136 102,64 74,64 96,18" fill="url(#boltGrad)" filter="url(#softGlow)"/>
+    <polygon points="76,22 52,76 72,76 58,124 94,66 72,66 90,22" fill="#ffdd55" opacity="0.6"/>
+  </g>
+
+  <!-- ==================== TYPOGRAPHY ==================== -->
+  <g transform="translate(170, 10)">
+    
+    <!-- "POWER" -->
+    <text x="0" y="55" font-family="'Outfit', 'Montserrat', 'Arial Black', sans-serif" font-size="56" font-weight="900" fill="url(#powerNavyLight)" letter-spacing="2">
+      POWER
+    </text>
+
+    <!-- "SILIC[AI]N" -->
+    <!-- SILIC -->
+    <text x="0" y="112" font-family="'Outfit', 'Montserrat', 'Arial Black', sans-serif" font-size="54" font-weight="900" fill="url(#gold3D)" letter-spacing="2">
+      SILIC
+    </text>
+
+    <!-- AI Microchip as letter 'O' -->
+    <g transform="translate(192, 68)">
+      <!-- Gold Chip Pins -->
+      <rect x="0" y="4" width="46" height="42" rx="4" fill="#1e1b4b" stroke="url(#gold3D)" stroke-width="2"/>
+      
+      <!-- Top/Bottom Pins -->
+      <line x1="8" y1="0" x2="8" y2="4" stroke="#dfb147" stroke-width="2"/>
+      <line x1="16" y1="0" x2="16" y2="4" stroke="#dfb147" stroke-width="2"/>
+      <line x1="24" y1="0" x2="24" y2="4" stroke="#dfb147" stroke-width="2"/>
+      <line x1="32" y1="0" x2="32" y2="4" stroke="#dfb147" stroke-width="2"/>
+      <line x1="40" y1="0" x2="40" y2="4" stroke="#dfb147" stroke-width="2"/>
+
+      <line x1="8" y1="46" x2="8" y2="50" stroke="#dfb147" stroke-width="2"/>
+      <line x1="16" y1="46" x2="16" y2="50" stroke="#dfb147" stroke-width="2"/>
+      <line x1="24" y1="46" x2="24" y2="50" stroke="#dfb147" stroke-width="2"/>
+      <line x1="32" y1="46" x2="32" y2="50" stroke="#dfb147" stroke-width="2"/>
+      <line x1="40" y1="46" x2="40" y2="50" stroke="#dfb147" stroke-width="2"/>
+
+      <!-- Left/Right Pins -->
+      <line x1="-3" y1="12" x2="0" y2="12" stroke="#dfb147" stroke-width="2"/>
+      <line x1="-3" y1="20" x2="0" y2="20" stroke="#dfb147" stroke-width="2"/>
+      <line x1="-3" y1="28" x2="0" y2="28" stroke="#dfb147" stroke-width="2"/>
+      <line x1="-3" y1="36" x2="0" y2="36" stroke="#dfb147" stroke-width="2"/>
+
+      <line x1="46" y1="12" x2="49" y2="12" stroke="#dfb147" stroke-width="2"/>
+      <line x1="46" y1="20" x2="49" y2="20" stroke="#dfb147" stroke-width="2"/>
+      <line x1="46" y1="28" x2="49" y2="28" stroke="#dfb147" stroke-width="2"/>
+      <line x1="46" y1="36" x2="49" y2="36" stroke="#dfb147" stroke-width="2"/>
+
+      <!-- Inner Die Grid & AI Text -->
+      <rect x="6" y="9" width="34" height="31" rx="2" fill="#0f172a" stroke="#38bdf8" stroke-width="1"/>
+      <text x="23" y="30" font-family="'Outfit', sans-serif" font-size="18" font-weight="900" fill="#ffffff" text-anchor="middle" letter-spacing="1">
+        AI
+      </text>
+    </g>
+
+    <!-- Letter 'N' -->
+    <text x="246" y="112" font-family="'Outfit', 'Montserrat', 'Arial Black', sans-serif" font-size="54" font-weight="900" fill="url(#gold3D)" letter-spacing="2">
+      N
+    </text>
+
+    <!-- Subtitle: TECHNOLOGIES PVT. LTD. with flanking divider lines -->
+    <g transform="translate(0, 126)">
+      <line x1="0" y1="7" x2="60" y2="7" stroke="#38bdf8" stroke-width="1.5" opacity="0.6"/>
+      <text x="75" y="12" font-family="'Outfit', 'Segoe UI', sans-serif" font-size="14" font-weight="800" fill="#93c5fd" letter-spacing="3">
+        TECHNOLOGIES PVT. LTD.
+      </text>
+      <line x1="315" y1="7" x2="375" y2="7" stroke="#38bdf8" stroke-width="1.5" opacity="0.6"/>
+    </g>
+
+    <!-- Tagline: • DESIGN • INNOVATE • DELIVER -->
+    <g transform="translate(20, 148)">
+      <circle cx="10" cy="-4" r="3.5" fill="#f5821f"/>
+      <text x="22" y="0" font-family="'Space Grotesk', 'Inter', sans-serif" font-size="12" font-weight="700" fill="#f8fafc" letter-spacing="3.5">
+        DESIGN
+      </text>
+
+      <circle cx="115" cy="-4" r="3.5" fill="#f5821f"/>
+      <text x="127" y="0" font-family="'Space Grotesk', 'Inter', sans-serif" font-size="12" font-weight="700" fill="#f8fafc" letter-spacing="3.5">
+        INNOVATE
+      </text>
+
+      <circle cx="245" cy="-4" r="3.5" fill="#f5821f"/>
+      <text x="257" y="0" font-family="'Space Grotesk', 'Inter', sans-serif" font-size="12" font-weight="700" fill="#f8fafc" letter-spacing="3.5">
+        DELIVER
+      </text>
+    </g>
+  </g>
+</svg>

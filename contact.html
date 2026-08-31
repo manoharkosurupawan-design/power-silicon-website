@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us & Request RFQ | Power Silicon Technologies Pvt. Ltd.</title>
+  <meta name="description" content="Get in touch with Power Silicon Technologies Pvt. Ltd. Request a technical RFQ consultation for VLSI Design, UVM Verification, Physical Design, or Embedded Firmware.">
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+
+  <!-- Site Header -->
+  <header class="site-header" id="header">
+    <div class="container nav-container">
+      <a href="index.html" class="brand-logo" title="Power Silicon Technologies">
+        <img src="images/logo.svg" alt="Power Silicon Technologies Logo">
+      </a>
+      <nav class="nav-menu" aria-label="Main Navigation">
+        <div class="nav-item"><a href="index.html" class="nav-link">Home</a></div>
+        <div class="nav-item"><a href="about.html" class="nav-link">About Us</a></div>
+        <div class="nav-item">
+          <a href="services.html" class="nav-link">Services ▾</a>
+          <div class="dropdown-menu">
+            <a href="services.html" class="dropdown-item"><strong>All Services Overview</strong><span class="item-sub">Comprehensive matrix</span></a>
+            <a href="vlsi-design.html" class="dropdown-item"><strong>VLSI Design & Architecture</strong><span class="item-sub">RTL, ASIC/SoC (90% Core)</span></a>
+            <a href="verification-signoff.html" class="dropdown-item"><strong>Verification & Signoff</strong><span class="item-sub">UVM & Formal (90% Core)</span></a>
+            <a href="physical-design.html" class="dropdown-item"><strong>Physical Design & Tape-Out</strong><span class="item-sub">P&R & STA</span></a>
+            <a href="embedded-systems.html" class="dropdown-item"><strong>Embedded Systems & Firmware</strong><span class="item-sub">BSP & RTOS (10% Support)</span></a>
+          </div>
+        </div>
+        <div class="nav-item"><a href="industry-solutions.html" class="nav-link">Industries</a></div>
+        <div class="nav-item"><a href="products-ip.html" class="nav-link">Products & IP</a></div>
+        <div class="nav-item"><a href="rnd-innovations.html" class="nav-link">R&D</a></div>
+        <div class="nav-item"><a href="careers.html" class="nav-link">Careers</a></div>
+        <div class="nav-item"><a href="contact.html" class="nav-link active">Contact</a></div>
+      </nav>
+      <div class="nav-cta-group">
+        <a href="contact.html" class="btn btn-primary btn-sm">Get in Touch</a>
+        <button class="mobile-toggle" aria-label="Toggle Mobile Menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-drawer-overlay"></div>
+  <aside class="mobile-drawer">
+    <div style="margin-bottom: 1.5rem;"><img src="images/logo.svg" alt="Power Silicon Technologies" style="height: 38px;"></div>
+    <a href="index.html" class="mobile-link">Home</a>
+    <a href="about.html" class="mobile-link">About Us</a>
+    <a href="services.html" class="mobile-link">Services Overview</a>
+    <a href="vlsi-design.html" class="mobile-link" style="padding-left: 1rem; font-size: 0.95rem; color: var(--accent-cyan);">↳ VLSI Design (RTL/SoC)</a>
+    <a href="verification-signoff.html" class="mobile-link" style="padding-left: 1rem; font-size: 0.95rem; color: var(--accent-cyan);">↳ Verification & Signoff</a>
+    <a href="physical-design.html" class="mobile-link" style="padding-left: 1rem; font-size: 0.95rem; color: var(--accent-cyan);">↳ Physical Design & P&R</a>
+    <a href="embedded-systems.html" class="mobile-link" style="padding-left: 1rem; font-size: 0.95rem; color: var(--accent-orange);">↳ Embedded Systems (10%)</a>
+    <a href="industry-solutions.html" class="mobile-link">Industry Solutions</a>
+    <a href="products-ip.html" class="mobile-link">Products & Silicon IP</a>
+    <a href="rnd-innovations.html" class="mobile-link">R&D & Innovations</a>
+    <a href="careers.html" class="mobile-link">Careers</a>
+    <a href="blog.html" class="mobile-link">Engineering Blog</a>
+    <a href="faq.html" class="mobile-link">FAQ</a>
+    <a href="contact.html" class="mobile-link active">Contact & RFQ</a>
+  </aside>
+
+  <!-- Page Hero -->
+  <section class="page-hero">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="index.html">Home</a> <span>/</span> <span class="current">Contact Us</span>
+      </div>
+      <span class="section-tag orange">Let's Connect</span>
+      <h1 class="section-title">Request an RFQ & Technical Consultation</h1>
+      <p class="section-subtitle">
+        Connect directly with our Principal Silicon Architects. We respond within 24 business hours with mutual NDA execution and technical project scoping.
+      </p>
+    </div>
+  </section>
+
+  <!-- Contact & RFQ Grid -->
+  <section class="section-padding">
+    <div class="container">
+      
+      <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 3.5rem;">
+        
+        <!-- Left: RFQ Form -->
+        <div class="card" style="padding: 2.5rem; border-color: var(--border-glow);">
+          <div style="margin-bottom: 1.75rem;">
+            <span class="badge badge-cyan" style="margin-bottom: 0.5rem;">Confidential SOW Scoping</span>
+            <h3 style="color: #ffffff;">Project Inquiry / RFQ Form</h3>
+            <p style="font-size: 0.92rem; color: var(--text-secondary); margin: 0;">Fill out the parameters of your requirement below. All submissions are treated under strict confidentiality.</p>
+          </div>
+
+          <form id="rfq-form">
+            <div class="form-grid">
+              
+              <div class="form-group">
+                <label class="form-label" for="rfq-name">Your Name *</label>
+                <input type="text" id="rfq-name" class="form-input" placeholder="e.g. Vikram Verma" required>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="rfq-email">Business Email *</label>
+                <input type="email" id="rfq-email" class="form-input" placeholder="vikram@company.com" required>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="rfq-company">Company / Organization *</label>
+                <input type="text" id="rfq-company" class="form-input" placeholder="Company Name" required>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="rfq-phone">Phone / WhatsApp</label>
+                <input type="tel" id="rfq-phone" class="form-input" placeholder="+91 98765 43210">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="rfq-service">Primary Service Area *</label>
+                <select id="rfq-service" class="form-select" required>
+                  <option value="vlsi-design">VLSI Design & RTL (90% Core)</option>
+                  <option value="verification">UVM Verification & Signoff (90% Core)</option>
+                  <option value="physical-design">Physical Design & P&R (90% Core)</option>
+                  <option value="turnkey-soc">Turnkey ASIC / SoC Project</option>
+                  <option value="embedded">Embedded Systems & Firmware (10%)</option>
+                  <option value="ip-licensing">Silicon IP Licensing</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="rfq-node">Target Process Node / Platform</label>
+                <select id="rfq-node" class="form-select">
+                  <option value="5nm">5nm / 7nm FinFET</option>
+                  <option value="12nm">12nm / 16nm FinFET</option>
+                  <option value="28nm" selected>22nm / 28nm FD-SOI / Planar</option>
+                  <option value="65nm">40nm / 65nm / 180nm</option>
+                  <option value="fpga">FPGA Prototyping (Xilinx/Intel)</option>
+                  <option value="undecided">To be evaluated</option>
+                </select>
+              </div>
+
+              <div class="form-group full-width">
+                <label class="form-label" for="rfq-timeline">Engagement Model & Timeline</label>
+                <select id="rfq-timeline" class="form-select">
+                  <option value="turnkey">Turnkey Fixed SOW</option>
+                  <option value="staff-aug">Dedicated Staff Augmentation / ODC</option>
+                  <option value="time-critical">Time-Critical Tapeout Crunch (< 30 days)</option>
+                </select>
+              </div>
+
+              <div class="form-group full-width">
+                <label class="form-label" for="rfq-details">Project Scope & Technical Description *</label>
+                <textarea id="rfq-details" class="form-textarea" placeholder="Please outline your block-level requirements, EDA toolchain preference (Synopsys/Cadence), target foundry, and milestone deadlines..." required></textarea>
+              </div>
+
+              <div class="form-group full-width">
+                <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">
+                  <span>Submit Engineering RFQ</span>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                </button>
+              </div>
+
+            </div>
+          </form>
+        </div>
+
+        <!-- Right: Contact Information & Direct Channels -->
+        <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+          
+          <!-- Contact Details Card -->
+          <div class="card card-circuit">
+            <h4 style="color: #ffffff; margin-bottom: 1.25rem;">Direct Engineering Contacts</h4>
+            
+            <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+              
+              <div style="display: flex; gap: 1rem;">
+                <div class="card-icon" style="width: 44px; height: 44px; margin: 0; flex-shrink: 0;">
+                  <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                </div>
+                <div>
+                  <div style="font-size: 0.82rem; color: var(--text-muted); font-family: var(--font-mono);">PRIMARY OFFICIAL EMAIL</div>
+                  <a href="mailto:Powersilicontechnologies@gmail.com" style="color: var(--accent-cyan); font-weight: 600; font-size: 1.05rem;">Powersilicontechnologies@gmail.com</a>
+                  <div style="font-size: 0.78rem; color: var(--text-secondary); margin-top: 2px;">Reviewed 24/7 by Engineering PMO</div>
+                </div>
+              </div>
+
+              <div style="display: flex; gap: 1rem;">
+                <div class="card-icon orange" style="width: 44px; height: 44px; margin: 0; flex-shrink: 0;">
+                  <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                </div>
+                <div>
+                  <div style="font-size: 0.82rem; color: var(--text-muted); font-family: var(--font-mono);">PHONE & TELECONFERENCE</div>
+                  <div style="color: #ffffff; font-weight: 600; font-size: 1.05rem;">+91 (0) 80-2938-4000</div>
+                  <div style="font-size: 0.78rem; color: var(--text-secondary); margin-top: 2px;">Direct Indian Semiconductor Desk</div>
+                </div>
+              </div>
+
+              <div style="display: flex; gap: 1rem;">
+                <div class="card-icon" style="width: 44px; height: 44px; margin: 0; flex-shrink: 0; background: rgba(37, 211, 102, 0.1); border-color: rgba(37, 211, 102, 0.3); color: #25d366;">
+                  <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2z"/></svg>
+                </div>
+                <div>
+                  <div style="font-size: 0.82rem; color: var(--text-muted); font-family: var(--font-mono);">WHATSAPP CHAT</div>
+                  <a href="https://wa.me/918029384000" target="_blank" rel="noopener" style="color: #25d366; font-weight: 600; font-size: 1.05rem;">Connect on WhatsApp →</a>
+                  <div style="font-size: 0.78rem; color: var(--text-secondary); margin-top: 2px;">Instant technical coordination</div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Office Location & Google Map Interactive Visual -->
+          <div class="card" style="padding: 1.75rem;">
+            <h4 style="color: #ffffff; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem;">
+              <svg width="18" height="18" fill="none" stroke="var(--accent-cyan)" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Corporate & Engineering Headquarters
+            </h4>
+            <p style="font-size: 0.92rem; color: var(--text-secondary); margin-bottom: 1.25rem;">
+              <strong>Power Silicon Technologies Pvt. Ltd.</strong><br>
+              Silicon Technology Park, Electronic City Phase 1,<br>
+              Bengaluru, Karnataka 560100, India
+            </p>
+
+            <!-- Map Mockup Container -->
+            <div style="position: relative; height: 180px; background: #07101d; border-radius: var(--radius-md); border: 1px solid var(--border-color); overflow: hidden; display: flex; align-items: center; justify-content: center;">
+              <!-- Circuit map grid visual -->
+              <div style="position: absolute; inset: 0; opacity: 0.3; background-image: radial-gradient(#00d2ff 1px, transparent 1px); background-size: 16px 16px;"></div>
+              <div style="position: relative; text-align: center; z-index: 2;">
+                <div style="width: 42px; height: 42px; border-radius: 50%; background: var(--accent-orange); color: #ffffff; display: flex; align-items: center; justify-content: center; margin: 0 auto 0.5rem; box-shadow: 0 0 20px var(--accent-orange-glow);" class="pulse-orange">
+                  <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                </div>
+                <span style="font-family: var(--font-heading); font-size: 0.9rem; font-weight: 700; color: #ffffff;">Electronic City, Bengaluru</span>
+                <div style="font-size: 0.75rem; color: var(--accent-cyan);">India's Silicon Valley Tech Corridor</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Success Confirmation Modal -->
+  <div class="modal-overlay" id="success-modal" aria-hidden="true">
+    <div class="modal-box text-center" style="max-width: 480px;">
+      <div style="width: 60px; height: 60px; border-radius: 50%; background: rgba(0, 210, 255, 0.15); border: 2px solid var(--accent-cyan); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.25rem; color: var(--accent-cyan);">
+        <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <h3 style="color: #ffffff; margin-bottom: 0.75rem;">RFQ Request Received</h3>
+      <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6; margin-bottom: 2rem;">
+        Thank you for contacting <strong>Power Silicon Technologies Pvt. Ltd.</strong> Our Principal Silicon Engineering team has received your project parameters and will send a preliminary technical response within 24 business hours.
+      </p>
+      <button class="btn btn-primary" data-modal-close style="width: 100%;">Return to Website</button>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-top">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="brand-logo"><img src="images/logo.svg" alt="Power Silicon Technologies"></a>
+          <p>Power Silicon Technologies Pvt. Ltd. delivers cutting-edge VLSI design, UVM verification, physical design signoff, and complementary embedded firmware solutions.</p>
+          <p style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--accent-gold);">DESIGN • INNOVATE • DELIVER</p>
+        </div>
+        <div>
+          <h4 class="footer-heading">VLSI Services</h4>
+          <ul class="footer-links">
+            <li><a href="vlsi-design.html">RTL & ASIC Design</a></li>
+            <li><a href="verification-signoff.html">UVM Verification</a></li>
+            <li><a href="physical-design.html">Physical Design (P&R)</a></li>
+            <li><a href="verification-signoff.html">Static Timing Analysis</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading">Solutions</h4>
+          <ul class="footer-links">
+            <li><a href="embedded-systems.html">Embedded Systems (10%)</a></li>
+            <li><a href="industry-solutions.html">Automotive Silicon</a></li>
+            <li><a href="industry-solutions.html">AI Accelerators</a></li>
+            <li><a href="products-ip.html">Silicon IP Cores</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading">Company</h4>
+          <ul class="footer-links">
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="careers.html">Careers</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading">Direct Contact</h4>
+          <div class="footer-contact-item">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <div><a href="mailto:Powersilicontechnologies@gmail.com" style="color: var(--accent-cyan);">Powersilicontechnologies@gmail.com</a></div>
+          </div>
+          <div style="margin-top: 1rem;">
+            <a href="https://wa.me/918029384000" target="_blank" rel="noopener" class="btn btn-secondary btn-sm" style="width: 100%; border-color: rgba(37, 211, 102, 0.4); color: #25d366;">WhatsApp Quick Chat</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container footer-bottom-content">
+        <div>© 2026 Power Silicon Technologies Pvt. Ltd. All rights reserved.</div>
+        <div class="footer-bottom-links">
+          <a href="privacy-policy.html">Privacy Policy</a>
+          <a href="privacy-policy.html#terms">Terms of Service</a>
+          <a href="faq.html">FAQ</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

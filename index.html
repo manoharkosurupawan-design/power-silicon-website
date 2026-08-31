@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Power Silicon Technologies | End-to-End VLSI & Embedded Engineering Solutions</title>
+  <meta name="description" content="Power Silicon Technologies Pvt. Ltd. delivers world-class semiconductor solutions specializing 90% in VLSI Engineering (ASIC/SoC, RTL, DV, Physical Design) and 10% in Embedded Systems. Design • Innovate • Deliver.">
+  <meta name="keywords" content="VLSI Design, ASIC Design, SoC Verification, UVM, Physical Design, STA, Embedded Systems, Semiconductor Engineering, Power Silicon Technologies">
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+
+  <!-- ========================================================================
+       SITE HEADER / NAVIGATION
+       ======================================================================== -->
+  <header class="site-header" id="header">
+    <div class="container nav-container">
+      <a href="index.html" class="brand-logo" title="Power Silicon Technologies">
+        <img src="images/logo.svg" alt="Power Silicon Technologies Logo">
+      </a>
+
+      <!-- Desktop Menu -->
+      <nav class="nav-menu" aria-label="Main Navigation">
+        <div class="nav-item">
+          <a href="index.html" class="nav-link active">Home</a>
+        </div>
+        <div class="nav-item">
+          <a href="about.html" class="nav-link">About Us</a>
+        </div>
+        <div class="nav-item">
+          <a href="services.html" class="nav-link">Services ▾</a>
+          <div class="dropdown-menu">
+            <a href="services.html" class="dropdown-item">
+              <strong>All Services Overview</strong>
+              <span class="item-sub">Comprehensive service matrix & models</span>
+            </a>
+            <a href="vlsi-design.html" class="dropdown-item">
+              <strong>VLSI Design & Architecture</strong>
+              <span class="item-sub">RTL, ASIC/SoC, Micro-architecture (90% Core)</span>
+            </a>
+            <a href="verification-signoff.html" class="dropdown-item">
+              <strong>Verification & Signoff</strong>
+              <span class="item-sub">UVM, Formal, Coverage & STA (90% Core)</span>
+            </a>
+            <a href="physical-design.html" class="dropdown-item">
+              <strong>Physical Design & Tape-Out</strong>
+              <span class="item-sub">P&R, Floorplanning, Timing & DRC/LVS</span>
+            </a>
+            <a href="embedded-systems.html" class="dropdown-item">
+              <strong>Embedded Systems & Firmware</strong>
+              <span class="item-sub">BSP, RTOS, Board Bring-up (10% Support)</span>
+            </a>
+          </div>
+        </div>
+        <div class="nav-item">
+          <a href="industry-solutions.html" class="nav-link">Industries</a>
+        </div>
+        <div class="nav-item">
+          <a href="products-ip.html" class="nav-link">Products & IP</a>
+        </div>
+        <div class="nav-item">
+          <a href="rnd-innovations.html" class="nav-link">R&D</a>
+        </div>
+        <div class="nav-item">
+          <a href="careers.html" class="nav-link">Careers</a>
+        </div>
+        <div class="nav-item">
+          <a href="contact.html" class="nav-link">Contact</a>
+        </div>
+      </nav>
+
+      <!-- Nav CTA -->
+      <div class="nav-cta-group">
+        <a href="contact.html" class="btn btn-primary btn-sm">Get in Touch</a>
+        <button class="mobile-toggle" aria-label="Toggle Mobile Menu" id="mobile-toggle-btn">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Navigation Drawer -->
+  <div class="mobile-drawer-overlay"></div>
+  <aside class="mobile-drawer" aria-label="Mobile Navigation">
+    <div style="margin-bottom: 1.5rem;">
+      <img src="images/logo.svg" alt="Power Silicon Technologies" style="height: 38px;">
+    </div>
+    <a href="index.html" class="mobile-link active">Home</a>
+    <a href="about.html" class="mobile-link">About Us</a>
+    <a href="services.html" class="mobile-link">Services Overview</a>
+    <a href="vlsi-design.html" class="mobile-link" style="padding-left: 1rem; font-size: 0.95rem; color: var(--accent-cyan);">↳ VLSI Design (RTL/SoC)</a>
+    <a href="verification-signoff.html" class="mobile-link" style="padding-left: 1rem; font-size: 0.95rem; color: var(--accent-cyan);">↳ Verification & Signoff</a>
+    <a href="physical-design.html" class="mobile-link" style="padding-left: 1rem; font-size: 0.95rem; color: var(--accent-cyan);">↳ Physical Design & P&R</a>
+    <a href="embedded-systems.html" class="mobile-link" style="padding-left: 1rem; font-size: 0.95rem; color: var(--accent-orange);">↳ Embedded Systems (10%)</a>
+    <a href="industry-solutions.html" class="mobile-link">Industry Solutions</a>
+    <a href="products-ip.html" class="mobile-link">Products & Silicon IP</a>
+    <a href="rnd-innovations.html" class="mobile-link">R&D & Innovations</a>
+    <a href="careers.html" class="mobile-link">Careers</a>
+    <a href="blog.html" class="mobile-link">Engineering Blog</a>
+    <a href="faq.html" class="mobile-link">FAQ</a>
+    <a href="contact.html" class="mobile-link">Contact & RFQ</a>
+    <div style="margin-top: 1.5rem;">
+      <a href="contact.html" class="btn btn-primary" style="width: 100%;">Request Silicon Quote</a>
+    </div>
+  </aside>
+
+  <!-- ========================================================================
+       HERO SECTION WITH INTERACTIVE CIRCUIT CANVAS
+       ======================================================================== -->
+  <section class="hero-section" id="hero">
+    <canvas id="circuit-canvas" class="hero-canvas-bg"></canvas>
+    <div class="container hero-content-wrapper">
+      
+      <!-- Specialization Pill -->
+      <div style="margin-bottom: 1.5rem;">
+        <div class="weighting-pill">
+          <span class="pill-vlsi">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="15" x2="23" y2="15"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="15" x2="4" y2="15"/></svg>
+            90% VLSI Engineering
+          </span>
+          <span class="pill-divider"></span>
+          <span class="pill-embedded">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            10% Embedded Systems
+          </span>
+        </div>
+      </div>
+
+      <!-- Main Headline -->
+      <h1 class="hero-title">
+        Engineering the Silicon <br>
+        Behind <span class="highlight">Tomorrow’s Intelligence</span>
+      </h1>
+
+      <p class="hero-lead">
+        Power Silicon Technologies delivers turnkey semiconductor engineering across advanced process nodes. From architectural specification, high-speed RTL, and UVM verification to physical design signoff and firmware bring-up.
+      </p>
+
+      <!-- CTA Row -->
+      <div class="hero-cta-row">
+        <a href="services.html" class="btn btn-primary btn-lg">
+          <span>Explore Our Services</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        <a href="about.html" class="btn btn-outline btn-lg">
+          About Our Company
+        </a>
+      </div>
+
+      <!-- Key Performance Metrics Row -->
+      <div class="hero-stats-row">
+        <div class="stat-block">
+          <div class="stat-number"><span class="stat-count" data-target="90" data-suffix="%">0%</span></div>
+          <div class="stat-label">VLSI Core Specialization</div>
+        </div>
+        <div class="stat-block">
+          <div class="stat-number"><span class="stat-count" data-target="100" data-suffix="+">0+</span></div>
+          <div class="stat-label">Tape-Outs & Sub-Systems</div>
+        </div>
+        <div class="stat-block">
+          <div class="stat-number"><span class="stat-count" data-target="5" data-suffix="nm">0nm</span></div>
+          <div class="stat-label">Advanced Node Experience</div>
+        </div>
+        <div class="stat-block">
+          <div class="stat-number"><span class="stat-count" data-target="99.8" data-suffix="%">0%</span></div>
+          <div class="stat-label">First-Pass Silicon Success</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       INDUSTRIES BAR
+       ======================================================================== -->
+  <section style="background: #040810; border-top: 1px solid var(--border-subtle); border-bottom: 1px solid var(--border-subtle); padding: 1.75rem 0;">
+    <div class="container">
+      <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem;">
+        <div style="font-family: var(--font-mono); font-size: 0.82rem; color: var(--accent-cyan); text-transform: uppercase; letter-spacing: 0.1em; display: flex; align-items: center; gap: 0.5rem;">
+          <span style="display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--accent-cyan);" class="pulse-cyan"></span>
+          Key Target Domains:
+        </div>
+        <div style="display: flex; align-items: center; gap: 2.5rem; flex-wrap: wrap;">
+          <a href="industry-solutions.html" style="display: flex; align-items: center; gap: 0.6rem; color: var(--text-secondary); font-size: 0.92rem; font-weight: 500;">
+            <svg width="18" height="18" fill="none" stroke="var(--accent-orange)" stroke-width="2" viewBox="0 0 24 24"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.5 2.8C2.1 11 2 11.5 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg>
+            Automotive (ASIL-D)
+          </a>
+          <a href="industry-solutions.html" style="display: flex; align-items: center; gap: 0.6rem; color: var(--text-secondary); font-size: 0.92rem; font-weight: 500;">
+            <svg width="18" height="18" fill="none" stroke="var(--accent-cyan)" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-10 10c0 4.4 2.9 8.2 7 9.5v-3.2c-1.3-.3-2-1.3-2-2.3 0-1.2.9-2.1 2-2.3V12a3 3 0 0 1 6 0v1.7c1.1.2 2 1.1 2 2.3 0 1-.7 2-2 2.3v3.2c4.1-1.3 7-5.1 7-9.5A10 10 0 0 0 12 2z"/></svg>
+            AI & Edge Compute
+          </a>
+          <a href="industry-solutions.html" style="display: flex; align-items: center; gap: 0.6rem; color: var(--text-secondary); font-size: 0.92rem; font-weight: 500;">
+            <svg width="18" height="18" fill="none" stroke="var(--accent-cyan)" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
+            IoT & Smart Devices
+          </a>
+          <a href="industry-solutions.html" style="display: flex; align-items: center; gap: 0.6rem; color: var(--text-secondary); font-size: 0.92rem; font-weight: 500;">
+            <svg width="18" height="18" fill="none" stroke="var(--accent-gold)" stroke-width="2" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            Aerospace & Defense
+          </a>
+          <a href="industry-solutions.html" style="display: flex; align-items: center; gap: 0.6rem; color: var(--text-secondary); font-size: 0.92rem; font-weight: 500;">
+            <svg width="18" height="18" fill="none" stroke="var(--accent-cyan)" stroke-width="2" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            Healthcare Silicon
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       WHAT WE DO — 4 CORE SERVICE CARDS (90% VLSI / 10% EMBEDDED)
+       ======================================================================== -->
+  <section class="section-padding" id="what-we-do">
+    <div class="container">
+      <div class="text-center" style="margin-bottom: 3.5rem;">
+        <span class="section-tag">Core Engineering Capabilities</span>
+        <h2 class="section-title">End-to-End Silicon Design & <span class="highlight">Firmware Integration</span></h2>
+        <p class="section-subtitle">
+          We combine deep technical mastery in digital VLSI engineering with essential embedded systems enablement to deliver production-ready silicon on schedule.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-4">
+        
+        <!-- Card 1: VLSI Design & Architecture (90% Core) -->
+        <div class="card card-circuit">
+          <div class="card-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 15h3M1 9h3M1 15h3"/></svg>
+          </div>
+          <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+            <span class="badge badge-cyan">90% VLSI Core</span>
+          </div>
+          <h3 class="card-title">VLSI Design & RTL</h3>
+          <p class="card-desc">
+            Micro-architecture definition, high-performance Verilog/SystemVerilog RTL coding, SoC subsystem integration, and low-power UPF/CPF implementation.
+          </p>
+          <ul class="card-feature-list">
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> RTL Design & Lint/CDC/RDC</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> AMBA AXI/AHB Interconnects</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Logic Synthesis & UPF Power Intent</li>
+          </ul>
+          <a href="vlsi-design.html" class="btn btn-outline btn-sm" style="width: 100%;">View VLSI Services →</a>
+        </div>
+
+        <!-- Card 2: Verification & Signoff (90% Core) -->
+        <div class="card card-circuit">
+          <div class="card-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+          </div>
+          <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+            <span class="badge badge-cyan">90% VLSI Core</span>
+          </div>
+          <h3 class="card-title">Verification & Signoff</h3>
+          <p class="card-desc">
+            Constrained-random verification with SystemVerilog/UVM, Formal property checking, gate-level simulation (GLS), and 100% coverage closure.
+          </p>
+          <ul class="card-feature-list">
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> UVM Testbench Architecture</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Formal & SVA Assertion Verification</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Emulation & Gate-Level Signoff</li>
+          </ul>
+          <a href="verification-signoff.html" class="btn btn-outline btn-sm" style="width: 100%;">View DV Services →</a>
+        </div>
+
+        <!-- Card 3: Physical Design & Tape-Out (90% Core) -->
+        <div class="card card-circuit">
+          <div class="card-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+          </div>
+          <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+            <span class="badge badge-cyan">90% VLSI Core</span>
+          </div>
+          <h3 class="card-title">Physical Design (P&R)</h3>
+          <p class="card-desc">
+            Complete backend flow: Netlist-to-GDSII, hierarchical floorplanning, Clock Tree Synthesis (CTS), Static Timing Analysis (STA), and DRC/LVS closure.
+          </p>
+          <ul class="card-feature-list">
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Place & Route down to 5nm</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Multi-Corner STA Timing Closure</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> IR Drop, EM & Physical Signoff</li>
+          </ul>
+          <a href="physical-design.html" class="btn btn-outline btn-sm" style="width: 100%;">View PD Services →</a>
+        </div>
+
+        <!-- Card 4: Embedded Systems Support (10% Complementary) -->
+        <div class="card card-circuit orange">
+          <div class="card-icon orange">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/><line x1="14" y1="4" x2="10" y2="20"/></svg>
+          </div>
+          <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+            <span class="badge badge-orange">10% Embedded Support</span>
+          </div>
+          <h3 class="card-title">Embedded & Firmware</h3>
+          <p class="card-desc">
+            Essential board bring-up, Linux & FreeRTOS Board Support Packages (BSP), bare-metal firmware, peripheral device drivers, and post-silicon validation.
+          </p>
+          <ul class="card-feature-list">
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent-orange)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Embedded Linux & RTOS BSPs</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent-orange)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Device Drivers & Bootloaders</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent-orange)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Post-Silicon Board Bring-up</li>
+          </ul>
+          <a href="embedded-systems.html" class="btn btn-outline btn-sm" style="width: 100%; border-color: rgba(245, 130, 31, 0.3);">View Embedded →</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       SILICON WORKFLOW PIPELINE (HOW WE WORK)
+       ======================================================================== -->
+  <section class="section-padding" style="background: #050b14; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);">
+    <div class="container">
+      <div class="text-center">
+        <span class="section-tag">Proven Methodology</span>
+        <h2 class="section-title">The Power Silicon <span class="highlight">Execution Pipeline</span></h2>
+        <p class="section-subtitle">
+          Our structured silicon engineering lifecycle ensures predictable execution, first-pass tape-out success, and flawless embedded enablement.
+        </p>
+      </div>
+
+      <div class="workflow-pipeline">
+        <div class="workflow-step">
+          <span class="step-num">STAGE 01</span>
+          <h4 class="step-title">Ideation & Architecture</h4>
+          <p class="step-desc">System specification, PPA budgeting (Power, Performance, Area), and IP selection.</p>
+        </div>
+        <div class="workflow-step">
+          <span class="step-num">STAGE 02</span>
+          <h4 class="step-title">RTL & Micro-Arch</h4>
+          <p class="step-desc">Modular Verilog/SystemVerilog design, bus interconnects, and UPF low-power intent.</p>
+        </div>
+        <div class="workflow-step">
+          <span class="step-num">STAGE 03</span>
+          <h4 class="step-title">UVM Verification</h4>
+          <p class="step-desc">Constrained-random testbenches, assertions, coverage metrics, and formal verification.</p>
+        </div>
+        <div class="workflow-step">
+          <span class="step-num">STAGE 04</span>
+          <h4 class="step-title">Physical Design (P&R)</h4>
+          <p class="step-desc">Hierarchical floorplanning, placement, clock tree synthesis (CTS), and routing.</p>
+        </div>
+        <div class="workflow-step">
+          <span class="step-num">STAGE 05</span>
+          <h4 class="step-title">Signoff & Tape-Out</h4>
+          <p class="step-desc">Multi-corner STA, DRC/LVS verification, IR drop analysis, and GDSII foundry release.</p>
+        </div>
+        <div class="workflow-step" style="border-color: rgba(245, 130, 31, 0.35);">
+          <span class="step-num" style="color: var(--accent-orange); background: rgba(245, 130, 31, 0.1);">STAGE 06</span>
+          <h4 class="step-title">Embedded Bring-up</h4>
+          <p class="step-desc">Post-silicon validation, BSP driver development, and hardware-software integration.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       OUR TECHNICAL EXPERTISE & EDA TOOLING
+       ======================================================================== -->
+  <section class="section-padding">
+    <div class="container">
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3.5rem; align-items: center;">
+        <div>
+          <span class="section-tag">Technical Prowess</span>
+          <h2 class="section-title">Industry-Standard EDA Toolchains & <span class="highlight">Foundry Readiness</span></h2>
+          <p style="margin-bottom: 1.5rem;">
+            Power Silicon Technologies engineers operate natively within Tier-1 commercial EDA environments from Synopsys, Cadence, and Siemens EDA. We support leading semiconductor foundry design kits (PDKs) across TSMC, Intel Foundry Services, Samsung, and GlobalFoundries.
+          </p>
+          
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-bottom: 2rem;">
+            <div style="background: var(--bg-card); padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+              <h5 style="color: var(--accent-cyan); margin-bottom: 0.35rem;">EDA Tool Proficiency</h5>
+              <p style="font-size: 0.88rem; color: var(--text-secondary); margin: 0;">Synopsys PrimeTime, Design Compiler, ICC2, Cadence Innovus, Genus, Xcelium, Siemens Questa.</p>
+            </div>
+            <div style="background: var(--bg-card); padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+              <h5 style="color: var(--accent-orange); margin-bottom: 0.35rem;">Foundry Process Nodes</h5>
+              <p style="font-size: 0.88rem; color: var(--text-secondary); margin: 0;">Experience spanning legacy 180nm/65nm nodes to cutting-edge 28nm, 16nm/12nm FinFET, 7nm and 5nm.</p>
+            </div>
+          </div>
+
+          <a href="about.html" class="btn btn-secondary">Learn More About Our Team & Tools →</a>
+        </div>
+
+        <div style="position: relative;">
+          <div class="card" style="border-color: var(--accent-cyan-glow); background: linear-gradient(135deg, rgba(16, 32, 56, 0.8) 0%, rgba(8, 18, 33, 0.95) 100%);">
+            <h4 style="color: #ffffff; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.5rem;">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent-cyan)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+              Core PPA Metrics Optimization
+            </h4>
+            
+            <div style="margin-bottom: 1.25rem;">
+              <div style="display: flex; justify-content: space-between; font-size: 0.88rem; margin-bottom: 0.4rem;">
+                <span style="color: var(--text-primary);">Power Efficiency (Low-Power UPF/CPF)</span>
+                <span style="color: var(--accent-cyan); font-weight: 600;">99.5%</span>
+              </div>
+              <div style="height: 6px; background: rgba(255, 255, 255, 0.08); border-radius: 3px; overflow: hidden;">
+                <div style="width: 99.5%; height: 100%; background: var(--grad-primary);"></div>
+              </div>
+            </div>
+
+            <div style="margin-bottom: 1.25rem;">
+              <div style="display: flex; justify-content: space-between; font-size: 0.88rem; margin-bottom: 0.4rem;">
+                <span style="color: var(--text-primary);">Frequency & Timing Closure (GHz Target)</span>
+                <span style="color: var(--accent-cyan); font-weight: 600;">100% Signoff</span>
+              </div>
+              <div style="height: 6px; background: rgba(255, 255, 255, 0.08); border-radius: 3px; overflow: hidden;">
+                <div style="width: 100%; height: 100%; background: var(--grad-primary);"></div>
+              </div>
+            </div>
+
+            <div style="margin-bottom: 1.25rem;">
+              <div style="display: flex; justify-content: space-between; font-size: 0.88rem; margin-bottom: 0.4rem;">
+                <span style="color: var(--text-primary);">UVM Functional & Code Coverage</span>
+                <span style="color: var(--accent-orange); font-weight: 600;">100% Closure</span>
+              </div>
+              <div style="height: 6px; background: rgba(255, 255, 255, 0.08); border-radius: 3px; overflow: hidden;">
+                <div style="width: 100%; height: 100%; background: var(--grad-orange);"></div>
+              </div>
+            </div>
+
+            <div>
+              <div style="display: flex; justify-content: space-between; font-size: 0.88rem; margin-bottom: 0.4rem;">
+                <span style="color: var(--text-primary);">DRC / LVS / Antenna Signoff</span>
+                <span style="color: var(--accent-cyan); font-weight: 600;">Zero Violations</span>
+              </div>
+              <div style="height: 6px; background: rgba(255, 255, 255, 0.08); border-radius: 3px; overflow: hidden;">
+                <div style="width: 100%; height: 100%; background: var(--grad-primary);"></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       WHY PARTNER WITH POWER SILICON
+       ======================================================================== -->
+  <section class="section-padding" style="background: #040810; border-top: 1px solid var(--border-color);">
+    <div class="container">
+      <div class="text-center" style="margin-bottom: 3.5rem;">
+        <span class="section-tag">Value Proposition</span>
+        <h2 class="section-title">Why Global Tech Leaders <span class="highlight">Choose Power Silicon</span></h2>
+        <p class="section-subtitle">
+          We combine the agility of a specialized boutique team with the rigorous execution standards of premier semiconductor design houses.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-3">
+        <div class="card">
+          <div class="card-icon">
+            <svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          </div>
+          <h4 class="card-title">100% Engineering Focus</h4>
+          <p class="card-desc">No middle layers or diluted priorities. Every project is staffed with senior VLSI and firmware specialists dedicated to technical precision.</p>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">
+            <svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          </div>
+          <h4 class="card-title">Uncompromising IP Security</h4>
+          <p class="card-desc">Bank-grade data isolation, encrypted remote design environments, strict NDAs, and full intellectual property ownership retained by you.</p>
+        </div>
+
+        <div class="card">
+          <div class="card-icon orange">
+            <svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 14"/></svg>
+          </div>
+          <h4 class="card-title">Accelerated Time-to-Market</h4>
+          <p class="card-desc">Pre-built verification VIP modules, proven tape-out checklists, and concurrent firmware bring-up reduce tape-out schedules by up to 30%.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       CALL TO ACTION BANNER
+       ======================================================================== -->
+  <section class="section-padding">
+    <div class="container">
+      <div class="cta-banner">
+        <div style="max-width: 700px; position: relative; z-index: 2;">
+          <span class="section-tag orange">Start Your Silicon Journey</span>
+          <h2 style="font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 1.25rem;">
+            Ready to Tape Out Your Next-Generation <span class="orange">ASIC or SoC?</span>
+          </h2>
+          <p style="color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 2rem;">
+            Consult with our Principal VLSI Architects today. Whether you require end-to-end turnkey development or expert team augmentation, we deliver first-pass silicon excellence.
+          </p>
+          <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+            <a href="contact.html" class="btn btn-primary btn-lg">Request an Engineering Consultation</a>
+            <a href="careers.html" class="btn btn-outline btn-lg">Join Our Engineering Team</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       FOOTER
+       ======================================================================== -->
+  <footer class="site-footer">
+    <div class="container footer-top">
+      <div class="footer-grid">
+        
+        <!-- Col 1: Brand Info -->
+        <div class="footer-brand">
+          <a href="index.html" class="brand-logo">
+            <img src="images/logo.svg" alt="Power Silicon Technologies Logo">
+          </a>
+          <p>
+            Power Silicon Technologies Pvt. Ltd. is a premier semiconductor engineering company delivering cutting-edge VLSI design, UVM verification, physical design signoff, and complementary embedded firmware solutions.
+          </p>
+          <p style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--accent-gold);">
+            TAGLINE: DESIGN • INNOVATE • DELIVER
+          </p>
+          <div class="footer-socials">
+            <a href="https://linkedin.com" target="_blank" rel="noopener" class="social-btn" aria-label="LinkedIn">
+              <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.2a1.64 1.64 0 0 0-1.66 1.64c0 .9.74 1.64 1.66 1.64a1.64 1.64 0 0 0 1.66-1.64A1.64 1.64 0 0 0 7.83 6.2z"/></svg>
+            </a>
+            <a href="https://twitter.com" target="_blank" rel="noopener" class="social-btn" aria-label="Twitter">
+              <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+            <a href="https://github.com" target="_blank" rel="noopener" class="social-btn" aria-label="GitHub">
+              <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Col 2: Services -->
+        <div>
+          <h4 class="footer-heading">VLSI Services</h4>
+          <ul class="footer-links">
+            <li><a href="vlsi-design.html">RTL & ASIC Design</a></li>
+            <li><a href="verification-signoff.html">UVM Verification</a></li>
+            <li><a href="physical-design.html">Physical Design (P&R)</a></li>
+            <li><a href="verification-signoff.html">Static Timing Analysis</a></li>
+            <li><a href="services.html">Turnkey ODC Models</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Embedded & Solutions -->
+        <div>
+          <h4 class="footer-heading">Solutions</h4>
+          <ul class="footer-links">
+            <li><a href="embedded-systems.html">Embedded Systems (10%)</a></li>
+            <li><a href="industry-solutions.html">Automotive Silicon</a></li>
+            <li><a href="industry-solutions.html">AI & Edge Accelerators</a></li>
+            <li><a href="products-ip.html">Silicon IP Portfolio</a></li>
+            <li><a href="rnd-innovations.html">R&D Initiatives</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 4: Quick Links -->
+        <div>
+          <h4 class="footer-heading">Company</h4>
+          <ul class="footer-links">
+            <li><a href="about.html">About Power Silicon</a></li>
+            <li><a href="careers.html">Careers & Openings</a></li>
+            <li><a href="blog.html">Engineering Blog</a></li>
+            <li><a href="faq.html">FAQ & NDA Policies</a></li>
+            <li><a href="contact.html">Contact & RFQ</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 5: Direct Contact -->
+        <div>
+          <h4 class="footer-heading">Get in Touch</h4>
+          <div class="footer-contact-item">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <div>
+              <a href="mailto:Powersilicontechnologies@gmail.com" style="color: var(--accent-cyan); font-weight: 500;">Powersilicontechnologies@gmail.com</a>
+              <div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 2px;">Official Primary Inquiry</div>
+            </div>
+          </div>
+          <div class="footer-contact-item">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <div>
+              <span>+91 (0) 80-2938-4000</span>
+              <div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 2px;">Mon–Fri (9:00 AM – 6:30 PM IST)</div>
+            </div>
+          </div>
+          <div style="margin-top: 1.25rem;">
+            <a href="https://wa.me/918029384000" target="_blank" rel="noopener" class="btn btn-secondary btn-sm" style="width: 100%; border-color: rgba(37, 211, 102, 0.4); color: #25d366;">
+              <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2z"/></svg>
+              WhatsApp Quick Chat
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container footer-bottom-content">
+        <div>
+          © 2026 Power Silicon Technologies Pvt. Ltd. All rights reserved.
+        </div>
+        <div class="footer-bottom-links">
+          <a href="privacy-policy.html">Privacy Policy</a>
+          <a href="privacy-policy.html#terms">Terms of Service</a>
+          <a href="privacy-policy.html#nda">IP Protection & NDA</a>
+          <a href="faq.html">FAQ</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/main.js"></script>
+  <script src="js/circuit-animation.js"></script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+/* ==========================================================================
+   POWER SILICON TECHNOLOGIES — ANIMATIONS & KEYFRAMES
+   ========================================================================== */
+
+/* Shimmer & Glow Pulses */
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(0, 210, 255, 0.25);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(0, 210, 255, 0.6), 0 0 10px rgba(245, 130, 31, 0.4);
+  }
+}
+
+@keyframes pulseOrange {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(245, 130, 31, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(245, 130, 31, 0.7);
+  }
+}
+
+.pulse-cyan {
+  animation: pulseGlow 3s infinite ease-in-out;
+}
+
+.pulse-orange {
+  animation: pulseOrange 3s infinite ease-in-out;
+}
+
+/* Floating Elements */
+@keyframes floatSlow {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-12px) rotate(1.5deg);
+  }
+}
+
+.floating {
+  animation: floatSlow 6s infinite ease-in-out;
+}
+
+/* Circuit Line Flow */
+@keyframes circuitFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.circuit-gradient-anim {
+  background-size: 200% 200%;
+  animation: circuitFlow 5s ease infinite;
+}
+
+/* Radar Sweep */
+@keyframes radarSweep {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.radar-sweep {
+  animation: radarSweep 4s linear infinite;
+  transform-origin: center center;
+}
+
+/* Fade in on Scroll Helper */
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.fade-in-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}

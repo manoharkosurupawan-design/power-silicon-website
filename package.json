@@ -1,0 +1,22 @@
+{
+  "name": "power-silicon-website",
+  "version": "1.0.0",
+  "description": "Official corporate website for Power Silicon Technologies Pvt. Ltd.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "serve": "node server.js",
+    "test": "node validate.js"
+  },
+  "keywords": [
+    "vlsi",
+    "semiconductor",
+    "asic",
+    "soc",
+    "embedded",
+    "power-silicon"
+  ],
+  "author": "Power Silicon Technologies Pvt. Ltd.",
+  "license": "ISC"
+}

@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Engineering Blog & Insights | Power Silicon Technologies Pvt. Ltd.</title>
+  <meta name="description" content="Technical whitepapers and articles on modern VLSI engineering, advanced UVM verification, sub-5nm physical design, RISC-V, and low-power techniques.">
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+
+  <!-- Site Header -->
+  <header class="site-header" id="header">
+    <div class="container nav-container">
+      <a href="index.html" class="brand-logo" title="Power Silicon Technologies">
+        <img src="images/logo.svg" alt="Power Silicon Technologies Logo">
+      </a>
+      <nav class="nav-menu" aria-label="Main Navigation">
+        <div class="nav-item"><a href="index.html" class="nav-link">Home</a></div>
+        <div class="nav-item"><a href="about.html" class="nav-link">About Us</a></div>
+        <div class="nav-item">
+          <a href="services.html" class="nav-link">Services ▾</a>
+          <div class="dropdown-menu">
+            <a href="services.html" class="dropdown-item"><strong>All Services Overview</strong><span class="item-sub">Comprehensive matrix</span></a>
+            <a href="vlsi-design.html" class="dropdown-item"><strong>VLSI Design & Architecture</strong><span class="item-sub">RTL, ASIC/SoC (90% Core)</span></a>
+            <a href="verification-signoff.html" class="dropdown-item"><strong>Verification & Signoff</strong><span class="item-sub">UVM & Formal (90% Core)</span></a>
+            <a href="physical-design.html" class="dropdown-item"><strong>Physical Design & Tape-Out</strong><span class="item-sub">P&R & STA</span></a>
+            <a href="embedded-systems.html" class="dropdown-item"><strong>Embedded Systems & Firmware</strong><span class="item-sub">BSP & RTOS (10% Support)</span></a>
+          </div>
+        </div>
+        <div class="nav-item"><a href="industry-solutions.html" class="nav-link">Industries</a></div>
+        <div class="nav-item"><a href="products-ip.html" class="nav-link">Products & IP</a></div>
+        <div class="nav-item"><a href="rnd-innovations.html" class="nav-link">R&D</a></div>
+        <div class="nav-item"><a href="careers.html" class="nav-link">Careers</a></div>
+        <div class="nav-item"><a href="contact.html" class="nav-link">Contact</a></div>
+      </nav>
+      <div class="nav-cta-group">
+        <a href="contact.html" class="btn btn-primary btn-sm">Get in Touch</a>
+        <button class="mobile-toggle" aria-label="Toggle Mobile Menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-drawer-overlay"></div>
+  <aside class="mobile-drawer">
+    <div style="margin-bottom: 1.5rem;"><img src="images/logo.svg" alt="Power Silicon Technologies" style="height: 38px;"></div>
+    <a href="index.html" class="mobile-link">Home</a>
+    <a href="about.html" class="mobile-link">About Us</a>
+    <a href="services.html" class="mobile-link">Services Overview</a>
+    <a href="vlsi-design.html" class="mobile-link" style="padding-left: 1rem; font-size: 0.95rem; color: var(--accent-cyan);">↳ VLSI Design (RTL/SoC)</a>
+    <a href="verification-signoff.html" class="mobile-link" style="padding-left: 1rem; font-size: 0.95rem; color: var(--accent-cyan);">↳ Verification & Signoff</a>
+    <a href="physical-design.html" class="mobile-link" style="padding-left: 1rem; font-size: 0.95rem; color: var(--accent-cyan);">↳ Physical Design & P&R</a>
+    <a href="embedded-systems.html" class="mobile-link" style="padding-left: 1rem; font-size: 0.95rem; color: var(--accent-orange);">↳ Embedded Systems (10%)</a>
+    <a href="industry-solutions.html" class="mobile-link">Industry Solutions</a>
+    <a href="products-ip.html" class="mobile-link">Products & Silicon IP</a>
+    <a href="rnd-innovations.html" class="mobile-link">R&D & Innovations</a>
+    <a href="careers.html" class="mobile-link">Careers</a>
+    <a href="blog.html" class="mobile-link active">Engineering Blog</a>
+    <a href="faq.html" class="mobile-link">FAQ</a>
+    <a href="contact.html" class="mobile-link">Contact & RFQ</a>
+  </aside>
+
+  <!-- Page Hero -->
+  <section class="page-hero">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="index.html">Home</a> <span>/</span> <span class="current">Engineering Blog</span>
+      </div>
+      <span class="section-tag">Technical Insights</span>
+      <h1 class="section-title">Silicon Engineering Whitepapers & Insights</h1>
+      <p class="section-subtitle">
+        Deep dives, architectural blueprints, and best practices authored by our Principal VLSI, Physical Design, and Firmware Engineers.
+      </p>
+    </div>
+  </section>
+
+  <!-- Blog Articles Section -->
+  <section class="section-padding">
+    <div class="container">
+      
+      <div class="grid grid-cols-3">
+        
+        <!-- Post 1 -->
+        <div class="card card-circuit">
+          <div style="margin-bottom: 1rem;">
+            <span class="badge badge-cyan">Physical Design</span>
+            <span style="font-size: 0.8rem; color: var(--text-muted); margin-left: 0.5rem;">March 2026 • 8 min read</span>
+          </div>
+          <h3 class="card-title" style="font-size: 1.25rem;">Overcoming High-Frequency Timing Closure in 5nm FinFET SoCs</h3>
+          <p class="card-desc">
+            An analysis of parasitic capacitance scaling, advanced clock concurrent optimization (CCOpt), and multi-corner STA strategies for 2.5GHz+ processing cores.
+          </p>
+          <div style="border-top: 1px solid var(--border-subtle); padding-top: 1rem; display: flex; align-items: center; justify-content: space-between;">
+            <span style="font-size: 0.85rem; color: var(--text-secondary);">By Principal PD Architect</span>
+            <a href="contact.html" style="color: var(--accent-cyan); font-size: 0.85rem; font-weight: 600;">Read Whitepaper →</a>
+          </div>
+        </div>
+
+        <!-- Post 2 -->
+        <div class="card card-circuit">
+          <div style="margin-bottom: 1rem;">
+            <span class="badge badge-cyan">UVM Verification</span>
+            <span style="font-size: 0.8rem; color: var(--text-muted); margin-left: 0.5rem;">February 2026 • 6 min read</span>
+          </div>
+          <h3 class="card-title" style="font-size: 1.25rem;">Eliminating Deadlock Scenarios in Multi-Master AXI5 Interconnects</h3>
+          <p class="card-desc">
+            How combining SystemVerilog Assertions (SVA) with formal verification proofs guarantees deadlock-free transaction routing across complex SoC interconnect meshes.
+          </p>
+          <div style="border-top: 1px solid var(--border-subtle); padding-top: 1rem; display: flex; align-items: center; justify-content: space-between;">
+            <span style="font-size: 0.85rem; color: var(--text-secondary);">By Lead DV Architect</span>
+            <a href="contact.html" style="color: var(--accent-cyan); font-size: 0.85rem; font-weight: 600;">Read Whitepaper →</a>
+          </div>
+        </div>
+
+        <!-- Post 3 -->
+        <div class="card card-circuit orange">
+          <div style="margin-bottom: 1rem;">
+            <span class="badge badge-orange">Embedded Systems</span>
+            <span style="font-size: 0.8rem; color: var(--text-muted); margin-left: 0.5rem;">January 2026 • 7 min read</span>
+          </div>
+          <h3 class="card-title" style="font-size: 1.25rem;">Accelerating First-Silicon Lab Bring-Up with Pre-Silicon Emulation</h3>
+          <p class="card-desc">
+            Techniques for running full Linux kernel boot cycles on FPGA emulation boards prior to tape-out delivery, slashing post-silicon bring-up time from weeks to days.
+          </p>
+          <div style="border-top: 1px solid var(--border-subtle); padding-top: 1rem; display: flex; align-items: center; justify-content: space-between;">
+            <span style="font-size: 0.85rem; color: var(--text-secondary);">By Firmware Lead</span>
+            <a href="contact.html" style="color: var(--accent-orange); font-size: 0.85rem; font-weight: 600;">Read Whitepaper →</a>
+          </div>
+        </div>
+
+        <!-- Post 4 -->
+        <div class="card card-circuit">
+          <div style="margin-bottom: 1rem;">
+            <span class="badge badge-cyan">VLSI Architecture</span>
+            <span style="font-size: 0.8rem; color: var(--text-muted); margin-left: 0.5rem;">December 2025 • 9 min read</span>
+          </div>
+          <h3 class="card-title" style="font-size: 1.25rem;">Architecting Low-Power UPF Power Domains for Always-On Edge AI</h3>
+          <p class="card-desc">
+            A comprehensive guide to power-gating isolation cell insertion, level shifters, and state retention power-switch management in sub-watt AI microcontrollers.
+          </p>
+          <div style="border-top: 1px solid var(--border-subtle); padding-top: 1rem; display: flex; align-items: center; justify-content: space-between;">
+            <span style="font-size: 0.85rem; color: var(--text-secondary);">By Lead RTL Specialist</span>
+            <a href="contact.html" style="color: var(--accent-cyan); font-size: 0.85rem; font-weight: 600;">Read Whitepaper →</a>
+          </div>
+        </div>
+
+        <!-- Post 5 -->
+        <div class="card card-circuit">
+          <div style="margin-bottom: 1rem;">
+            <span class="badge badge-gold">Automotive ASIL-D</span>
+            <span style="font-size: 0.8rem; color: var(--text-muted); margin-left: 0.5rem;">November 2025 • 10 min read</span>
+          </div>
+          <h3 class="card-title" style="font-size: 1.25rem;">Designing ISO 26262 Compliant Dual-Core Lockstep Architectures</h3>
+          <p class="card-desc">
+            Detailed walkthrough of comparator delay buffering, error injection testbenches, and FMEDA metric closure for Level 4 automotive safety microcontrollers.
+          </p>
+          <div style="border-top: 1px solid var(--border-subtle); padding-top: 1rem; display: flex; align-items: center; justify-content: space-between;">
+            <span style="font-size: 0.85rem; color: var(--text-secondary);">By Automotive Safety Lead</span>
+            <a href="contact.html" style="color: var(--accent-gold); font-size: 0.85rem; font-weight: 600;">Read Whitepaper →</a>
+          </div>
+        </div>
+
+        <!-- Post 6 -->
+        <div class="card card-circuit">
+          <div style="margin-bottom: 1rem;">
+            <span class="badge badge-cyan">R&D & Packaging</span>
+            <span style="font-size: 0.8rem; color: var(--text-muted); margin-left: 0.5rem;">October 2025 • 8 min read</span>
+          </div>
+          <h3 class="card-title" style="font-size: 1.25rem;">UCIe 1.1 vs Monolithic SoC: Evaluating PPA in 2.5D Chiplet Packages</h3>
+          <p class="card-desc">
+            Trade-off study examining silicon yield improvements against die-to-die PHY latency and thermal density in modern modular server processors.
+          </p>
+          <div style="border-top: 1px solid var(--border-subtle); padding-top: 1rem; display: flex; align-items: center; justify-content: space-between;">
+            <span style="font-size: 0.85rem; color: var(--text-secondary);">By CTO & Chief Architect</span>
+            <a href="contact.html" style="color: var(--accent-cyan); font-size: 0.85rem; font-weight: 600;">Read Whitepaper →</a>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Newsletter Signup -->
+  <section class="section-padding-sm" style="background: #040810; border-top: 1px solid var(--border-color);">
+    <div class="container text-center" style="max-width: 650px;">
+      <span class="section-tag">Stay Informed</span>
+      <h2 style="margin-bottom: 1rem;">Subscribe to Silicon Insights</h2>
+      <p style="margin-bottom: 2rem;">Receive quarterly technical briefs, tape-out case studies, and semiconductor engineering insights directly to your inbox.</p>
+      <form class="newsletter-form" style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+        <input type="email" class="form-input" placeholder="Enter your business email" required style="flex: 1; min-width: 260px;">
+        <button type="submit" class="btn btn-primary">Subscribe Free</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-top">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="brand-logo"><img src="images/logo.svg" alt="Power Silicon Technologies"></a>
+          <p>Power Silicon Technologies Pvt. Ltd. delivers cutting-edge VLSI design, UVM verification, physical design signoff, and complementary embedded firmware solutions.</p>
+          <p style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--accent-gold);">DESIGN • INNOVATE • DELIVER</p>
+        </div>
+        <div>
+          <h4 class="footer-heading">VLSI Services</h4>
+          <ul class="footer-links">
+            <li><a href="vlsi-design.html">RTL & ASIC Design</a></li>
+            <li><a href="verification-signoff.html">UVM Verification</a></li>
+            <li><a href="physical-design.html">Physical Design (P&R)</a></li>
+            <li><a href="verification-signoff.html">Static Timing Analysis</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading">Solutions</h4>
+          <ul class="footer-links">
+            <li><a href="embedded-systems.html">Embedded Systems (10%)</a></li>
+            <li><a href="industry-solutions.html">Automotive Silicon</a></li>
+            <li><a href="industry-solutions.html">AI Accelerators</a></li>
+            <li><a href="products-ip.html">Silicon IP Cores</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading">Company</h4>
+          <ul class="footer-links">
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="careers.html">Careers</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading">Direct Contact</h4>
+          <div class="footer-contact-item">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <div><a href="mailto:Powersilicontechnologies@gmail.com" style="color: var(--accent-cyan);">Powersilicontechnologies@gmail.com</a></div>
+          </div>
+          <div style="margin-top: 1rem;">
+            <a href="https://wa.me/918029384000" target="_blank" rel="noopener" class="btn btn-secondary btn-sm" style="width: 100%; border-color: rgba(37, 211, 102, 0.4); color: #25d366;">WhatsApp Quick Chat</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container footer-bottom-content">
+        <div>© 2026 Power Silicon Technologies Pvt. Ltd. All rights reserved.</div>
+        <div class="footer-bottom-links">
+          <a href="privacy-policy.html">Privacy Policy</a>
+          <a href="privacy-policy.html#terms">Terms of Service</a>
+          <a href="faq.html">FAQ</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
