@@ -18,5 +18,8 @@
     "power-silicon"
   ],
   "author": "Power Silicon Technologies Pvt. Ltd.",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "sharp": "^0.35.4"
+  }
 }

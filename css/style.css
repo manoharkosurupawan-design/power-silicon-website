@@ -307,15 +307,13 @@ p:last-child {
   width: auto;
   max-width: 280px;
   object-fit: contain;
-  /* Dissolve white background on dark header */
-  mix-blend-mode: screen;
-  filter: drop-shadow(0 0 8px rgba(0, 210, 255, 0.2));
+  filter: drop-shadow(0 0 6px rgba(0, 210, 255, 0.15));
   transition: filter var(--transition-fast), transform var(--transition-fast);
 }
 
 .brand-logo:hover img {
   transform: scale(1.04);
-  filter: drop-shadow(0 0 14px rgba(0, 210, 255, 0.45));
+  filter: drop-shadow(0 0 16px rgba(0, 210, 255, 0.5));
 }
 
 @media (max-width: 768px) {
