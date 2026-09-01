@@ -1,8 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 140" width="100%" height="100%">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 180" width="100%" height="100%">
   <defs>
     <!-- Metallic Steel-Blue Gradient for POWER -->
     <linearGradient id="powerGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#70b4ff"/>
+      <stop offset="0%" stop-color="#80c2ff"/>
       <stop offset="28%" stop-color="#2563eb"/>
       <stop offset="68%" stop-color="#1d4ed8"/>
       <stop offset="100%" stop-color="#0f2b5c"/>
@@ -79,78 +79,100 @@
       <circle cx="8" cy="111" r="3.6"/>
     </g>
 
-    <!-- 3D Ribbon 'P' Outer Loop Structure -->
-    <!-- Upper Loop -->
+    <!-- 3D Ribbon 'P' Structure -->
     <path d="M 68 12 C 104 12 136 28 136 58 C 136 84 112 100 82 102 L 68 102 C 60 102 54 108 50 116 L 42 128 C 76 136 126 130 142 96 C 148 74 148 34 108 12 Z" fill="url(#ribbonMain)"/>
-    <!-- Bottom 3D Fold Ribbon Strip -->
     <path d="M 42 128 C 66 136 106 132 128 112 C 102 124 72 120 48 128 Z" fill="url(#ribbonFold)"/>
-    <!-- Inner P cutout loop -->
     <path d="M 68 34 C 88 34 108 42 108 58 C 108 74 88 82 68 82 L 64 82 L 64 34 Z" fill="#081426" opacity="0.6"/>
 
-    <!-- Glowing Lightning Bolt Striking Through Center -->
+    <!-- Glowing Lightning Bolt -->
     <polygon points="78,10 46,72 72,72 50,132 104,58 74,58 98,10" fill="url(#boltGrad)" filter="url(#crispGlow)"/>
     <polygon points="76,14 51,70 72,70 57,120 96,60 73,60 91,14" fill="#fff3a8" opacity="0.85"/>
   </g>
 
-  <!-- ==================== 2. "POWER" WORDMARK ==================== -->
-  <g transform="translate(180, 12)">
-    <text x="0" y="50" font-family="'Outfit', 'Montserrat', 'Arial Black', sans-serif" font-size="58" font-weight="900" fill="url(#powerGrad)" letter-spacing="2.5">
+  <!-- ==================== 2. TYPOGRAPHY ==================== -->
+  <g transform="translate(178, 10)">
+    <!-- "POWER" -->
+    <text x="0" y="52" font-family="'Outfit', 'Montserrat', 'Arial Black', sans-serif" font-size="56" font-weight="900" fill="url(#powerGrad)" letter-spacing="2.5">
       POWER
     </text>
 
-    <!-- ==================== 3. "SILIC[AI]N" WORDMARK ==================== -->
-    <!-- "SILIC" -->
-    <text x="0" y="112" font-family="'Outfit', 'Montserrat', 'Arial Black', sans-serif" font-size="56" font-weight="900" fill="url(#goldChrome)" letter-spacing="2">
+    <!-- "SILIC[AI]N" -->
+    <text x="0" y="112" font-family="'Outfit', 'Montserrat', 'Arial Black', sans-serif" font-size="54" font-weight="900" fill="url(#goldChrome)" letter-spacing="2">
       SILIC
     </text>
 
-    <!-- Microchip 'O' -->
-    <g transform="translate(202, 65)">
-      <!-- Gold Outer Package & Border -->
-      <rect x="0" y="4" width="50" height="46" rx="5" fill="#151238" stroke="url(#chipGold)" stroke-width="2.4"/>
+    <!-- AI Microchip as letter 'O' -->
+    <g transform="translate(198, 66)">
+      <!-- Gold Chip Outer Package -->
+      <rect x="0" y="4" width="48" height="44" rx="5" fill="#151238" stroke="url(#chipGold)" stroke-width="2.2"/>
 
-      <!-- Top Pins -->
-      <line x1="9" y1="0" x2="9" y2="4" stroke="#dfb147" stroke-width="2.2" stroke-linecap="round"/>
-      <line x1="17" y1="0" x2="17" y2="4" stroke="#dfb147" stroke-width="2.2" stroke-linecap="round"/>
-      <line x1="25" y1="0" x2="25" y2="4" stroke="#dfb147" stroke-width="2.2" stroke-linecap="round"/>
-      <line x1="33" y1="0" x2="33" y2="4" stroke="#dfb147" stroke-width="2.2" stroke-linecap="round"/>
-      <line x1="41" y1="0" x2="41" y2="4" stroke="#dfb147" stroke-width="2.2" stroke-linecap="round"/>
+      <!-- Pins (Top/Bottom) -->
+      <line x1="8" y1="0" x2="8" y2="4" stroke="#dfb147" stroke-width="2" stroke-linecap="round"/>
+      <line x1="16" y1="0" x2="16" y2="4" stroke="#dfb147" stroke-width="2" stroke-linecap="round"/>
+      <line x1="24" y1="0" x2="24" y2="4" stroke="#dfb147" stroke-width="2" stroke-linecap="round"/>
+      <line x1="32" y1="0" x2="32" y2="4" stroke="#dfb147" stroke-width="2" stroke-linecap="round"/>
+      <line x1="40" y1="0" x2="40" y2="4" stroke="#dfb147" stroke-width="2" stroke-linecap="round"/>
 
-      <!-- Bottom Pins -->
-      <line x1="9" y1="50" x2="9" y2="54" stroke="#dfb147" stroke-width="2.2" stroke-linecap="round"/>
-      <line x1="17" y1="50" x2="17" y2="54" stroke="#dfb147" stroke-width="2.2" stroke-linecap="round"/>
-      <line x1="25" y1="50" x2="25" y2="54" stroke="#dfb147" stroke-width="2.2" stroke-linecap="round"/>
-      <line x1="33" y1="50" x2="33" y2="54" stroke="#dfb147" stroke-width="2.2" stroke-linecap="round"/>
-      <line x1="41" y1="50" x2="41" y2="54" stroke="#dfb147" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="8" y1="48" x2="8" y2="52" stroke="#dfb147" stroke-width="2" stroke-linecap="round"/>
+      <line x1="16" y1="48" x2="16" y2="52" stroke="#dfb147" stroke-width="2" stroke-linecap="round"/>
+      <line x1="24" y1="48" x2="24" y2="52" stroke="#dfb147" stroke-width="2" stroke-linecap="round"/>
+      <line x1="32" y1="48" x2="32" y2="52" stroke="#dfb147" stroke-width="2" stroke-linecap="round"/>
+      <line x1="40" y1="48" x2="40" y2="52" stroke="#dfb147" stroke-width="2" stroke-linecap="round"/>
 
-      <!-- Left Pins -->
-      <line x1="-4" y1="13" x2="0" y2="13" stroke="#dfb147" stroke-width="2.2" stroke-linecap="round"/>
-      <line x1="-4" y1="21" x2="0" y2="21" stroke="#dfb147" stroke-width="2.2" stroke-linecap="round"/>
-      <line x1="-4" y1="29" x2="0" y2="29" stroke="#dfb147" stroke-width="2.2" stroke-linecap="round"/>
-      <line x1="-4" y1="37" x2="0" y2="37" stroke="#dfb147" stroke-width="2.2" stroke-linecap="round"/>
+      <!-- Pins (Left/Right) -->
+      <line x1="-3" y1="12" x2="0" y2="12" stroke="#dfb147" stroke-width="2" stroke-linecap="round"/>
+      <line x1="-3" y1="20" x2="0" y2="20" stroke="#dfb147" stroke-width="2" stroke-linecap="round"/>
+      <line x1="-3" y1="28" x2="0" y2="28" stroke="#dfb147" stroke-width="2" stroke-linecap="round"/>
+      <line x1="-3" y1="36" x2="0" y2="36" stroke="#dfb147" stroke-width="2" stroke-linecap="round"/>
 
-      <!-- Right Pins -->
-      <line x1="50" y1="13" x2="54" y2="13" stroke="#dfb147" stroke-width="2.2" stroke-linecap="round"/>
-      <line x1="50" y1="21" x2="54" y2="21" stroke="#dfb147" stroke-width="2.2" stroke-linecap="round"/>
-      <line x1="50" y1="29" x2="54" y2="29" stroke="#dfb147" stroke-width="2.2" stroke-linecap="round"/>
-      <line x1="50" y1="37" x2="54" y2="37" stroke="#dfb147" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="48" y1="12" x2="51" y2="12" stroke="#dfb147" stroke-width="2" stroke-linecap="round"/>
+      <line x1="48" y1="20" x2="51" y2="20" stroke="#dfb147" stroke-width="2" stroke-linecap="round"/>
+      <line x1="48" y1="28" x2="51" y2="28" stroke="#dfb147" stroke-width="2" stroke-linecap="round"/>
+      <line x1="48" y1="36" x2="51" y2="36" stroke="#dfb147" stroke-width="2" stroke-linecap="round"/>
 
-      <!-- Silicon Die Substrate & Mesh Grid -->
-      <rect x="7" y="9" width="36" height="34" rx="2.5" fill="#080e1a" stroke="#38bdf8" stroke-width="1.2"/>
-      <line x1="7" y1="21" x2="43" y2="21" stroke="#00d2ff" stroke-width="0.7" opacity="0.35"/>
-      <line x1="7" y1="31" x2="43" y2="31" stroke="#00d2ff" stroke-width="0.7" opacity="0.35"/>
-      <line x1="19" y1="9" x2="19" y2="43" stroke="#00d2ff" stroke-width="0.7" opacity="0.35"/>
-      <line x1="31" y1="9" x2="31" y2="43" stroke="#00d2ff" stroke-width="0.7" opacity="0.35"/>
+      <!-- Silicon Die Substrate & Grid -->
+      <rect x="6" y="9" width="36" height="33" rx="2" fill="#080e1a" stroke="#38bdf8" stroke-width="1.2"/>
+      <line x1="6" y1="20" x2="42" y2="20" stroke="#00d2ff" stroke-width="0.6" opacity="0.4"/>
+      <line x1="6" y1="30" x2="42" y2="30" stroke="#00d2ff" stroke-width="0.6" opacity="0.4"/>
+      <line x1="18" y1="9" x2="18" y2="42" stroke="#00d2ff" stroke-width="0.6" opacity="0.4"/>
+      <line x1="30" y1="9" x2="30" y2="42" stroke="#00d2ff" stroke-width="0.6" opacity="0.4"/>
 
-      <!-- AI Text Core -->
-      <text x="25" y="32" font-family="'Outfit', 'Inter', sans-serif" font-size="19" font-weight="900" fill="#ffffff" text-anchor="middle" letter-spacing="1">
+      <!-- AI Core Text -->
+      <text x="24" y="31" font-family="'Outfit', 'Inter', sans-serif" font-size="18" font-weight="900" fill="#ffffff" text-anchor="middle" letter-spacing="1">
         AI
       </text>
     </g>
 
     <!-- Letter 'N' -->
-    <text x="262" y="112" font-family="'Outfit', 'Montserrat', 'Arial Black', sans-serif" font-size="56" font-weight="900" fill="url(#goldChrome)" letter-spacing="2">
+    <text x="256" y="112" font-family="'Outfit', 'Montserrat', 'Arial Black', sans-serif" font-size="54" font-weight="900" fill="url(#goldChrome)" letter-spacing="2">
       N
     </text>
+
+    <!-- Subtitle: TECHNOLOGIES PVT. LTD. with divider lines -->
+    <g transform="translate(0, 130)">
+      <line x1="0" y1="7" x2="60" y2="7" stroke="#38bdf8" stroke-width="1.5" opacity="0.75"/>
+      <text x="75" y="12" font-family="'Outfit', 'Segoe UI', sans-serif" font-size="14" font-weight="800" fill="#93c5fd" letter-spacing="3">
+        TECHNOLOGIES PVT. LTD.
+      </text>
+      <line x1="315" y1="7" x2="380" y2="7" stroke="#38bdf8" stroke-width="1.5" opacity="0.75"/>
+    </g>
+
+    <!-- Tagline: • DESIGN • INNOVATE • DELIVER -->
+    <g transform="translate(20, 158)">
+      <circle cx="10" cy="0" r="3.5" fill="#f5821f"/>
+      <text x="22" y="4" font-family="'Space Grotesk', 'Inter', sans-serif" font-size="12.5" font-weight="700" fill="#e2e8f0" letter-spacing="3.5">
+        DESIGN
+      </text>
+
+      <circle cx="115" cy="0" r="3.5" fill="#f5821f"/>
+      <text x="127" y="4" font-family="'Space Grotesk', 'Inter', sans-serif" font-size="12.5" font-weight="700" fill="#e2e8f0" letter-spacing="3.5">
+        INNOVATE
+      </text>
+
+      <circle cx="245" cy="0" r="3.5" fill="#f5821f"/>
+      <text x="257" y="4" font-family="'Space Grotesk', 'Inter', sans-serif" font-size="12.5" font-weight="700" fill="#e2e8f0" letter-spacing="3.5">
+        DELIVER
+      </text>
+    </g>
   </g>
 </svg>
