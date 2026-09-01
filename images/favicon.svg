@@ -27,10 +27,10 @@
     </filter>
   </defs>
 
-  <!-- Dark Squircle Frame -->
-  <rect width="128" height="128" rx="30" fill="url(#favBg)" stroke="#00d2ff" stroke-width="3" stroke-opacity="0.75"/>
+  <!-- Dark Rounded Squircle Badge -->
+  <rect width="128" height="128" rx="28" fill="url(#favBg)" stroke="#00d2ff" stroke-width="2.5" stroke-opacity="0.8"/>
 
-  <!-- Icon Emblem -->
+  <!-- Icon Emblem (Ribbon P + Lightning + Circuit Traces) -->
   <g transform="translate(6, 4) scale(0.92)">
     <!-- Wafer Grid Arc -->
     <path d="M 54 16 C 28 16 14 38 14 64 C 14 90 30 112 62 112" fill="none" stroke="#2563eb" stroke-width="3.2" stroke-linecap="round"/>
