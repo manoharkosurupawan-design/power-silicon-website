@@ -1,49 +1,116 @@
 /* ==========================================================================
-   POWER SILICON TECHNOLOGIES — ANIMATIONS & KEYFRAMES
+   POWER SILICON TECHNOLOGIES — 3D SOFT ANIMATIONS & KEYFRAMES
    ========================================================================== */
 
-/* Shimmer & Glow Pulses */
-@keyframes pulseGlow {
-  0%, 100% {
-    box-shadow: 0 0 15px rgba(0, 210, 255, 0.25);
+/* --------------------------------------------------------------------------
+   3D FLOATING & GYROSCOPIC MOTIONS
+   -------------------------------------------------------------------------- */
+@keyframes float3D {
+  0% {
+    transform: perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px);
+  }
+  25% {
+    transform: perspective(1000px) rotateX(3deg) rotateY(4deg) translateY(-8px);
   }
   50% {
-    box-shadow: 0 0 30px rgba(0, 210, 255, 0.6), 0 0 10px rgba(245, 130, 31, 0.4);
+    transform: perspective(1000px) rotateX(0deg) rotateY(6deg) translateY(-14px);
+  }
+  75% {
+    transform: perspective(1000px) rotateX(-3deg) rotateY(2deg) translateY(-6px);
+  }
+  100% {
+    transform: perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px);
+  }
+}
+
+.floating-3d {
+  animation: float3D 8s infinite cubic-bezier(0.45, 0.05, 0.55, 0.95);
+  transform-style: preserve-3d;
+}
+
+@keyframes chipSpin3D {
+  0% {
+    transform: perspective(800px) rotateY(0deg) rotateX(8deg);
+  }
+  50% {
+    transform: perspective(800px) rotateY(180deg) rotateX(12deg);
+  }
+  100% {
+    transform: perspective(800px) rotateY(360deg) rotateX(8deg);
+  }
+}
+
+.spin-chip-3d {
+  animation: chipSpin3D 20s infinite linear;
+  transform-style: preserve-3d;
+}
+
+@keyframes holographicRing {
+  0% {
+    transform: rotateX(65deg) rotateZ(0deg);
+  }
+  100% {
+    transform: rotateX(65deg) rotateZ(360deg);
+  }
+}
+
+.hologram-ring {
+  animation: holographicRing 14s infinite linear;
+  transform-origin: center center;
+}
+
+/* --------------------------------------------------------------------------
+   SHIMMER, GLOW & PULSE EFFECTS
+   -------------------------------------------------------------------------- */
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(0, 210, 255, 0.25), 0 0 40px rgba(0, 210, 255, 0.08);
+  }
+  50% {
+    box-shadow: 0 0 32px rgba(0, 210, 255, 0.6), 0 0 60px rgba(0, 210, 255, 0.25), 0 0 12px rgba(245, 130, 31, 0.4);
   }
 }
 
 @keyframes pulseOrange {
   0%, 100% {
-    box-shadow: 0 0 15px rgba(245, 130, 31, 0.3);
+    box-shadow: 0 0 15px rgba(245, 130, 31, 0.3), 0 0 35px rgba(245, 130, 31, 0.1);
   }
   50% {
-    box-shadow: 0 0 30px rgba(245, 130, 31, 0.7);
+    box-shadow: 0 0 32px rgba(245, 130, 31, 0.75), 0 0 60px rgba(245, 130, 31, 0.3);
   }
 }
 
 .pulse-cyan {
-  animation: pulseGlow 3s infinite ease-in-out;
+  animation: pulseGlow 3.5s infinite ease-in-out;
 }
 
 .pulse-orange {
-  animation: pulseOrange 3s infinite ease-in-out;
+  animation: pulseOrange 3.5s infinite ease-in-out;
 }
 
-/* Floating Elements */
-@keyframes floatSlow {
-  0%, 100% {
-    transform: translateY(0px) rotate(0deg);
+/* --------------------------------------------------------------------------
+   LIGHT SWEEP & SHIMMER ACROSS 3D SURFACES
+   -------------------------------------------------------------------------- */
+@keyframes lightSweep {
+  0% {
+    background-position: -200% 0;
   }
-  50% {
-    transform: translateY(-12px) rotate(1.5deg);
+  100% {
+    background-position: 200% 0;
   }
 }
 
-.floating {
-  animation: floatSlow 6s infinite ease-in-out;
+.shimmer-text {
+  background: linear-gradient(90deg, #ffffff 0%, #00d2ff 25%, #ffffff 50%, #f5821f 75%, #ffffff 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: lightSweep 6s linear infinite;
 }
 
-/* Circuit Line Flow */
+/* --------------------------------------------------------------------------
+   CIRCUIT DATA STREAM FLOW
+   -------------------------------------------------------------------------- */
 @keyframes circuitFlow {
   0% {
     background-position: 0% 50%;
@@ -61,29 +128,44 @@
   animation: circuitFlow 5s ease infinite;
 }
 
-/* Radar Sweep */
-@keyframes radarSweep {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.radar-sweep {
-  animation: radarSweep 4s linear infinite;
-  transform-origin: center center;
-}
-
-/* Fade in on Scroll Helper */
+/* --------------------------------------------------------------------------
+   3D SCROLL REVEAL UTILITIES
+   -------------------------------------------------------------------------- */
 .fade-in-up {
   opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: perspective(800px) translateY(35px) rotateX(4deg);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
 }
 
 .fade-in-up.visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: perspective(800px) translateY(0) rotateX(0deg);
+}
+
+/* --------------------------------------------------------------------------
+   3D SOFT CARD TILT STYLES
+   -------------------------------------------------------------------------- */
+.tilt-card {
+  transform-style: preserve-3d;
+  transition: transform 0.15s ease-out, box-shadow 0.3s ease-out, border-color 0.3s ease-out;
+  will-change: transform;
+}
+
+.tilt-card:hover {
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.6),
+    0 0 30px rgba(0, 210, 255, 0.2),
+    inset 0 1px 1px rgba(255, 255, 255, 0.15);
+}
+
+.tilt-card .card-icon,
+.tilt-card .card-title,
+.tilt-card .badge {
+  transform: translateZ(24px);
+  transition: transform 0.2s ease-out;
+}
+
+.tilt-card:hover .card-icon {
+  transform: translateZ(36px) scale(1.1);
 }

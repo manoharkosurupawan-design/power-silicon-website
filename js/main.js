@@ -1,5 +1,5 @@
 /**
- * Power Silicon Technologies — Main Interactions & Logic
+ * Power Silicon Technologies — Main Interactions, 3D Soft Tilts & Logic
  */
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -48,7 +48,6 @@ document.addEventListener('DOMContentLoaded', function () {
   mobileToggle?.addEventListener('click', toggleMenu);
   mobileOverlay?.addEventListener('click', closeMenu);
 
-  // Close mobile drawer when clicking any link
   const mobileLinks = document.querySelectorAll('.mobile-link');
   mobileLinks.forEach(link => {
     link.addEventListener('click', closeMenu);
@@ -61,7 +60,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const href = link.getAttribute('href');
     if (href === currentPath || (currentPath === '' && href === 'index.html')) {
       link.classList.add('active');
-      // If within dropdown, highlight parent nav-link too
       const parentItem = link.closest('.nav-item');
       if (parentItem) {
         parentItem.querySelector('.nav-link')?.classList.add('active');
@@ -69,7 +67,53 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
-  // 4. Animated Number Counters
+  // 4. Interactive 3D Soft Card Tilt & Specular Light Physics
+  const tiltCards = document.querySelectorAll('.card, .workflow-step');
+  tiltCards.forEach(card => {
+    card.classList.add('tilt-card');
+
+    card.addEventListener('mousemove', function (e) {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+
+      // Soft tilt angles (max 6.5 degrees for luxury feel)
+      const rotateX = ((y - centerY) / centerY) * -6.5;
+      const rotateY = ((x - centerX) / centerX) * 6.5;
+
+      card.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateY(-6px)`;
+    });
+
+    card.addEventListener('mouseleave', function () {
+      card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)';
+    });
+  });
+
+  // 5. 3D Scroll Reveal Intersection Observer
+  const scrollElements = document.querySelectorAll('.card, .workflow-step, .section-title, .cta-banner, .stat-block');
+  if ('IntersectionObserver' in window) {
+    const scrollObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('fade-in-up', 'visible');
+          scrollObserver.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.12,
+      rootMargin: '0px 0px -40px 0px'
+    });
+
+    scrollElements.forEach(el => {
+      el.classList.add('fade-in-up');
+      scrollObserver.observe(el);
+    });
+  }
+
+  // 6. Animated Number Counters
   const counters = document.querySelectorAll('.stat-count');
   let countersAnimated = false;
 
@@ -90,7 +134,6 @@ document.addEventListener('DOMContentLoaded', function () {
         function updateCount(currentTime) {
           const elapsed = currentTime - startTime;
           const progress = Math.min(elapsed / duration, 1);
-          // Ease-out cubic
           const easeProgress = 1 - Math.pow(1 - progress, 3);
           const currentVal = easeProgress * target;
 
@@ -111,7 +154,7 @@ document.addEventListener('DOMContentLoaded', function () {
   window.addEventListener('scroll', animateCounters);
   animateCounters();
 
-  // 5. Interactive Tabs
+  // 7. Interactive Tabs
   const tabButtons = document.querySelectorAll('.tab-btn');
   tabButtons.forEach(btn => {
     btn.addEventListener('click', function () {
@@ -129,7 +172,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  // 6. Interactive FAQ Accordion
+  // 8. Interactive FAQ Accordion
   const accordionHeaders = document.querySelectorAll('.accordion-header');
   accordionHeaders.forEach(header => {
     header.addEventListener('click', function () {
@@ -137,7 +180,6 @@ document.addEventListener('DOMContentLoaded', function () {
       const body = item.querySelector('.accordion-body');
       const isActive = item.classList.contains('active');
 
-      // Close sibling accordions if needed
       const parentAccordion = item.closest('.accordion');
       if (parentAccordion) {
         parentAccordion.querySelectorAll('.accordion-item').forEach(sibling => {
@@ -159,7 +201,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  // 7. Modals (Careers & RFQ)
+  // 9. Modals (Careers & RFQ)
   const modalTriggers = document.querySelectorAll('[data-modal-target]');
   const modalCloses = document.querySelectorAll('.modal-close, [data-modal-close]');
 
@@ -169,7 +211,6 @@ document.addEventListener('DOMContentLoaded', function () {
       const targetId = trigger.getAttribute('data-modal-target');
       const modal = document.getElementById(targetId);
       if (modal) {
-        // If job title is passed
         const jobTitle = trigger.getAttribute('data-job-title');
         const roleInput = modal.querySelector('#modal-job-role');
         if (roleInput && jobTitle) {
@@ -200,7 +241,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  // 8. Contact & RFQ Form Submissions
+  // 10. Contact & RFQ Form Submissions
   const rfqForm = document.getElementById('rfq-form') || document.querySelector('.contact-form');
   const successModal = document.getElementById('success-modal');
 
@@ -222,7 +263,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         rfqForm.reset();
 
-        // Show success modal or alert
         if (successModal) {
           successModal.classList.add('active');
           document.body.style.overflow = 'hidden';
@@ -233,7 +273,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // 9. Job Application Form Submission
+  // 11. Job Application Form Submission
   const careerForm = document.getElementById('career-form');
   if (careerForm) {
     careerForm.addEventListener('submit', function (e) {
@@ -248,7 +288,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // 10. Newsletter Form
+  // 12. Newsletter Form
   const newsletterForms = document.querySelectorAll('.newsletter-form');
   newsletterForms.forEach(form => {
     form.addEventListener('submit', function (e) {
