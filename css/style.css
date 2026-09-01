@@ -303,23 +303,23 @@ p:last-child {
 }
 
 .brand-logo img {
-  height: 64px;
+  height: 54px;
   width: auto;
-  max-width: 280px;
+  max-width: 250px;
   object-fit: contain;
-  filter: drop-shadow(0 0 6px rgba(0, 210, 255, 0.15));
+  filter: drop-shadow(0 0 8px rgba(0, 210, 255, 0.2));
   transition: filter var(--transition-fast), transform var(--transition-fast);
 }
 
 .brand-logo:hover img {
-  transform: scale(1.04);
-  filter: drop-shadow(0 0 16px rgba(0, 210, 255, 0.5));
+  transform: scale(1.03);
+  filter: drop-shadow(0 0 16px rgba(0, 210, 255, 0.55));
 }
 
 @media (max-width: 768px) {
   .brand-logo img {
-    height: 50px;
-    max-width: 210px;
+    height: 42px;
+    max-width: 190px;
   }
 }
 
