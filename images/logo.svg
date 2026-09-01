@@ -1,126 +1,155 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 530 135" width="100%" height="100%">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 140" width="100%" height="100%">
   <defs>
-    <!-- Metallic Navy/Cyan Gradient for POWER -->
-    <linearGradient id="powerBlue" x1="0%" y1="0%" x2="0%" y2="100%">
+    <!-- Metallic Steel-Blue Gradient for POWER -->
+    <linearGradient id="powerGrad" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" stop-color="#70b4ff"/>
-      <stop offset="35%" stop-color="#2563eb"/>
-      <stop offset="70%" stop-color="#1d4ed8"/>
+      <stop offset="28%" stop-color="#2563eb"/>
+      <stop offset="68%" stop-color="#1d4ed8"/>
       <stop offset="100%" stop-color="#0f2b5c"/>
     </linearGradient>
 
-    <!-- 3D Gold Gradient for SILICON -->
-    <linearGradient id="gold3D" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#ffe8a3"/>
-      <stop offset="25%" stop-color="#dfb147"/>
-      <stop offset="60%" stop-color="#b88628"/>
-      <stop offset="85%" stop-color="#8a6116"/>
-      <stop offset="100%" stop-color="#fdf0cd"/>
+    <!-- 3D Luxury Gold Chrome for SILIC & N -->
+    <linearGradient id="goldChrome" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fff4d0"/>
+      <stop offset="20%" stop-color="#f3cb65"/>
+      <stop offset="55%" stop-color="#c9932b"/>
+      <stop offset="85%" stop-color="#8c6014"/>
+      <stop offset="100%" stop-color="#fdf3d8"/>
     </linearGradient>
 
-    <!-- Glowing Orange Lightning Bolt -->
+    <!-- AI Chip Body Gold Border -->
+    <linearGradient id="chipGold" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffd56b"/>
+      <stop offset="50%" stop-color="#c9932b"/>
+      <stop offset="100%" stop-color="#8c6014"/>
+    </linearGradient>
+
+    <!-- Vibrant Orange Lightning Bolt -->
     <linearGradient id="boltGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#ffcc00"/>
-      <stop offset="50%" stop-color="#f5821f"/>
-      <stop offset="100%" stop-color="#d95d00"/>
+      <stop offset="0%" stop-color="#ffe14d"/>
+      <stop offset="45%" stop-color="#f5821f"/>
+      <stop offset="100%" stop-color="#d95400"/>
     </linearGradient>
 
-    <!-- 3D Ribbon Blue Gradient -->
-    <linearGradient id="ribbonFront" x1="0%" y1="0%" x2="100%" y2="100%">
+    <!-- 3D Ribbon Main Front Face -->
+    <linearGradient id="ribbonMain" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#38bdf8"/>
-      <stop offset="45%" stop-color="#1d4ed8"/>
-      <stop offset="100%" stop-color="#0f172a"/>
+      <stop offset="30%" stop-color="#2563eb"/>
+      <stop offset="70%" stop-color="#1e3a8a"/>
+      <stop offset="100%" stop-color="#0b172a"/>
+    </linearGradient>
+
+    <!-- 3D Ribbon Underfold Shadow -->
+    <linearGradient id="ribbonFold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e3a8a"/>
+      <stop offset="50%" stop-color="#0f203c"/>
+      <stop offset="100%" stop-color="#050c18"/>
     </linearGradient>
 
     <!-- Soft Glow Filter -->
-    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
-      <feGaussianBlur stdDeviation="3" result="blur" />
+    <filter id="crispGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2.5" result="blur"/>
       <feComposite in="SourceGraphic" in2="blur" operator="over"/>
     </filter>
   </defs>
 
-  <!-- ==================== LEFT ICON EMBLEM ==================== -->
-  <g transform="translate(10, 5)">
-    <!-- Wafer Grid Arc Background -->
-    <g opacity="0.9">
-      <path d="M 65 15 C 35 15 18 40 18 70 C 18 100 38 125 75 125" fill="none" stroke="#2563eb" stroke-width="3.2"/>
-      <path d="M 28 45 L 58 45 M 20 63 L 65 63 M 22 81 L 68 81 M 32 99 L 75 99" stroke="#38bdf8" stroke-width="1.3" opacity="0.7"/>
-      <path d="M 35 27 L 35 113 M 48 19 L 48 121 M 62 15 L 62 125" stroke="#38bdf8" stroke-width="1.3" opacity="0.7"/>
+  <!-- ==================== 1. LEFT 3D ICON EMBLEM ==================== -->
+  <g transform="translate(10, 8)">
+    <!-- Wafer Grid Arc & Background Substrate -->
+    <path d="M 68 12 C 34 12 16 38 16 70 C 16 102 36 128 72 128" fill="none" stroke="#2563eb" stroke-width="3.5" stroke-linecap="round"/>
+    
+    <!-- Wafer Grid Mesh Lines -->
+    <g stroke="#38bdf8" stroke-width="1.3" opacity="0.65">
+      <path d="M 28 44 L 62 44 M 18 62 L 68 62 M 20 82 L 72 82 M 32 102 L 72 102"/>
+      <path d="M 34 24 L 34 116 M 48 16 L 48 124 M 62 12 L 62 128"/>
     </g>
 
-    <!-- Circuit traces branching off to the left -->
-    <g stroke="#38bdf8" stroke-width="2.8" stroke-linecap="round" fill="#38bdf8">
-      <path d="M 22 50 L 8 50 L 2 57" fill="none"/>
-      <circle cx="2" cy="57" r="3.5"/>
-      
-      <path d="M 18 67 L 0 67" fill="none"/>
-      <circle cx="0" cy="67" r="4"/>
-      
-      <path d="M 20 85 L 8 85 L 2 78" fill="none"/>
-      <circle cx="2" cy="78" r="3.5"/>
-      
-      <path d="M 25 100 L 14 100 L 8 107" fill="none"/>
-      <circle cx="8" cy="107" r="3.5"/>
+    <!-- Circuit Branch Traces on Left -->
+    <g stroke="#38bdf8" stroke-width="3" stroke-linecap="round" fill="#38bdf8">
+      <path d="M 22 48 L 8 48 L 2 55" fill="none"/>
+      <circle cx="2" cy="55" r="3.6"/>
+
+      <path d="M 17 66 L 0 66" fill="none"/>
+      <circle cx="0" cy="66" r="4"/>
+
+      <path d="M 19 86 L 8 86 L 2 79" fill="none"/>
+      <circle cx="2" cy="79" r="3.6"/>
+
+      <path d="M 26 104 L 14 104 L 8 111" fill="none"/>
+      <circle cx="8" cy="111" r="3.6"/>
     </g>
 
-    <!-- 3D P-Ribbon Structure -->
-    <path d="M 65 15 C 105 15 135 33 135 63 C 135 90 110 105 80 107 L 65 107 C 55 107 48 113 45 123 L 40 133 C 75 137 125 133 138 100 C 145 80 145 40 105 15 Z" fill="url(#ribbonFront)"/>
-    <path d="M 52 130 C 75 137 110 133 128 113 C 100 125 68 121 52 130 Z" fill="#09182d"/>
+    <!-- 3D Ribbon 'P' Outer Loop Structure -->
+    <!-- Upper Loop -->
+    <path d="M 68 12 C 104 12 136 28 136 58 C 136 84 112 100 82 102 L 68 102 C 60 102 54 108 50 116 L 42 128 C 76 136 126 130 142 96 C 148 74 148 34 108 12 Z" fill="url(#ribbonMain)"/>
+    <!-- Bottom 3D Fold Ribbon Strip -->
+    <path d="M 42 128 C 66 136 106 132 128 112 C 102 124 72 120 48 128 Z" fill="url(#ribbonFold)"/>
+    <!-- Inner P cutout loop -->
+    <path d="M 68 34 C 88 34 108 42 108 58 C 108 74 88 82 68 82 L 64 82 L 64 34 Z" fill="#081426" opacity="0.6"/>
 
-    <!-- Dynamic Orange Lightning Bolt -->
-    <polygon points="78,13 48,73 72,73 52,131 102,59 74,59 96,13" fill="url(#boltGrad)" filter="url(#softGlow)"/>
-    <polygon points="76,17 52,71 72,71 58,119 94,61 72,61 90,17" fill="#ffdd55" opacity="0.8"/>
+    <!-- Glowing Lightning Bolt Striking Through Center -->
+    <polygon points="78,10 46,72 72,72 50,132 104,58 74,58 98,10" fill="url(#boltGrad)" filter="url(#crispGlow)"/>
+    <polygon points="76,14 51,70 72,70 57,120 96,60 73,60 91,14" fill="#fff3a8" opacity="0.85"/>
   </g>
 
-  <!-- ==================== LOGO TEXT: POWER SILICON ==================== -->
-  <g transform="translate(170, 5)">
-    <!-- "POWER" -->
-    <text x="0" y="52" font-family="'Outfit', 'Montserrat', 'Arial Black', sans-serif" font-size="58" font-weight="900" fill="url(#powerBlue)" letter-spacing="2">
+  <!-- ==================== 2. "POWER" WORDMARK ==================== -->
+  <g transform="translate(180, 12)">
+    <text x="0" y="50" font-family="'Outfit', 'Montserrat', 'Arial Black', sans-serif" font-size="58" font-weight="900" fill="url(#powerGrad)" letter-spacing="2.5">
       POWER
     </text>
 
-    <!-- "SILIC[AI]N" -->
-    <text x="0" y="112" font-family="'Outfit', 'Montserrat', 'Arial Black', sans-serif" font-size="56" font-weight="900" fill="url(#gold3D)" letter-spacing="2">
+    <!-- ==================== 3. "SILIC[AI]N" WORDMARK ==================== -->
+    <!-- "SILIC" -->
+    <text x="0" y="112" font-family="'Outfit', 'Montserrat', 'Arial Black', sans-serif" font-size="56" font-weight="900" fill="url(#goldChrome)" letter-spacing="2">
       SILIC
     </text>
 
-    <!-- AI Microchip as letter 'O' -->
-    <g transform="translate(198, 66)">
-      <!-- Gold Chip Body & Border -->
-      <rect x="0" y="4" width="48" height="44" rx="4" fill="#1e1b4b" stroke="url(#gold3D)" stroke-width="2.2"/>
-      
-      <!-- Top/Bottom Contact Pins -->
-      <line x1="8" y1="0" x2="8" y2="4" stroke="#dfb147" stroke-width="2"/>
-      <line x1="16" y1="0" x2="16" y2="4" stroke="#dfb147" stroke-width="2"/>
-      <line x1="24" y1="0" x2="24" y2="4" stroke="#dfb147" stroke-width="2"/>
-      <line x1="32" y1="0" x2="32" y2="4" stroke="#dfb147" stroke-width="2"/>
-      <line x1="40" y1="0" x2="40" y2="4" stroke="#dfb147" stroke-width="2"/>
+    <!-- Microchip 'O' -->
+    <g transform="translate(202, 65)">
+      <!-- Gold Outer Package & Border -->
+      <rect x="0" y="4" width="50" height="46" rx="5" fill="#151238" stroke="url(#chipGold)" stroke-width="2.4"/>
 
-      <line x1="8" y1="48" x2="8" y2="52" stroke="#dfb147" stroke-width="2"/>
-      <line x1="16" y1="48" x2="16" y2="52" stroke="#dfb147" stroke-width="2"/>
-      <line x1="24" y1="48" x2="24" y2="52" stroke="#dfb147" stroke-width="2"/>
-      <line x1="32" y1="48" x2="32" y2="52" stroke="#dfb147" stroke-width="2"/>
-      <line x1="40" y1="48" x2="40" y2="52" stroke="#dfb147" stroke-width="2"/>
+      <!-- Top Pins -->
+      <line x1="9" y1="0" x2="9" y2="4" stroke="#dfb147" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="17" y1="0" x2="17" y2="4" stroke="#dfb147" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="25" y1="0" x2="25" y2="4" stroke="#dfb147" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="33" y1="0" x2="33" y2="4" stroke="#dfb147" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="41" y1="0" x2="41" y2="4" stroke="#dfb147" stroke-width="2.2" stroke-linecap="round"/>
 
-      <!-- Left/Right Contact Pins -->
-      <line x1="-3" y1="13" x2="0" y2="13" stroke="#dfb147" stroke-width="2"/>
-      <line x1="-3" y1="21" x2="0" y2="21" stroke="#dfb147" stroke-width="2"/>
-      <line x1="-3" y1="29" x2="0" y2="29" stroke="#dfb147" stroke-width="2"/>
-      <line x1="-3" y1="37" x2="0" y2="37" stroke="#dfb147" stroke-width="2"/>
+      <!-- Bottom Pins -->
+      <line x1="9" y1="50" x2="9" y2="54" stroke="#dfb147" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="17" y1="50" x2="17" y2="54" stroke="#dfb147" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="25" y1="50" x2="25" y2="54" stroke="#dfb147" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="33" y1="50" x2="33" y2="54" stroke="#dfb147" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="41" y1="50" x2="41" y2="54" stroke="#dfb147" stroke-width="2.2" stroke-linecap="round"/>
 
-      <line x1="48" y1="13" x2="51" y2="13" stroke="#dfb147" stroke-width="2"/>
-      <line x1="48" y1="21" x2="51" y2="21" stroke="#dfb147" stroke-width="2"/>
-      <line x1="48" y1="29" x2="51" y2="29" stroke="#dfb147" stroke-width="2"/>
-      <line x1="48" y1="37" x2="51" y2="37" stroke="#dfb147" stroke-width="2"/>
+      <!-- Left Pins -->
+      <line x1="-4" y1="13" x2="0" y2="13" stroke="#dfb147" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="-4" y1="21" x2="0" y2="21" stroke="#dfb147" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="-4" y1="29" x2="0" y2="29" stroke="#dfb147" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="-4" y1="37" x2="0" y2="37" stroke="#dfb147" stroke-width="2.2" stroke-linecap="round"/>
 
-      <!-- Inner Die Grid & AI Text -->
-      <rect x="6" y="9" width="36" height="33" rx="2" fill="#0f172a" stroke="#38bdf8" stroke-width="1.3"/>
-      <text x="24" y="32" font-family="'Outfit', sans-serif" font-size="19" font-weight="900" fill="#ffffff" text-anchor="middle" letter-spacing="1">
+      <!-- Right Pins -->
+      <line x1="50" y1="13" x2="54" y2="13" stroke="#dfb147" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="50" y1="21" x2="54" y2="21" stroke="#dfb147" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="50" y1="29" x2="54" y2="29" stroke="#dfb147" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="50" y1="37" x2="54" y2="37" stroke="#dfb147" stroke-width="2.2" stroke-linecap="round"/>
+
+      <!-- Silicon Die Substrate & Mesh Grid -->
+      <rect x="7" y="9" width="36" height="34" rx="2.5" fill="#080e1a" stroke="#38bdf8" stroke-width="1.2"/>
+      <line x1="7" y1="21" x2="43" y2="21" stroke="#00d2ff" stroke-width="0.7" opacity="0.35"/>
+      <line x1="7" y1="31" x2="43" y2="31" stroke="#00d2ff" stroke-width="0.7" opacity="0.35"/>
+      <line x1="19" y1="9" x2="19" y2="43" stroke="#00d2ff" stroke-width="0.7" opacity="0.35"/>
+      <line x1="31" y1="9" x2="31" y2="43" stroke="#00d2ff" stroke-width="0.7" opacity="0.35"/>
+
+      <!-- AI Text Core -->
+      <text x="25" y="32" font-family="'Outfit', 'Inter', sans-serif" font-size="19" font-weight="900" fill="#ffffff" text-anchor="middle" letter-spacing="1">
         AI
       </text>
     </g>
 
     <!-- Letter 'N' -->
-    <text x="254" y="112" font-family="'Outfit', 'Montserrat', 'Arial Black', sans-serif" font-size="56" font-weight="900" fill="url(#gold3D)" letter-spacing="2">
+    <text x="262" y="112" font-family="'Outfit', 'Montserrat', 'Arial Black', sans-serif" font-size="56" font-weight="900" fill="url(#goldChrome)" letter-spacing="2">
       N
     </text>
   </g>
