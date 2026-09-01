@@ -1,27 +1,51 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
   <defs>
-    <linearGradient id="favBlue" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#00d2ff"/>
-      <stop offset="100%" stop-color="#0b2545"/>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b172a"/>
+      <stop offset="100%" stop-color="#040914"/>
     </linearGradient>
-    <linearGradient id="favOrange" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#ffb703"/>
-      <stop offset="100%" stop-color="#f5821f"/>
+
+    <!-- Metallic Blue for Ribbon P -->
+    <linearGradient id="ribbonFav" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="40%" stop-color="#1d4ed8"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+
+    <!-- Glowing Orange Lightning Bolt -->
+    <linearGradient id="boltFav" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffe066"/>
+      <stop offset="50%" stop-color="#f5821f"/>
+      <stop offset="100%" stop-color="#d95d00"/>
     </linearGradient>
   </defs>
-  <rect width="64" height="64" rx="14" fill="#070d18" stroke="url(#favBlue)" stroke-width="2.5"/>
-  <rect x="12" y="12" width="40" height="40" rx="8" fill="#0b192e" stroke="#00d2ff" stroke-width="1.5"/>
-  <!-- Pins -->
-  <line x1="6" y1="24" x2="12" y2="24" stroke="#00d2ff" stroke-width="2" stroke-linecap="round"/>
-  <line x1="6" y1="40" x2="12" y2="40" stroke="#00d2ff" stroke-width="2" stroke-linecap="round"/>
-  <line x1="52" y1="24" x2="58" y2="24" stroke="#00d2ff" stroke-width="2" stroke-linecap="round"/>
-  <line x1="52" y1="40" x2="58" y2="40" stroke="#00d2ff" stroke-width="2" stroke-linecap="round"/>
-  <line x1="24" y1="6" x2="24" y2="12" stroke="#00d2ff" stroke-width="2" stroke-linecap="round"/>
-  <line x1="40" y1="6" x2="40" y2="12" stroke="#00d2ff" stroke-width="2" stroke-linecap="round"/>
-  <line x1="24" y1="52" x2="24" y2="58" stroke="#00d2ff" stroke-width="2" stroke-linecap="round"/>
-  <line x1="40" y1="52" x2="40" y2="58" stroke="#00d2ff" stroke-width="2" stroke-linecap="round"/>
-  <!-- Circuit Core Pulse -->
-  <path d="M 20 32 L 27 32 L 30 24 L 34 40 L 37 32 L 44 32" fill="none" stroke="url(#favOrange)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-  <circle cx="20" cy="32" r="2.5" fill="#00d2ff"/>
-  <circle cx="44" cy="32" r="2.5" fill="#ffb703"/>
+
+  <!-- Squircle Base Frame -->
+  <rect width="128" height="128" rx="28" fill="url(#bgGrad)" stroke="#1e3a8a" stroke-width="3"/>
+
+  <g transform="translate(10, 10) scale(0.85)">
+    <!-- Wafer Grid Arc -->
+    <path d="M 52 14 C 26 14 12 36 12 62 C 12 88 28 110 60 110" fill="none" stroke="#2563eb" stroke-width="2.5"/>
+    <path d="M 22 42 L 48 42 M 16 58 L 54 58 M 18 74 L 56 74 M 26 90 L 60 90" stroke="#38bdf8" stroke-width="1.2" opacity="0.6"/>
+    <path d="M 28 26 L 28 98 M 38 18 L 38 106 M 50 14 L 50 110" stroke="#38bdf8" stroke-width="1.2" opacity="0.6"/>
+
+    <!-- Circuit Branch Traces on Left -->
+    <g stroke="#38bdf8" stroke-width="2.2" stroke-linecap="round" fill="#38bdf8">
+      <path d="M 18 46 L 6 46 L 2 52" fill="none"/>
+      <circle cx="2" cy="52" r="3"/>
+      
+      <path d="M 14 62 L 0 62" fill="none"/>
+      <circle cx="0" cy="62" r="3.5"/>
+      
+      <path d="M 16 78 L 6 78 L 2 72" fill="none"/>
+      <circle cx="2" cy="72" r="3"/>
+    </g>
+
+    <!-- 3D P-Ribbon Structure -->
+    <path d="M 52 14 C 88 14 114 30 114 56 C 114 80 92 94 66 96 L 54 96 C 44 96 38 102 36 110 L 32 118 C 62 122 104 118 116 90 C 122 72 122 36 88 14 Z" fill="url(#ribbonFav)"/>
+
+    <!-- Dynamic Orange Lightning Bolt -->
+    <polygon points="66,12 40,64 62,64 44,116 88,52 64,52 82,12" fill="url(#boltFav)"/>
+  </g>
 </svg>
