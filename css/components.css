@@ -348,20 +348,22 @@
   position: relative;
   z-index: 2;
   pointer-events: auto;
+  max-width: 640px;
 }
 
 .hero-title {
-  font-size: clamp(2.5rem, 5.5vw, 4.2rem);
+  font-size: clamp(2.4rem, 4.8vw, 3.85rem);
   font-weight: 800;
-  line-height: 1.15;
+  line-height: 1.18;
   margin-bottom: 1.5rem;
   letter-spacing: -0.03em;
+  max-width: 600px;
 }
 
 .hero-lead {
-  font-size: clamp(1.1rem, 2vw, 1.25rem);
+  font-size: clamp(1.05rem, 1.8vw, 1.2rem);
   color: var(--text-secondary);
-  max-width: 650px;
+  max-width: 580px;
   margin-bottom: 2rem;
   line-height: 1.6;
 }

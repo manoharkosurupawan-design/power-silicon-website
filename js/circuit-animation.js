@@ -345,8 +345,8 @@
     }
 
     // 2. Draw Central 3D Silicon Processor Die
-    const centerX = width > 960 ? width * 0.72 : width * 0.5;
-    const centerY = height * 0.5;
+    const centerX = width > 1200 ? width * 0.78 : (width > 900 ? width * 0.74 : width * 0.5);
+    const centerY = height * 0.48;
     draw3DSiliconDie(centerX, centerY);
 
     // 3. Random Packet Spawn
