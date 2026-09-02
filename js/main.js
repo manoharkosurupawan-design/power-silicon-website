@@ -5,15 +5,25 @@
 document.addEventListener('DOMContentLoaded', function () {
   'use strict';
 
-  // 0. Futuristic Silicon Preloader Logic (Initial Visit Only per Session)
+  // 0. Futuristic Silicon Preloader Logic (Initial Visit & Page Reload)
   const preloader = document.getElementById('site-preloader');
 
   if (preloader) {
-    if (sessionStorage.getItem('pst_preloader_seen')) {
-      // User has already seen preloader in this session -> skip instantly
+    let isReload = false;
+    try {
+      const navEntries = performance.getEntriesByType('navigation');
+      if (navEntries.length > 0 && navEntries[0].type === 'reload') {
+        isReload = true;
+      } else if (performance.navigation && performance.navigation.type === 1) {
+        isReload = true;
+      }
+    } catch (e) {}
+
+    if (sessionStorage.getItem('pst_preloader_seen') && !isReload) {
+      // Standard internal link navigation -> skip preloader
       preloader.remove();
     } else {
-      // First initial visit of the session -> show majestic illuminated startup screen
+      // Initial visit or Explicit Reload -> show majestic startup screen
       sessionStorage.setItem('pst_preloader_seen', 'true');
 
       setTimeout(() => {

@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/components.css">
   <link rel="stylesheet" href="css/animations.css">
-  <script>if(sessionStorage.getItem('pst_preloader_seen')){document.documentElement.classList.add('skip-preloader');}</script>
+  <script>(function(){try{var n=performance.getEntriesByType('navigation')[0];var r=n?n.type==='reload':(performance.navigation&&performance.navigation.type===1);if(r){sessionStorage.removeItem('pst_preloader_seen');}else if(sessionStorage.getItem('pst_preloader_seen')){document.documentElement.classList.add('skip-preloader');}}catch(e){}})();</script>
 </head>
 <body style="display: flex; flex-direction: column; min-height: 100vh;">
 
