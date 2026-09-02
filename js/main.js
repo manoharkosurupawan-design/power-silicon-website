@@ -26,12 +26,13 @@ document.addEventListener('DOMContentLoaded', function () {
       // Initial visit or Explicit Reload -> show majestic startup screen
       sessionStorage.setItem('pst_preloader_seen', 'true');
 
+      // Allow split-letter assembly, fusion flash, and unified logo display
       setTimeout(() => {
         preloader.classList.add('loaded');
         setTimeout(() => {
           if (preloader.parentNode) preloader.parentNode.removeChild(preloader);
-        }, 700);
-      }, 950);
+        }, 750);
+      }, 1750);
 
       window.addEventListener('load', () => {
         setTimeout(() => {
@@ -39,9 +40,9 @@ document.addEventListener('DOMContentLoaded', function () {
             preloader.classList.add('loaded');
             setTimeout(() => {
               if (preloader.parentNode) preloader.parentNode.removeChild(preloader);
-            }, 700);
+            }, 750);
           }
-        }, 700);
+        }, 1850);
       });
     }
   }
