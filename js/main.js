@@ -216,7 +216,7 @@ document.addEventListener('DOMContentLoaded', function () {
           // Once seated into position, enable full floating & tilt physics
           setTimeout(() => {
             el.classList.add('seated-in-position');
-          }, 950);
+          }, 1250);
 
           scrollObserver.unobserve(el);
         }
@@ -242,7 +242,7 @@ document.addEventListener('DOMContentLoaded', function () {
           const siblings = Array.from(parentGrid.children);
           const idx = siblings.indexOf(el);
           if (idx >= 0) {
-            el.style.transitionDelay = `${(idx * 0.12).toFixed(2)}s`;
+            el.style.transitionDelay = `${(idx * 0.22).toFixed(2)}s`;
           }
         }
       }
