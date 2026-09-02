@@ -1057,7 +1057,7 @@
 
 .preloader-logo-wrap {
   position: relative;
-  margin-bottom: 2rem;
+  margin-bottom: 0;
   padding: 18px 24px;
 }
 
@@ -1066,8 +1066,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 420px;
-  height: 160px;
+  width: 440px;
+  height: 170px;
   background: radial-gradient(ellipse at 50% 60%, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.7) 30%, rgba(0, 210, 255, 0.45) 55%, transparent 75%);
   filter: blur(34px);
   border-radius: 50%;
@@ -1084,16 +1084,6 @@
   z-index: 2;
   filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.95)) drop-shadow(0 0 60px rgba(0, 210, 255, 0.5)) drop-shadow(0 12px 24px rgba(0, 0, 0, 0.7));
   animation: preloaderLogoFloat 3s ease-in-out infinite alternate;
-}
-
-.preloader-motto {
-  font-family: var(--font-mono);
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: var(--accent-gold);
-  letter-spacing: 0.18em;
-  text-shadow: 0 0 12px rgba(229, 184, 76, 0.4);
-  animation: pulseGlow 2.5s ease-in-out infinite alternate;
 }
 
 @keyframes preloaderPulse {
@@ -1115,10 +1105,6 @@
     width: 320px;
     height: 120px;
     filter: blur(24px);
-  }
-  .preloader-motto {
-    font-size: 0.85rem;
-    letter-spacing: 0.12em;
   }
 }
 
