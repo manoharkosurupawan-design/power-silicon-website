@@ -252,10 +252,10 @@
   box-shadow: 0 0 10px var(--accent-orange);
 }
 
-/* Card Icon Box */
+/* Card Icon Box with Underlight */
 .card-icon {
-  width: 54px;
-  height: 54px;
+  width: 56px;
+  height: 56px;
   border-radius: var(--radius-md);
   background: rgba(0, 210, 255, 0.08);
   border: 1px solid rgba(0, 210, 255, 0.25);
@@ -266,25 +266,28 @@
   margin-bottom: 1.35rem;
   transition: all var(--transition-fast);
   transform: translateZ(0);
+  position: relative;
+  box-shadow: 0 4px 15px rgba(0, 210, 255, 0.15);
 }
 
 .card:hover .card-icon {
   background: var(--accent-cyan);
   color: #060b14;
-  box-shadow: 0 0 22px var(--accent-cyan-glow);
-  transform: scale(1.12) translateZ(8px);
+  box-shadow: 0 0 24px var(--accent-cyan-glow), 0 8px 25px rgba(0, 210, 255, 0.5);
+  transform: translateY(-3px) scale(1.12) translateZ(8px);
 }
 
 .card-icon.orange {
   background: rgba(245, 130, 31, 0.08);
   border-color: rgba(245, 130, 31, 0.25);
   color: var(--accent-orange);
+  box-shadow: 0 4px 15px rgba(245, 130, 31, 0.15);
 }
 
 .card:hover .card-icon.orange {
   background: var(--accent-orange);
   color: #ffffff;
-  box-shadow: 0 0 16px var(--accent-orange-glow);
+  box-shadow: 0 0 20px var(--accent-orange-glow), 0 8px 25px rgba(245, 130, 31, 0.5);
 }
 
 .card-title {
