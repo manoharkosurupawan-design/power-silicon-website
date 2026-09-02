@@ -1060,19 +1060,6 @@
   animation: preloaderLogoFloat 3s ease-in-out infinite alternate;
 }
 
-.preloader-scan-line {
-  position: absolute;
-  top: 0;
-  left: -20%;
-  width: 140%;
-  height: 3px;
-  background: linear-gradient(90deg, transparent 5%, #00d2ff 35%, #ffffff 50%, #f5821f 65%, transparent 95%);
-  box-shadow: 0 0 16px #00d2ff, 0 0 8px #ffffff;
-  animation: preloaderLaserSweep 2.2s ease-in-out infinite;
-  z-index: 3;
-  opacity: 0.95;
-}
-
 .preloader-motto {
   font-family: var(--font-mono);
   font-size: 0.95rem;
@@ -1091,13 +1078,6 @@
 @keyframes preloaderLogoFloat {
   0% { transform: translateY(0px) scale(0.98); }
   100% { transform: translateY(-6px) scale(1.02); }
-}
-
-@keyframes preloaderLaserSweep {
-  0% { top: 0%; opacity: 0; }
-  15% { opacity: 1; }
-  85% { opacity: 1; }
-  100% { top: 100%; opacity: 0; }
 }
 
 @media (max-width: 768px) {
