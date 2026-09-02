@@ -2,11 +2,13 @@
   "name": "power-silicon-website",
   "version": "1.0.0",
   "description": "Official corporate website for Power Silicon Technologies Pvt. Ltd.",
-  "main": "server.js",
+  "main": "electron-main.js",
   "scripts": {
     "start": "node server.js",
     "dev": "node server.js",
     "serve": "node server.js",
+    "app": "electron .",
+    "build:exe": "electron-packager . \"Power Silicon Technologies\" --platform=win32 --arch=x64 --out=dist --overwrite --icon=app-icon.ico --prune=true --ignore=\"^/(dist|\\.git|\\.github)\"",
     "test": "node validate.js"
   },
   "keywords": [
@@ -18,5 +20,10 @@
     "power-silicon"
   ],
   "author": "Power Silicon Technologies Pvt. Ltd.",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^44.1.1",
+    "electron-packager": "^17.1.2",
+    "png-to-ico": "^3.0.2"
+  }
 }
