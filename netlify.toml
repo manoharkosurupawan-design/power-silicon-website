@@ -1,0 +1,47 @@
+# ==============================================================================
+# Power Silicon Technologies — Netlify Production Deployment Configuration
+# Site URL: https://powersilicontechnologies.netlify.app/
+# ==============================================================================
+
+[build]
+  publish = "."
+  command = "node validate.js"
+
+# Pretty URLs / extensionless routing
+[build.processing]
+  skip_processing = false
+
+[build.processing.html]
+  pretty_urls = true
+
+# Custom 404 error page redirection
+[[redirects]]
+  from = "/*"
+  to = "/404.html"
+  status = 404
+
+# Global Security & Performance Headers
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    X-XSS-Protection = "1; mode=block"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+
+# Cache-Control optimization for static assets
+[[headers]]
+  for = "/css/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800, must-revalidate"
+
+[[headers]]
+  for = "/js/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800, must-revalidate"
+
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000, immutable"
