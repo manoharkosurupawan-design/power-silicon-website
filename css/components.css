@@ -876,15 +876,46 @@
 }
 
 /* --------------------------------------------------------------------------
-   INNER PAGE HERO HEADERS
+   PAGE HEROES WITH DYNAMIC VLSI CINEMATIC BACKGROUNDS
    -------------------------------------------------------------------------- */
 .page-hero {
   position: relative;
   padding-top: 150px;
-  padding-bottom: 70px;
-  background: radial-gradient(circle at 50% 10%, rgba(0, 119, 182, 0.22) 0%, rgba(6, 11, 20, 0.98) 75%);
+  padding-bottom: 75px;
+  background: #030712;
   border-bottom: 1px solid var(--border-color);
   text-align: center;
+  overflow: hidden;
+}
+
+.page-hero-media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.page-hero-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.6) contrast(1.2) saturate(1.15);
+  animation: subtleHeroPan 24s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+.page-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 35%, rgba(0, 210, 255, 0.14) 0%, rgba(6, 11, 20, 0.86) 65%, #060b14 100%), linear-gradient(180deg, rgba(6, 11, 20, 0.7) 0%, rgba(6, 11, 20, 0.98) 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.page-hero > .container {
+  position: relative;
+  z-index: 2;
 }
 
 .breadcrumb {
