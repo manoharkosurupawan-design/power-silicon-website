@@ -60,6 +60,21 @@
 }
 
 /* --------------------------------------------------------------------------
+   CINEMATIC BACKGROUND PANNING & AMBIENT VIDEO MOTION
+   -------------------------------------------------------------------------- */
+@keyframes subtleHeroPan {
+  0% {
+    transform: scale(1.03) translate(0px, 0px);
+  }
+  50% {
+    transform: scale(1.08) translate(-18px, -10px);
+  }
+  100% {
+    transform: scale(1.03) translate(0px, 0px);
+  }
+}
+
+/* --------------------------------------------------------------------------
    SHIMMER, GLOW & PULSE EFFECTS
    -------------------------------------------------------------------------- */
 @keyframes pulseGlow {

@@ -66,16 +66,27 @@
     <a href="contact.html" class="mobile-link active">Contact & RFQ</a>
   </aside>
 
-  <!-- Page Hero -->
-  <section class="page-hero">
-    <div class="container">
-      <div class="breadcrumb">
+  <!-- Page Hero with VLSI Semiconductor Video/Visual Background & Circuit Canvas -->
+  <section class="page-hero" style="position: relative; overflow: hidden; padding: 5.5rem 0 4.5rem; background: #030712;">
+    
+    <!-- Cinematic VLSI Cleanroom & Silicon Wafer Background Media -->
+    <div style="position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;">
+      <img src="images/contact-vlsi-bg.jpg" alt="Advanced Cleanroom VLSI Silicon Processor & Wafer Manufacturing" style="width: 100%; height: 100%; object-fit: cover; filter: brightness(0.65) contrast(1.2) saturate(1.15); animation: subtleHeroPan 24s ease-in-out infinite alternate;">
+      <!-- Dark Tech Gradient Overlay for Maximum Text Contrast -->
+      <div style="position: absolute; inset: 0; background: radial-gradient(circle at 60% 40%, rgba(0, 210, 255, 0.15) 0%, rgba(6, 11, 20, 0.85) 60%, #060b14 100%), linear-gradient(180deg, rgba(6, 11, 20, 0.75) 0%, rgba(6, 11, 20, 0.96) 100%);"></div>
+    </div>
+
+    <!-- Interactive 3D Circuit Canvas Overlay -->
+    <canvas id="circuit-canvas" class="hero-canvas-bg" style="position: absolute; inset: 0; z-index: 1; opacity: 0.7; pointer-events: none;"></canvas>
+
+    <div class="container" style="position: relative; z-index: 2;">
+      <div class="breadcrumb hero-slide-left-1">
         <a href="index.html">Home</a> <span>/</span> <span class="current">Contact Us</span>
       </div>
-      <span class="section-tag orange">Let's Connect</span>
-      <h1 class="section-title">Request an RFQ & Technical Consultation</h1>
-      <p class="section-subtitle">
-        Connect directly with our Principal Silicon Architects. We respond within 24 business hours with mutual NDA execution and technical project scoping.
+      <span class="section-tag orange hero-slide-left-1">Let's Connect</span>
+      <h1 class="section-title hero-slide-left-2">Request an RFQ & Technical Consultation</h1>
+      <p class="section-subtitle hero-slide-left-3" style="max-width: 740px;">
+        Connect directly with our Principal Silicon Architects. We respond within 24 business hours with mutual NDA execution, SOW scoping, and EDA toolchain alignment.
       </p>
     </div>
   </section>
@@ -346,6 +357,7 @@
     </div>
   </footer>
 
+  <script src="js/circuit-animation.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>
