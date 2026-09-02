@@ -5,29 +5,35 @@
 document.addEventListener('DOMContentLoaded', function () {
   'use strict';
 
-  // 0. Futuristic Silicon Preloader Logic
+  // 0. Futuristic Silicon Preloader Logic (Initial Visit Only per Session)
   const preloader = document.getElementById('site-preloader');
 
   if (preloader) {
-    // Show majestic illuminated logo for a moment, then seamlessly dissolve into site
-    setTimeout(() => {
-      preloader.classList.add('loaded');
-      setTimeout(() => {
-        if (preloader.parentNode) preloader.parentNode.removeChild(preloader);
-      }, 700);
-    }, 950);
+    if (sessionStorage.getItem('pst_preloader_seen')) {
+      // User has already seen preloader in this session -> skip instantly
+      preloader.remove();
+    } else {
+      // First initial visit of the session -> show majestic illuminated startup screen
+      sessionStorage.setItem('pst_preloader_seen', 'true');
 
-    // Guarantee site is dismissed upon window load
-    window.addEventListener('load', () => {
       setTimeout(() => {
-        if (preloader && !preloader.classList.contains('loaded')) {
-          preloader.classList.add('loaded');
-          setTimeout(() => {
-            if (preloader.parentNode) preloader.parentNode.removeChild(preloader);
-          }, 700);
-        }
-      }, 700);
-    });
+        preloader.classList.add('loaded');
+        setTimeout(() => {
+          if (preloader.parentNode) preloader.parentNode.removeChild(preloader);
+        }, 700);
+      }, 950);
+
+      window.addEventListener('load', () => {
+        setTimeout(() => {
+          if (preloader && !preloader.classList.contains('loaded')) {
+            preloader.classList.add('loaded');
+            setTimeout(() => {
+              if (preloader.parentNode) preloader.parentNode.removeChild(preloader);
+            }, 700);
+          }
+        }, 700);
+      });
+    }
   }
 
   // 1. Sticky Navigation Bar & Scroll Effect

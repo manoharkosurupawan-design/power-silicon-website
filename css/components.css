@@ -1000,11 +1000,12 @@
   overflow: hidden;
 }
 
-.site-preloader.loaded {
-  opacity: 0;
-  visibility: hidden;
-  transform: scale(1.05);
-  pointer-events: none;
+.site-preloader.loaded,
+.skip-preloader .site-preloader {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
 }
 
 .preloader-bg-media {
