@@ -183,7 +183,7 @@
 }
 
 /* --------------------------------------------------------------------------
-   CARDS & CONTAINERS
+   MOVABLE & SPRING-BACK CARDS ("SIT IN POSITION")
    -------------------------------------------------------------------------- */
 .card {
   background: var(--bg-card);
@@ -193,10 +193,44 @@
   border-radius: var(--radius-lg);
   padding: 2rem;
   position: relative;
-  transition: transform 0.18s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+  transition: transform 0.22s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.35s ease, border-color 0.35s ease, background 0.35s ease;
   overflow: hidden;
   transform-style: preserve-3d;
   will-change: transform;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: pan-y;
+}
+
+.card:active {
+  cursor: grabbing;
+}
+
+/* Active Drag State: Real-time cursor following with 3D elevation */
+.card.is-dragging,
+.workflow-step.is-dragging,
+.stat-block.is-dragging,
+.hero-image-card.is-dragging {
+  cursor: grabbing !important;
+  z-index: 999 !important;
+  transition: none !important;
+  box-shadow:
+    0 35px 80px rgba(0, 0, 0, 0.85),
+    0 0 50px rgba(0, 210, 255, 0.5),
+    0 0 20px rgba(245, 130, 31, 0.35),
+    inset 0 1px 1px rgba(255, 255, 255, 0.25) !important;
+  border-color: var(--accent-cyan) !important;
+  background: rgba(14, 28, 54, 0.95) !important;
+}
+
+/* Spring Settling State: Smooth elastic snap back to exact position */
+.card.is-settling,
+.workflow-step.is-settling,
+.stat-block.is-settling,
+.hero-image-card.is-settling {
+  transition: transform 0.65s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.5s ease, border-color 0.4s ease, background 0.4s ease !important;
+  z-index: 50 !important;
 }
 
 /* Specular gloss layer on cards */
@@ -219,9 +253,9 @@
   background: var(--bg-card-hover);
   border-color: rgba(0, 210, 255, 0.6);
   box-shadow:
-    0 20px 48px rgba(0, 0, 0, 0.6),
-    0 0 32px rgba(0, 210, 255, 0.18),
-    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    0 24px 52px rgba(0, 0, 0, 0.65),
+    0 0 35px rgba(0, 210, 255, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 /* Circuit Edge Accent Card */

@@ -67,12 +67,121 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
-  // 4. Interactive 3D Soft Card Tilt & Specular Light Physics
-  const tiltCards = document.querySelectorAll('.card, .workflow-step');
-  tiltCards.forEach(card => {
-    card.classList.add('tilt-card');
+  // 4. Interactive Movable & Spring-Back Physics Cards ("Sit in Position")
+  const movableCards = document.querySelectorAll('.card, .workflow-step, .stat-block, .hero-image-card');
 
+  movableCards.forEach(card => {
+    card.classList.add('movable-card', 'tilt-card');
+
+    let isDragging = false;
+    let startX = 0;
+    let startY = 0;
+    let currentX = 0;
+    let currentY = 0;
+    let hasMoved = false;
+    let isTouch = false;
+
+    // Helper to get client coordinates
+    function getEventPos(e) {
+      if (e.touches && e.touches.length > 0) {
+        return { x: e.touches[0].clientX, y: e.touches[0].clientY };
+      }
+      return { x: e.clientX, y: e.clientY };
+    }
+
+    // Pointer Start (MouseDown / TouchStart)
+    function onStart(e) {
+      // Ignore clicks on buttons, inputs, links unless dragging intent
+      if (e.target.closest('button, input, textarea, select, .btn, a:not(.card)')) return;
+
+      isTouch = e.type === 'touchstart';
+      const pos = getEventPos(e);
+      isDragging = true;
+      hasMoved = false;
+      startX = pos.x;
+      startY = pos.y;
+      currentX = 0;
+      currentY = 0;
+
+      card.classList.remove('is-settling');
+      card.classList.add('is-dragging');
+
+      window.addEventListener(isTouch ? 'touchmove' : 'mousemove', onMove, { passive: false });
+      window.addEventListener(isTouch ? 'touchend' : 'mouseup', onEnd);
+      window.addEventListener(isTouch ? 'touchcancel' : 'blur', onEnd);
+    }
+
+    // Pointer Move (Real-time movement with 3D inertia & soft resistance)
+    function onMove(e) {
+      if (!isDragging) return;
+
+      const pos = getEventPos(e);
+      const rawDeltaX = pos.x - startX;
+      const rawDeltaY = pos.y - startY;
+
+      // Check threshold for drag initiation
+      if (Math.hypot(rawDeltaX, rawDeltaY) > 5) {
+        hasMoved = true;
+        if (isTouch && e.cancelable) {
+          e.preventDefault(); // Prevent page scrolling while actively dragging card
+        }
+      }
+
+      if (!hasMoved) return;
+
+      // Soft damping curve for organic rubber-band resistance
+      const damp = 0.85;
+      currentX = rawDeltaX * damp;
+      currentY = rawDeltaY * damp;
+
+      // Dynamic 3D tilt & rotation based on displacement velocity
+      const rotZ = Math.max(-10, Math.min(10, currentX * 0.06));
+      const rotX = Math.max(-14, Math.min(14, -currentY * 0.07));
+      const rotY = Math.max(-14, Math.min(14, currentX * 0.07));
+
+      card.style.transform = `perspective(1000px) translate3d(${currentX.toFixed(1)}px, ${currentY.toFixed(1)}px, 35px) rotateX(${rotX.toFixed(1)}deg) rotateY(${rotY.toFixed(1)}deg) rotateZ(${rotZ.toFixed(1)}deg) scale(1.03)`;
+    }
+
+    // Pointer End (Release -> Spring back and gracefully sit in position)
+    function onEnd() {
+      if (!isDragging) return;
+      isDragging = false;
+
+      window.removeEventListener(isTouch ? 'touchmove' : 'mousemove', onMove);
+      window.removeEventListener(isTouch ? 'touchend' : 'mouseup', onEnd);
+      window.removeEventListener(isTouch ? 'touchcancel' : 'blur', onEnd);
+
+      card.classList.remove('is-dragging');
+
+      if (hasMoved) {
+        // Trigger smooth spring settling back to resting position
+        card.classList.add('is-settling');
+        card.style.transform = 'perspective(1000px) translate3d(0px, 0px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(1)';
+
+        setTimeout(() => {
+          card.classList.remove('is-settling');
+          hasMoved = false;
+        }, 650);
+      } else {
+        card.style.transform = 'perspective(1000px) translate3d(0px, 0px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg)';
+      }
+    }
+
+    card.addEventListener('mousedown', onStart);
+    card.addEventListener('touchstart', onStart, { passive: true });
+
+    // Prevent accidental link clicking after dragging card
+    card.addEventListener('click', function (e) {
+      if (hasMoved) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    }, true);
+
+    // Hover 3D Tilt when hovering and not dragging
     card.addEventListener('mousemove', function (e) {
+      if (isDragging || hasMoved) return;
+
       const rect = card.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
@@ -80,15 +189,15 @@ document.addEventListener('DOMContentLoaded', function () {
       const centerX = rect.width / 2;
       const centerY = rect.height / 2;
 
-      // Soft tilt angles (max 6.5 degrees for luxury feel)
       const rotateX = ((y - centerY) / centerY) * -6.5;
       const rotateY = ((x - centerX) / centerX) * 6.5;
 
-      card.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateY(-6px)`;
+      card.style.transform = `perspective(1000px) translate3d(0px, -6px, 12px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg)`;
     });
 
     card.addEventListener('mouseleave', function () {
-      card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)';
+      if (isDragging || hasMoved) return;
+      card.style.transform = 'perspective(1000px) translate3d(0px, 0px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg)';
     });
   });
 
