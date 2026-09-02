@@ -983,6 +983,159 @@
   pointer-events: none;
 }
 
+/* --------------------------------------------------------------------------
+   FUTURISTIC SILICON PRELOADER & INITIAL LOADING SCREEN
+   -------------------------------------------------------------------------- */
+.site-preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: #030712;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.65s, transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+
+.site-preloader.loaded {
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(1.04);
+  pointer-events: none;
+}
+
+.preloader-backdrop {
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(circle at 50% 50%, rgba(0, 210, 255, 0.14) 0%, rgba(6, 11, 20, 0.95) 60%, #030712 100%),
+    linear-gradient(rgba(0, 210, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 210, 255, 0.04) 1px, transparent 1px);
+  background-size: 100% 100%, 32px 32px, 32px 32px;
+  pointer-events: none;
+}
+
+.preloader-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 440px;
+  padding: 2rem;
+}
+
+.preloader-logo-wrap {
+  position: relative;
+  margin-bottom: 2.25rem;
+  padding: 10px;
+}
+
+.preloader-halo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 240px;
+  height: 95px;
+  background: radial-gradient(ellipse, rgba(255, 255, 255, 0.95) 0%, rgba(0, 210, 255, 0.45) 45%, transparent 70%);
+  filter: blur(22px);
+  border-radius: 50%;
+  animation: preloaderPulse 2.2s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+.preloader-logo-img {
+  height: 72px;
+  width: auto;
+  max-width: 320px;
+  object-fit: contain;
+  position: relative;
+  z-index: 2;
+  filter: drop-shadow(0 0 25px rgba(255, 255, 255, 0.85)) drop-shadow(0 0 45px rgba(0, 210, 255, 0.4));
+  animation: preloaderLogoFloat 3s ease-in-out infinite alternate;
+}
+
+.preloader-scan-line {
+  position: absolute;
+  top: 0;
+  left: -20%;
+  width: 140%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #00d2ff, #ffffff, #f5821f, transparent);
+  box-shadow: 0 0 14px #00d2ff;
+  animation: preloaderLaserSweep 2s ease-in-out infinite;
+  z-index: 3;
+  opacity: 0.9;
+}
+
+.preloader-progress-container {
+  width: 290px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+  position: relative;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(0, 210, 255, 0.25);
+  margin-bottom: 1rem;
+}
+
+.preloader-progress-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #00d2ff, #f5821f);
+  border-radius: var(--radius-pill);
+  box-shadow: 0 0 14px rgba(0, 210, 255, 0.85);
+  transition: width 0.12s ease-out;
+}
+
+.preloader-status {
+  display: flex;
+  justify-content: space-between;
+  width: 290px;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  color: var(--text-muted);
+  letter-spacing: 0.08em;
+  margin-bottom: 0.75rem;
+}
+
+.preloader-percent {
+  color: var(--accent-cyan);
+  font-weight: 600;
+}
+
+.preloader-motto {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--accent-gold);
+  letter-spacing: 0.14em;
+  opacity: 0.9;
+  font-weight: 600;
+}
+
+@keyframes preloaderPulse {
+  0% { transform: translate(-50%, -50%) scale(0.85); opacity: 0.65; }
+  100% { transform: translate(-50%, -50%) scale(1.18); opacity: 1; }
+}
+
+@keyframes preloaderLogoFloat {
+  0% { transform: translateY(0px); }
+  100% { transform: translateY(-5px); }
+}
+
+@keyframes preloaderLaserSweep {
+  0% { top: 0%; opacity: 0; }
+  20% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
+
 @media (max-width: 768px) {
   .cta-banner {
     padding: 2.5rem 1.5rem;

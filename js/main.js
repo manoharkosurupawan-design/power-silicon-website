@@ -5,6 +5,46 @@
 document.addEventListener('DOMContentLoaded', function () {
   'use strict';
 
+  // 0. Futuristic Silicon Preloader Logic
+  const preloader = document.getElementById('site-preloader');
+  const preloaderBar = document.getElementById('preloader-bar');
+  const preloaderPercent = document.getElementById('preloader-percent');
+
+  if (preloader) {
+    let progress = 0;
+    const progressInterval = setInterval(() => {
+      progress += Math.floor(Math.random() * 20) + 14;
+      if (progress > 100) progress = 100;
+
+      if (preloaderBar) preloaderBar.style.width = progress + '%';
+      if (preloaderPercent) preloaderPercent.textContent = progress + '%';
+
+      if (progress >= 100) {
+        clearInterval(progressInterval);
+        setTimeout(() => {
+          preloader.classList.add('loaded');
+          setTimeout(() => {
+            if (preloader.parentNode) preloader.parentNode.removeChild(preloader);
+          }, 680);
+        }, 180);
+      }
+    }, 55);
+
+    // Fallback dismiss to guarantee site is never blocked
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        if (preloader && !preloader.classList.contains('loaded')) {
+          if (preloaderBar) preloaderBar.style.width = '100%';
+          if (preloaderPercent) preloaderPercent.textContent = '100%';
+          preloader.classList.add('loaded');
+          setTimeout(() => {
+            if (preloader.parentNode) preloader.parentNode.removeChild(preloader);
+          }, 680);
+        }
+      }, 600);
+    });
+  }
+
   // 1. Sticky Navigation Bar & Scroll Effect
   const header = document.querySelector('.site-header');
   function handleScroll() {
