@@ -169,3 +169,30 @@
 .tilt-card:hover .card-icon {
   transform: translateZ(36px) scale(1.1);
 }
+
+/* --------------------------------------------------------------------------
+   MAP RED POINTER & BEACON KEYFRAMES
+   -------------------------------------------------------------------------- */
+@keyframes redPinBounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-9px);
+  }
+}
+
+@keyframes redBeaconPulse {
+  0% {
+    transform: translate(-50%, 50%) scale(0.4);
+    opacity: 0.9;
+  }
+  70% {
+    transform: translate(-50%, 50%) scale(2.4);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(-50%, 50%) scale(2.4);
+    opacity: 0;
+  }
+}
