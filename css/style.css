@@ -323,6 +323,20 @@ p:last-child {
   }
 }
 
+@media (max-width: 480px) {
+  .brand-logo img {
+    height: 36px;
+    max-width: 165px;
+  }
+  .nav-container {
+    height: 66px;
+  }
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
 /* Desktop Navigation */
 .nav-menu {
   display: flex;
