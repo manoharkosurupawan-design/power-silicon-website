@@ -201,23 +201,52 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  // 5. 3D Scroll Reveal Intersection Observer
-  const scrollElements = document.querySelectorAll('.card, .workflow-step, .section-title, .cta-banner, .stat-block');
+  // 5. Dynamic Left-to-Position Slide & Sit Intersection Observer
+  const scrollElements = document.querySelectorAll(
+    '.card, .workflow-step, .section-title, .section-subtitle, .cta-banner, .stat-block, .section-header, .value-card, .table-container, .contact-card, .accordion-item, .rnd-card, .timeline-item'
+  );
+
   if ('IntersectionObserver' in window) {
     const scrollObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('fade-in-up', 'visible');
-          scrollObserver.unobserve(entry.target);
+          const el = entry.target;
+          el.classList.add('visible');
+
+          // Once seated into position, enable full floating & tilt physics
+          setTimeout(() => {
+            el.classList.add('seated-in-position');
+          }, 950);
+
+          scrollObserver.unobserve(el);
         }
       });
     }, {
-      threshold: 0.12,
-      rootMargin: '0px 0px -40px 0px'
+      threshold: 0.08,
+      rootMargin: '0px 0px -30px 0px'
     });
 
     scrollElements.forEach(el => {
-      el.classList.add('fade-in-up');
+      el.classList.add('slide-from-left');
+
+      // Auto calculate staggered left-glide delay for cards inside grid containers
+      const parentGrid = el.parentElement;
+      if (parentGrid) {
+        const isGrid = parentGrid.classList.contains('card-grid') ||
+                       parentGrid.classList.contains('grid-3') ||
+                       parentGrid.classList.contains('grid-4') ||
+                       parentGrid.classList.contains('grid-2') ||
+                       parentGrid.classList.contains('hero-stats-row') ||
+                       parentGrid.classList.contains('workflow-grid');
+        if (isGrid) {
+          const siblings = Array.from(parentGrid.children);
+          const idx = siblings.indexOf(el);
+          if (idx >= 0) {
+            el.style.transitionDelay = `${(idx * 0.12).toFixed(2)}s`;
+          }
+        }
+      }
+
       scrollObserver.observe(el);
     });
   }
