@@ -8,7 +8,7 @@
     "dev": "node server.js",
     "serve": "node server.js",
     "app": "electron .",
-    "build:exe": "electron-packager . \"Power Silicon Technologies\" --platform=win32 --arch=x64 --out=dist --overwrite --icon=app-icon.ico --prune=true --ignore=\"^/(dist|\\.git|\\.github)\"",
+    "build:exe": "electron-packager . \"Power Silicon Technologies\" --platform=win32 --arch=x64 --out=dist --overwrite --icon=app-icon.ico --asar --prune=true --ignore=\"^/(dist|\\.git|\\.github)\"",
     "test": "node validate.js"
   },
   "keywords": [
