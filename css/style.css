@@ -10,9 +10,9 @@
   --bg-primary: #060b14;
   --bg-secondary: #0b1526;
   --bg-tertiary: #102038;
-  --bg-card: #ffffff;
-  --bg-card-hover: #ffffff;
-  --bg-glass: rgba(255, 255, 255, 0.92);
+  --bg-card: #f4f6f9;
+  --bg-card-hover: #f8fafc;
+  --bg-glass: rgba(244, 246, 249, 0.96);
 
   --accent-cyan: #00d2ff;
   --accent-cyan-glow: rgba(0, 210, 255, 0.35);
@@ -37,7 +37,7 @@
   --grad-primary: linear-gradient(135deg, #00d2ff 0%, #0077b6 50%, #0b2545 100%);
   --grad-orange: linear-gradient(135deg, #ff9800 0%, #f5821f 100%);
   --grad-gold: linear-gradient(135deg, #ffe6a7 0%, #c9a24b 100%);
-  --grad-dark-card: #ffffff;
+  --grad-dark-card: linear-gradient(135deg, rgba(16, 32, 56, 0.9) 0%, rgba(8, 18, 33, 0.95) 100%);
   --grad-hero: radial-gradient(circle at 50% 20%, rgba(0, 119, 182, 0.25) 0%, rgba(6, 11, 20, 0.95) 75%);
   
   /* Multi-Stop Heading Text Shade (Blue -> Platinum -> Champagne Sand -> Amber Gold -> Orange) */
