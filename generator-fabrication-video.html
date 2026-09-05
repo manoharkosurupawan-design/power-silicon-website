@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Power Silicon Technologies - 10s Fabrication Loop Video Generator</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #030712;
+      color: #00f0ff;
+      font-family: 'Courier New', monospace;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+    .header {
+      margin-bottom: 15px;
+      text-align: center;
+    }
+    h1 {
+      font-size: 20px;
+      color: #00f0ff;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+    #status-bar {
+      margin-top: 5px;
+      font-size: 14px;
+      color: #f58220;
+      padding: 6px 16px;
+      background: rgba(245, 130, 32, 0.1);
+      border: 1px solid rgba(245, 130, 32, 0.3);
+      border-radius: 4px;
+    }
+    .viewport-box {
+      position: relative;
+      width: 960px;
+      height: 540px;
+      border: 2px solid rgba(0, 240, 255, 0.4);
+      box-shadow: 0 0 30px rgba(0, 240, 255, 0.2);
+      border-radius: 8px;
+      overflow: hidden;
+      background: #000;
+    }
+    canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    .preview-container {
+      margin-top: 20px;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      width: 960px;
+    }
+    video {
+      width: 100%;
+      height: auto;
+      border: 2px solid #10b981;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>⚡ PST 10-Second Wafer Fabrication Video Engine ⚡</h1>
+    <div id="status-bar">INITIALIZING HIGH-PRECISION SEMICONDUCTOR RENDERER...</div>
+  </div>
+
+  <div class="viewport-box">
+    <canvas id="fab-canvas" width="1920" height="1080"></canvas>
+  </div>
+
+  <div class="preview-container" id="preview-box">
+    <h2 style="color: #10b981; font-size: 16px; margin-bottom: 10px;">✅ 10-SECOND SEAMLESS LOOP VIDEO GENERATED & SAVED!</h2>
+    <video id="loop-player" autoplay loop muted playsinline controls></video>
+  </div>
+
+  <script>
+    window.onerror = function(msg, url, line) {
+      console.log('WINDOW_ERROR: ' + msg + ' at ' + line);
+    };
+
+    async function init() {
+      console.log('INIT STARTED');
+      const statusBar = document.getElementById('status-bar');
+      const canvas = document.getElementById('fab-canvas');
+      const ctx = canvas.getContext('2d');
+      const W = 1920;
+      const H = 1080;
+
+      statusBar.innerText = "Loading 8K Wafer & Cleanroom Textures...";
+
+      const imgWafer = new Image();
+      const imgCleanroom = new Image();
+
+      const loadPromise = (img, src) => new Promise(res => {
+        img.onload = () => { console.log('Loaded: ' + src); res(); };
+        img.onerror = (e) => { console.log('Failed to load: ' + src); res(); };
+        img.src = src;
+      });
+
+      await Promise.all([
+        loadPromise(imgWafer, 'images/fab-macro-lithography.jpg'),
+        loadPromise(imgCleanroom, 'images/fab-cleanroom-wafer.jpg')
+      ]);
+
+      console.log('TEXTURES READY');
+      statusBar.innerText = "Textures loaded. Initializing 60 FPS 10-second Recorder...";
+
+      let recorder;
+      let chunks = [];
+      try {
+        const stream = canvas.captureStream(60);
+        let mimeType = '';
+        if (typeof MediaRecorder !== 'undefined') {
+          if (MediaRecorder.isTypeSupported('video/webm;codecs=vp9')) mimeType = 'video/webm;codecs=vp9';
+          else if (MediaRecorder.isTypeSupported('video/webm;codecs=vp8')) mimeType = 'video/webm;codecs=vp8';
+          else if (MediaRecorder.isTypeSupported('video/webm')) mimeType = 'video/webm';
+          else if (MediaRecorder.isTypeSupported('video/mp4')) mimeType = 'video/mp4';
+          
+          console.log('Using MIME type:', mimeType || 'default');
+          recorder = mimeType ? new MediaRecorder(stream, { mimeType, videoBitsPerSecond: 16000000 }) : new MediaRecorder(stream);
+          
+          recorder.ondataavailable = (e) => {
+            if (e.data && e.data.size > 0) chunks.push(e.data);
+          };
+
+          recorder.onstop = async () => {
+            console.log('RECORDER STOPPED, CHUNKS:', chunks.length);
+            statusBar.innerText = "Encoding 10-second video stream and saving to server...";
+            const blob = new Blob(chunks, { type: mimeType || 'video/webm' });
+            console.log('BLOB SIZE:', blob.size);
+            
+            try {
+              const resp = await fetch('/api/save-video', {
+                method: 'POST',
+                body: blob
+              });
+              const result = await resp.json();
+              console.log('SAVE RESULT:', JSON.stringify(result));
+              statusBar.innerText = `✅ SUCCESS: 10s Fabrication Video saved (${(blob.size / (1024 * 1024)).toFixed(2)} MB)! Testing loop playback...`;
+            } catch (err) {
+              console.error("Save error:", err);
+            }
+
+            const previewBox = document.getElementById('preview-box');
+            const loopPlayer = document.getElementById('loop-player');
+            loopPlayer.src = URL.createObjectURL(blob);
+            previewBox.style.display = 'flex';
+            loopPlayer.play();
+          };
+
+          recorder.start(100);
+          console.log('RECORDER STARTED');
+        }
+      } catch (err) {
+        console.error('MediaRecorder error:', err);
+      }
+
+      const DURATION = 10.0;
+      const FPS = 60;
+      const TOTAL_FRAMES = DURATION * FPS;
+      let frame = 0;
+
+      // Particles
+      const sparks = [];
+      for (let i = 0; i < 90; i++) {
+        sparks.push({
+          angle: (i / 90) * Math.PI * 2,
+          speed: 1.2 + (i % 7) * 0.9,
+          radius: 8 + (i % 25) * 3,
+          seed: i
+        });
+      }
+
+      const circuitTraces = [];
+      for (let i = 0; i < 28; i++) {
+        circuitTraces.push({
+          angle: (i / 28) * Math.PI * 2,
+          length: 190 + (i % 6) * 45,
+          color: i % 3 === 0 ? '#f58220' : '#00f0ff'
+        });
+      }
+
+      function renderFrame() {
+        try {
+          if (frame >= TOTAL_FRAMES) {
+            console.log('REACHED TOTAL FRAMES 600, STOPPING RECORDER');
+            if (recorder && recorder.state !== 'inactive') {
+              recorder.stop();
+            }
+            return;
+          }
+
+          const t = (frame / TOTAL_FRAMES) * DURATION;
+          const phase = (frame / TOTAL_FRAMES) * Math.PI * 2; // 0 to 2*PI seamless loop
+
+          statusBar.innerText = `Recording Frame: ${frame} / ${TOTAL_FRAMES} (${t.toFixed(2)}s / 10.00s)`;
+
+          // Clear
+          ctx.fillStyle = '#020617';
+          ctx.fillRect(0, 0, W, H);
+
+        // 1. Cinematic slow drifting camera motion
+        const zoom = 1.0 + 0.05 * Math.sin(phase);
+        const panX = 25 * Math.cos(phase);
+        const panY = 16 * Math.sin(phase * 2);
+
+        ctx.save();
+        ctx.translate(W / 2 + panX, H / 2 + panY);
+        ctx.scale(zoom, zoom);
+        ctx.translate(-W / 2, -H / 2);
+
+        if (imgWafer.complete && imgWafer.naturalWidth > 0) {
+          ctx.globalAlpha = 0.96;
+          ctx.drawImage(imgWafer, 0, 0, W, H);
+        }
+
+        if (imgCleanroom.complete && imgCleanroom.naturalWidth > 0) {
+          ctx.globalAlpha = 0.22 + 0.12 * Math.sin(phase);
+          ctx.drawImage(imgCleanroom, 0, 0, W, H);
+        }
+        ctx.restore();
+
+        // 2. Iridescent Silicon Wafer Spectral Diffraction Rainbow Sweep
+        ctx.save();
+        const grad = ctx.createLinearGradient(
+          W * 0.5 + Math.cos(phase) * 700,
+          H * 0.5 + Math.sin(phase) * 450,
+          W * 0.5 - Math.cos(phase) * 700,
+          H * 0.5 - Math.sin(phase) * 450
+        );
+        grad.addColorStop(0.0, 'rgba(0, 240, 255, 0.0)');
+        grad.addColorStop(0.25, 'rgba(0, 240, 255, 0.15)');
+        grad.addColorStop(0.40, 'rgba(160, 30, 255, 0.20)');
+        grad.addColorStop(0.55, 'rgba(255, 125, 0, 0.18)');
+        grad.addColorStop(0.70, 'rgba(0, 255, 170, 0.15)');
+        grad.addColorStop(1.0, 'rgba(0, 240, 255, 0.0)');
+        ctx.fillStyle = grad;
+        ctx.globalCompositeOperation = 'screen';
+        ctx.fillRect(0, 0, W, H);
+        ctx.restore();
+
+        // 3. Dynamic EUV Laser Stepper Lithography Beam
+        const laserX = W * 0.54 + Math.sin(phase) * 240 + Math.sin(phase * 3) * 70;
+        const laserY = H * 0.42 + Math.cos(phase) * 120 + Math.sin(phase * 2) * 50;
+
+        ctx.save();
+        ctx.globalCompositeOperation = 'screen';
+
+        const beamGrad = ctx.createLinearGradient(laserX, 0, laserX, laserY);
+        beamGrad.addColorStop(0.0, 'rgba(120, 210, 255, 0.95)');
+        beamGrad.addColorStop(0.3, 'rgba(0, 180, 255, 0.75)');
+        beamGrad.addColorStop(0.75, 'rgba(170, 40, 255, 0.55)');
+        beamGrad.addColorStop(1.0, 'rgba(255, 255, 255, 1.0)');
+
+        ctx.fillStyle = beamGrad;
+        ctx.beginPath();
+        ctx.moveTo(laserX - 22, 0);
+        ctx.lineTo(laserX + 22, 0);
+        ctx.lineTo(laserX + 3.5, laserY);
+        ctx.lineTo(laserX - 3.5, laserY);
+        ctx.closePath();
+        ctx.fill();
+
+        ctx.strokeStyle = '#ffffff';
+        ctx.lineWidth = 3;
+        ctx.shadowColor = '#00f0ff';
+        ctx.shadowBlur = 20;
+        ctx.beginPath();
+        ctx.moveTo(laserX, 0);
+        ctx.lineTo(laserX, laserY);
+        ctx.stroke();
+
+        const pulse = 1.0 + 0.3 * Math.sin(phase * 10);
+        const plasma = ctx.createRadialGradient(laserX, laserY, 0, laserX, laserY, 160 * pulse);
+        plasma.addColorStop(0.0, 'rgba(255, 255, 255, 1.0)');
+        plasma.addColorStop(0.12, 'rgba(0, 240, 255, 0.95)');
+        plasma.addColorStop(0.35, 'rgba(140, 0, 255, 0.65)');
+        plasma.addColorStop(0.65, 'rgba(0, 140, 255, 0.25)');
+        plasma.addColorStop(1.0, 'rgba(0, 0, 0, 0)');
+
+        ctx.fillStyle = plasma;
+        ctx.beginPath();
+        ctx.arc(laserX, laserY, 160 * pulse, 0, Math.PI * 2);
+        ctx.fill();
+
+        // 4. Sparks
+        for (let i = 0; i < sparks.length; i++) {
+          const sp = sparks[i];
+          const st = (phase * 5 + sp.seed * 0.25) % (Math.PI * 2);
+          const dist = (st / (Math.PI * 2)) * 100;
+          const life = Math.sin(st / 2);
+          const sx = laserX + Math.cos(sp.angle + phase) * dist;
+          const sy = laserY + Math.sin(sp.angle + phase) * (dist * 0.45) - (dist * 0.35);
+
+          ctx.fillStyle = i % 2 === 0 ? 'rgba(0, 240, 255, ' + (life * 0.85) + ')' : 'rgba(255, 190, 80, ' + (life * 0.95) + ')';
+          ctx.beginPath();
+          ctx.arc(sx, sy, 2.0 * life, 0, Math.PI * 2);
+          ctx.fill();
+        }
+
+        // 5. Active Microchip Die Circuit Grid
+        const gridW = 96;
+        const gridH = 64;
+        const startX = laserX - 288;
+        const startY = laserY - 192;
+
+        for (let gx = 0; gx < 6; gx++) {
+          for (let gy = 0; gy < 6; gy++) {
+            const dx = startX + gx * gridW;
+            const dy = startY + gy * gridH;
+            const dist = Math.hypot(dx - laserX, dy - laserY);
+            if (dist < 310) {
+              const dieIntensity = Math.max(0, 1 - dist / 310) * (0.65 + 0.35 * Math.sin(phase * 8 + gx + gy));
+              ctx.strokeStyle = gx % 2 === 0 ? 'rgba(0, 240, 255, ' + dieIntensity + ')' : 'rgba(245, 130, 32, ' + dieIntensity * 0.85 + ')';
+              ctx.lineWidth = 1.5;
+              ctx.strokeRect(dx, dy, gridW - 8, gridH - 8);
+
+              if (dieIntensity > 0.25) {
+                ctx.beginPath();
+                ctx.moveTo(dx + 12, dy + 18);
+                ctx.lineTo(dx + 44, dy + 18);
+                ctx.lineTo(dx + 44, dy + 48);
+                ctx.lineTo(dx + 76, dy + 48);
+                ctx.stroke();
+
+                ctx.fillStyle = 'rgba(0, 240, 255, ' + (dieIntensity * 0.7) + ')';
+                ctx.fillRect(dx + 40, dy + 14, 8, 8);
+                ctx.fillRect(dx + 72, dy + 44, 8, 8);
+              }
+            }
+          }
+        }
+
+        for (let i = 0; i < circuitTraces.length; i++) {
+          const ct = circuitTraces[i];
+          const pulseT = (phase * 3 + i * 0.3) % (Math.PI * 2);
+          const pDist = (pulseT / (Math.PI * 2)) * ct.length;
+          const px = laserX + Math.cos(ct.angle) * pDist;
+          const py = laserY + Math.sin(ct.angle) * pDist * 0.6;
+
+          ctx.fillStyle = ct.color;
+          ctx.beginPath();
+          ctx.arc(px, py, 2.5, 0, Math.PI * 2);
+          ctx.fill();
+        }
+
+        ctx.restore();
+
+        // 6. Holographic Cleanroom HUD & Diagnostics Overlay
+        ctx.save();
+        ctx.font = '14px "Courier New", Courier, monospace';
+        ctx.fillStyle = '#00f0ff';
+        ctx.textBaseline = 'top';
+
+        const b = 28;
+        ctx.strokeStyle = 'rgba(0, 240, 255, 0.8)';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(laserX - b, laserY - b + 10); ctx.lineTo(laserX - b, laserY - b); ctx.lineTo(laserX - b + 10, laserY - b);
+        ctx.moveTo(laserX + b - 10, laserY - b); ctx.lineTo(laserX + b, laserY - b); ctx.lineTo(laserX + b, laserY - b + 10);
+        ctx.moveTo(laserX - b, laserY + b - 10); ctx.lineTo(laserX - b, laserY + b); ctx.lineTo(laserX - b + 10, laserY + b);
+        ctx.moveTo(laserX + b - 10, laserY + b); ctx.lineTo(laserX + b, laserY + b); ctx.lineTo(laserX + b, laserY + b - 10);
+        ctx.stroke();
+
+        const hx = 70;
+        const hy = 70;
+        ctx.fillStyle = 'rgba(2, 6, 23, 0.82)';
+        ctx.fillRect(hx - 15, hy - 15, 390, 175);
+        ctx.strokeStyle = 'rgba(0, 240, 255, 0.35)';
+        ctx.lineWidth = 1;
+        ctx.strokeRect(hx - 15, hy - 15, 390, 175);
+
+        ctx.fillStyle = '#00f0ff';
+        ctx.fillText('▶ PST ADVANCED FABRICATION // CLEANROOM ISO-1', hx, hy);
+        ctx.fillStyle = '#f58220';
+        ctx.fillText('NODE: 3nm/5nm EUV TWINSCAN LITHOGRAPHY', hx, hy + 24);
+
+        const curX = (150.0 + Math.sin(phase) * 115).toFixed(3);
+        const curY = (150.0 + Math.cos(phase) * 75).toFixed(3);
+        const curZ = (0.002 + 0.001 * Math.sin(phase * 4)).toFixed(4);
+
+        ctx.fillStyle = '#94a3b8';
+        ctx.fillText('STAGE X: ' + curX + ' mm | Y: ' + curY + ' mm', hx, hy + 50);
+        ctx.fillText('FOCUS Z: ' + curZ + ' mm | DOSE: 44.6 mJ/cm²', hx, hy + 72);
+        ctx.fillText('EUV WAVELENGTH: 13.5 nm // NUM APERTURE: 0.55', hx, hy + 94);
+        ctx.fillStyle = '#10b981';
+        ctx.fillText('STATUS: FIRST-PASS SILICON VERIFIED 99.8%', hx, hy + 120);
+
+        const sxBox = W - 350;
+        const syBox = 70;
+        ctx.fillStyle = 'rgba(2, 6, 23, 0.82)';
+        ctx.fillRect(sxBox - 15, syBox - 15, 290, 125);
+        ctx.strokeStyle = 'rgba(0, 240, 255, 0.35)';
+        ctx.strokeRect(sxBox - 15, syBox - 15, 290, 125);
+
+        ctx.fillStyle = '#00f0ff';
+        ctx.fillText('SPECTRUM FLUX MONITOR', sxBox, syBox);
+
+        ctx.beginPath();
+        ctx.strokeStyle = '#00f0ff';
+        ctx.lineWidth = 1.5;
+        for (let wx = 0; wx < 260; wx += 4) {
+          const wy = syBox + 65 + Math.sin(wx * 0.07 + phase * 6) * 20 * Math.cos(wx * 0.02 + phase);
+          if (wx === 0) ctx.moveTo(sxBox + wx, wy);
+          else ctx.lineTo(sxBox + wx, wy);
+        }
+        ctx.stroke();
+
+        const mx = W - 240;
+        const my = H - 200;
+        ctx.fillStyle = 'rgba(2, 6, 23, 0.82)';
+        ctx.fillRect(mx - 15, my - 15, 185, 155);
+        ctx.strokeStyle = 'rgba(0, 240, 255, 0.35)';
+        ctx.strokeRect(mx - 15, my - 15, 185, 155);
+
+        ctx.fillStyle = '#00f0ff';
+        ctx.fillText('WAFER DIE MAP', mx, my);
+
+        const actCol = Math.floor(((Math.sin(phase) + 1) / 2) * 5);
+        const actRow = Math.floor(((Math.cos(phase) + 1) / 2) * 4);
+
+        for (let r = 0; r < 4; r++) {
+          for (let c = 0; c < 5; c++) {
+            const bx = mx + c * 30;
+            const by = my + 24 + r * 24;
+            if (r === actRow && c === actCol) {
+              ctx.fillStyle = '#f58220';
+            } else {
+              ctx.fillStyle = 'rgba(0, 240, 255, 0.35)';
+            }
+            ctx.fillRect(bx, by, 24, 18);
+          }
+        }
+
+        ctx.restore();
+
+        const vignette = ctx.createRadialGradient(W / 2, H / 2, W * 0.3, W / 2, H / 2, W * 0.75);
+        vignette.addColorStop(0, 'rgba(0, 0, 0, 0)');
+        vignette.addColorStop(1, 'rgba(2, 6, 23, 0.7)');
+        ctx.fillStyle = vignette;
+        ctx.fillRect(0, 0, W, H);
+
+        frame++;
+        if (frame % 60 === 0) console.log('Rendering Frame: ' + frame + ' / ' + TOTAL_FRAMES + ' (' + (frame/60).toFixed(1) + 's / 10s)');
+        } catch (err) {
+          console.error('RENDER_FRAME_ERROR:', err);
+        }
+      }
+
+      console.log('STARTING RENDER INTERVAL');
+      const renderInterval = setInterval(() => {
+        if (frame >= TOTAL_FRAMES) {
+          clearInterval(renderInterval);
+        } else {
+          renderFrame();
+        }
+      }, 16);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  </script>
+</body>
+</html>

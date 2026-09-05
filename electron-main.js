@@ -18,7 +18,10 @@ function startEmbeddedServer(callback) {
     '.jpeg': 'image/jpeg',
     '.svg': 'image/svg+xml',
     '.ico': 'image/x-icon',
-    '.webp': 'image/webp'
+    '.webp': 'image/webp',
+    '.mp4': 'video/mp4',
+    '.webm': 'video/webm',
+    '.ogg': 'video/ogg'
   };
 
   server = http.createServer((req, res) => {

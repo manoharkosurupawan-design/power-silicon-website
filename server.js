@@ -16,6 +16,9 @@ const MIME_TYPES = {
   '.gif': 'image/gif',
   '.webp': 'image/webp',
   '.ico': 'image/x-icon',
+  '.mp4': 'video/mp4',
+  '.webm': 'video/webm',
+  '.ogg': 'video/ogg',
   '.woff': 'font/woff',
   '.woff2': 'font/woff2',
   '.ttf': 'font/ttf'
@@ -23,6 +26,29 @@ const MIME_TYPES = {
 
 const server = http.createServer((req, res) => {
   let cleanUrl = req.url.split('?')[0].split('#')[0];
+
+  // API endpoint to save recorded video from browser
+  if (req.method === 'POST' && cleanUrl === '/api/save-video') {
+    const chunks = [];
+    req.on('data', chunk => chunks.push(chunk));
+    req.on('end', () => {
+      const buffer = Buffer.concat(chunks);
+      const videosDir = path.join(__dirname, 'videos');
+      if (!fs.existsSync(videosDir)) fs.mkdirSync(videosDir, { recursive: true });
+
+      const webmPath = path.join(videosDir, 'fabrication-loop.webm');
+      const mp4Path = path.join(videosDir, 'fabrication-loop.mp4');
+
+      fs.writeFileSync(webmPath, buffer);
+      fs.writeFileSync(mp4Path, buffer);
+
+      console.log(`[Video Saver] Saved ${buffer.length} bytes to ${webmPath} and ${mp4Path}`);
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: true, size: buffer.length }));
+    });
+    return;
+  }
+
   let filePath = path.join(__dirname, cleanUrl);
 
   // If path is root or a directory, look for index.html
@@ -46,8 +72,33 @@ const server = http.createServer((req, res) => {
 
     const ext = path.extname(filePath).toLowerCase();
     const contentType = MIME_TYPES[ext] || 'application/octet-stream';
+    const totalSize = stats.size;
 
-    res.writeHead(200, { 'Content-Type': contentType });
+    // Support HTTP Range Requests for smooth video seeking & streaming
+    const range = req.headers.range;
+    if (range && (ext === '.mp4' || ext === '.webm' || ext === '.ogg')) {
+      const parts = range.replace(/bytes=/, "").split("-");
+      const start = parseInt(parts[0], 10);
+      const end = parts[1] ? parseInt(parts[1], 10) : totalSize - 1;
+      const chunkSize = (end - start) + 1;
+
+      res.writeHead(206, {
+        'Content-Range': `bytes ${start}-${end}/${totalSize}`,
+        'Accept-Ranges': 'bytes',
+        'Content-Length': chunkSize,
+        'Content-Type': contentType,
+      });
+
+      const stream = fs.createReadStream(filePath, { start, end });
+      stream.pipe(res);
+      return;
+    }
+
+    res.writeHead(200, {
+      'Content-Length': totalSize,
+      'Content-Type': contentType,
+      'Accept-Ranges': 'bytes'
+    });
     const readStream = fs.createReadStream(filePath);
     readStream.pipe(res);
   });
