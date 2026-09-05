@@ -430,9 +430,20 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
+  // ESC key closes any open modal or drawer
+  window.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.modal-overlay.active').forEach(modal => {
+        modal.classList.remove('active');
+      });
+      closeMenu();
+      document.body.style.overflow = '';
+    }
+  });
+
   // 10. Contact & RFQ Form Submissions
   const rfqForm = document.getElementById('rfq-form') || document.querySelector('.contact-form');
-  const successModal = document.getElementById('success-modal');
+  const successModal = document.getElementById('rfq-success-modal') || document.getElementById('success-modal');
 
   if (rfqForm) {
     rfqForm.addEventListener('submit', function (e) {
