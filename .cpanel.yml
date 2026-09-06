@@ -1,0 +1,8 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=${DEPLOYPATH:-$HOME/public_html/}
+    - /bin/cp -R css images js videos $DEPLOYPATH
+    - /bin/cp -f *.html *.png *.ico *.xml *.txt *.json *.webmanifest $DEPLOYPATH 2>/dev/null || :
+    - /bin/cp -f .htaccess $DEPLOYPATH 2>/dev/null || :
+
