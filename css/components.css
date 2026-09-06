@@ -183,7 +183,7 @@
 }
 
 /* --------------------------------------------------------------------------
-   MOVABLE & SPRING-BACK CARDS ("SIT IN POSITION") - SOFT MUTED WHITE STYLE
+   CARDS - MODERN CLEAN ELEVATION & SMOOTH SCROLLING
    -------------------------------------------------------------------------- */
 .card {
   background: #f4f6f9 !important;
@@ -191,71 +191,21 @@
   border-radius: var(--radius-lg);
   padding: 2rem;
   position: relative;
-  transition: transform 0.22s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.35s ease, border-color 0.35s ease, background 0.35s ease;
+  transition: transform var(--transition-fast), box-shadow var(--transition-normal), border-color var(--transition-normal), background var(--transition-normal);
   overflow: hidden;
-  transform-style: preserve-3d;
-  will-change: transform;
-  cursor: grab;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: pan-y;
   box-shadow:
     0 6px 20px rgba(0, 0, 0, 0.18),
     0 1px 4px rgba(0, 0, 0, 0.08);
   color: #0f172a;
 }
 
-.card:active {
-  cursor: grabbing;
-}
-
-/* Active Drag State: Real-time cursor following with 3D elevation */
-.card.is-dragging,
-.workflow-step.is-dragging,
-.stat-block.is-dragging,
-.hero-image-card.is-dragging {
-  cursor: grabbing !important;
-  z-index: 999 !important;
-  transition: none !important;
-  box-shadow:
-    0 30px 70px rgba(0, 0, 0, 0.7),
-    0 0 30px rgba(255, 255, 255, 0.4),
-    inset 0 1px 2px #ffffff !important;
-  border-color: #00d2ff !important;
-  background: #f8fafc !important;
-}
-
-/* Spring Settling State: Smooth elastic snap back to exact position */
-.card.is-settling,
-.workflow-step.is-settling,
-.stat-block.is-settling,
-.hero-image-card.is-settling {
-  transition: transform 0.65s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.5s ease, border-color 0.4s ease, background 0.4s ease !important;
-  z-index: 50 !important;
-}
-
-/* Subtle Specular gloss layer on cards */
-.card::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse at 30% 15%, rgba(255, 255, 255, 0.4) 0%, transparent 65%);
-  border-radius: inherit;
-  pointer-events: none;
-  opacity: 0.3;
-  transition: opacity 0.3s ease;
-}
-
-.card:hover::after {
-  opacity: 0.6;
-}
-
 .card:hover {
+  transform: translateY(-6px);
   background: #f8fafc !important;
   border-color: #cbd5e1;
   box-shadow:
-    0 14px 36px rgba(0, 0, 0, 0.25),
-    0 2px 8px rgba(0, 0, 0, 0.1);
+    0 16px 40px rgba(0, 0, 0, 0.28),
+    0 4px 12px rgba(0, 0, 0, 0.12);
 }
 
 /* Circuit Edge Accent Card */
