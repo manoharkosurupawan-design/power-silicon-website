@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <!-- Google tag (gtag.js) -->
@@ -184,7 +184,7 @@
   <section class="section-padding" id="rfq-section">
     <div class="container">
       <!-- Top Row: Direct Engagement & Direct Communication Cards (Side-by-Side Equal Size) -->
-      <div class="contact-cards-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 2.25rem; align-items: stretch;">
+      <div class="contact-cards-grid">
         
         <!-- Left Card: Direct Engagement Portal (RFQ / SOW Form) -->
         <div class="card card-circuit" style="height: 100%; display: flex; flex-direction: column; justify-content: space-between; padding: 2rem;">
@@ -196,7 +196,7 @@
             </p>
 
             <form id="rfq-form" onsubmit="event.preventDefault(); document.getElementById('rfq-success-modal').classList.add('active');">
-              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+              <div class="form-row-2col">
                 <div>
                   <label class="form-label" for="rfq-name">Your Full Name *</label>
                   <input type="text" id="rfq-name" class="form-input" placeholder="e.g. Dr. Rajesh Kumar" required>
@@ -207,7 +207,7 @@
                 </div>
               </div>
 
-              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-bottom: 1.25rem;">
+              <div class="form-row-2col">
                 <div>
                   <label class="form-label" for="rfq-company">Company / Organization *</label>
                   <input type="text" id="rfq-company" class="form-input" placeholder="e.g. Apex Semiconductor Inc." required>
@@ -284,7 +284,7 @@
 
       <!-- Bottom Row: Corporate & Registered Office Location Map Card (Rectangular Full-Width Card) -->
       <div class="card card-circuit contact-map-card" style="margin-top: 2.5rem; padding: 2.25rem;">
-        <div class="contact-map-grid" style="display: grid; grid-template-columns: 1fr 1.35fr; gap: 2.5rem; align-items: center;">
+        <div class="contact-map-grid">
           
           <!-- Left: Address Details & Status Badges -->
           <div>

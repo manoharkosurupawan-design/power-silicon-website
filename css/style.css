@@ -217,14 +217,64 @@ p:last-child {
 .grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
 .grid-cols-4 { grid-template-columns: repeat(4, 1fr); }
 
+.split-layout-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3.5rem;
+  align-items: center;
+}
+
+.mini-features-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.form-row-2col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.industries-bar-list {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  flex-wrap: wrap;
+}
+
 @media (max-width: 1024px) {
   .grid-cols-4 { grid-template-columns: repeat(2, 1fr); }
   .grid-cols-3 { grid-template-columns: repeat(2, 1fr); }
+  .split-layout-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
 }
 
 @media (max-width: 768px) {
   .grid-cols-4, .grid-cols-3, .grid-cols-2 { grid-template-columns: 1fr; }
-  .section-padding { padding-top: 4rem; padding-bottom: 4rem; }
+  .section-padding { padding-top: 3.5rem; padding-bottom: 3.5rem; }
+  .industries-bar-list { gap: 1.25rem; }
+}
+
+@media (max-width: 640px) {
+  .mini-features-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .form-row-2col {
+    grid-template-columns: 1fr;
+    gap: 0.85rem;
+    margin-bottom: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .section-padding { padding-top: 2.75rem; padding-bottom: 2.75rem; }
 }
 
 /* Section Header Typography */
@@ -502,6 +552,12 @@ p:last-child {
   display: flex;
   align-items: center;
   gap: 1rem;
+}
+
+@media (max-width: 540px) {
+  .nav-cta-group .btn {
+    display: none;
+  }
 }
 
 /* Mobile Nav Toggle */
@@ -801,12 +857,28 @@ p:last-child {
 /* --------------------------------------------------------------------------
    CONTACT PAGE SIDE-BY-SIDE CARDS & RECTANGULAR MAP GRID
    -------------------------------------------------------------------------- */
+.contact-cards-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.25rem;
+  align-items: stretch;
+}
+
+.contact-map-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.35fr;
+  gap: 2.5rem;
+  align-items: center;
+}
+
 @media (max-width: 992px) {
   .contact-cards-grid {
-    grid-template-columns: 1fr !important;
+    grid-template-columns: 1fr;
+    gap: 2rem;
   }
   .contact-map-grid {
-    grid-template-columns: 1fr !important;
+    grid-template-columns: 1fr;
+    gap: 2rem;
   }
 }
 
