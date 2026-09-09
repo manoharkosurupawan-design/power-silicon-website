@@ -259,8 +259,8 @@
   letter-spacing: 0.08em;
   line-height: 1.2;
   border-radius: var(--radius-pill);
-  margin-top: 0.35rem;
-  margin-bottom: 1.25rem;
+  margin-top: 0.25rem;
+  margin-bottom: 1.6rem !important;
   color: #0369a1 !important;
   background: #e0f2fe !important;
   border: 1px solid #bae6fd !important;
