@@ -106,36 +106,75 @@
       <a href="index.html" class="brand-logo" title="Power Silicon Technologies">
         <img src="images/logo.png" alt="Power Silicon Technologies Logo">
       </a>
+            <!-- Desktop Menu -->
       <nav class="nav-menu" aria-label="Main Navigation">
-        <div class="nav-item"><a href="index.html" class="nav-link">Home</a></div>
-        <div class="nav-item"><a href="about.html" class="nav-link">About Us</a></div>
+        <div class="nav-item">
+          <a href="index.html" class="nav-link">Home</a>
+        </div>
+        <div class="nav-item">
+          <a href="about.html" class="nav-link">About Us</a>
+        </div>
         <div class="nav-item">
           <a href="services.html" class="nav-link">Services ▾</a>
           <div class="dropdown-menu">
-            <a href="services.html" class="dropdown-item"><strong>All Services Overview</strong><span class="item-sub">Comprehensive matrix</span></a>
-            <a href="vlsi-design.html" class="dropdown-item"><strong>VLSI Design & Architecture</strong><span class="item-sub">RTL, ASIC/SoC (90% Core)</span></a>
-            <a href="verification-signoff.html" class="dropdown-item"><strong>Verification & Signoff</strong><span class="item-sub">UVM & Formal (90% Core)</span></a>
-            <a href="physical-design.html" class="dropdown-item"><strong>Physical Design & Tape-Out</strong><span class="item-sub">P&R & STA</span></a>
-            <a href="embedded-systems.html" class="dropdown-item"><strong>Embedded Systems & Firmware</strong><span class="item-sub">BSP & RTOS (10% Support)</span></a>
+            <a href="services.html" class="dropdown-item">
+              <strong>All Services Overview</strong>
+              <span class="item-sub">Comprehensive service matrix & models</span>
+            </a>
+            <a href="vlsi-design.html" class="dropdown-item">
+              <strong>VLSI Design & Architecture</strong>
+              <span class="item-sub">RTL, ASIC/SoC, Micro-architecture (90% Core)</span>
+            </a>
+            <a href="verification-signoff.html" class="dropdown-item">
+              <strong>Verification & Signoff</strong>
+              <span class="item-sub">UVM, Formal, Coverage & STA (90% Core)</span>
+            </a>
+            <a href="physical-design.html" class="dropdown-item">
+              <strong>Physical Design & Tape-Out</strong>
+              <span class="item-sub">P&R, Floorplanning, Timing & DRC/LVS</span>
+            </a>
+            <a href="embedded-systems.html" class="dropdown-item">
+              <strong>Embedded Systems & Firmware</strong>
+              <span class="item-sub">BSP, RTOS, Board Bring-up (10% Support)</span>
+            </a>
           </div>
         </div>
-        <div class="nav-item"><a href="industry-solutions.html" class="nav-link active">Industries</a></div>
-        <div class="nav-item"><a href="products-ip.html" class="nav-link">Products & IP</a></div>
-        <div class="nav-item"><a href="rnd-innovations.html" class="nav-link">R&D</a></div>
-        <div class="nav-item"><a href="careers.html" class="nav-link">Careers</a></div>
-        <div class="nav-item"><a href="contact.html" class="nav-link">Contact</a></div>
+        <div class="nav-item">
+          <a href="industry-solutions.html" class="nav-link active">Industries</a>
+        </div>
+        <div class="nav-item">
+          <a href="products-ip.html" class="nav-link">Products & IP</a>
+        </div>
+        <div class="nav-item">
+          <a href="rnd-innovations.html" class="nav-link">R&D</a>
+        </div>
+        <div class="nav-item">
+          <a href="careers.html" class="nav-link">Careers</a>
+        </div>
+        <div class="nav-item">
+          <a href="contact.html" class="nav-link">Contact</a>
+        </div>
       </nav>
+
+      <!-- Nav CTA -->
       <div class="nav-cta-group">
         <a href="contact.html" class="btn btn-primary btn-sm">Get in Touch</a>
-        <button class="mobile-toggle" aria-label="Toggle Mobile Menu"><span></span><span></span><span></span></button>
+        <button class="mobile-toggle" aria-label="Toggle Mobile Menu" id="mobile-toggle-btn">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
       </div>
     </div>
   </header>
 
   <!-- Mobile Drawer -->
+    <!-- Mobile Navigation Drawer -->
   <div class="mobile-drawer-overlay"></div>
-  <aside class="mobile-drawer">
-    <div style="margin-bottom: 1.5rem;"><img src="images/logo.png" alt="Power Silicon Technologies" style="height: 38px;"></div>
+  <aside class="mobile-drawer" aria-label="Mobile Navigation">
+    <div style="margin-bottom: 1.5rem;">
+      <img src="images/logo.png" alt="Power Silicon Technologies" style="height: 38px;">
+    </div>
     <a href="index.html" class="mobile-link">Home</a>
     <a href="about.html" class="mobile-link">About Us</a>
     <a href="services.html" class="mobile-link">Services Overview</a>
@@ -150,6 +189,9 @@
     <a href="blog.html" class="mobile-link">Engineering Blog</a>
     <a href="faq.html" class="mobile-link">FAQ</a>
     <a href="contact.html" class="mobile-link">Contact & RFQ</a>
+    <div style="margin-top: 1.5rem;">
+      <a href="contact.html" class="btn btn-primary" style="width: 100%; justify-content: center;">Get in Touch</a>
+    </div>
   </aside>
 
   <!-- Page Hero -->
