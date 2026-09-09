@@ -253,14 +253,14 @@
 .card .section-tag {
   display: inline-flex;
   align-items: center;
-  padding: 0.32rem 0.85rem;
-  font-size: 0.74rem;
+  padding: 0.25rem 0.8rem;
+  font-size: 0.72rem;
   font-weight: 700 !important;
   letter-spacing: 0.08em;
   line-height: 1.2;
   border-radius: var(--radius-pill);
-  margin-top: 0.1rem;
-  margin-bottom: 1.15rem !important;
+  margin-top: 0;
+  margin-bottom: 0.65rem !important;
   color: #0369a1 !important;
   background: #e0f2fe !important;
   border: 1px solid #bae6fd !important;
