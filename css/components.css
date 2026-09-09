@@ -251,19 +251,27 @@
 
 /* Badge tags inside light cards */
 .card .section-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.45rem 1.15rem;
+  font-size: 0.8rem;
+  font-weight: 700 !important;
+  letter-spacing: 0.08em;
+  line-height: 1.2;
+  border-radius: var(--radius-pill);
+  margin-top: 0.35rem;
+  margin-bottom: 1.25rem;
   color: #0369a1 !important;
   background: #e0f2fe !important;
   border: 1px solid #bae6fd !important;
-  font-weight: 700 !important;
-  box-shadow: 0 2px 6px rgba(2, 132, 199, 0.12);
+  box-shadow: 0 2px 6px rgba(2, 132, 199, 0.08);
 }
 
 .card .section-tag.orange {
   color: #c2410c !important;
   background: #ffedd5 !important;
   border: 1px solid #fed7aa !important;
-  font-weight: 700 !important;
-  box-shadow: 0 2px 6px rgba(234, 88, 12, 0.12);
+  box-shadow: 0 2px 6px rgba(234, 88, 12, 0.08);
 }
 
 /* Contact info tiles inside cards */
