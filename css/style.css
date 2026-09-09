@@ -876,25 +876,32 @@ p:last-child {
 .contact-cards-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 2.25rem;
+  gap: 1.5rem;
+  max-width: 1060px;
+  margin: 0 auto;
   align-items: stretch;
+}
+
+.contact-map-card {
+  max-width: 1060px;
+  margin: 1.75rem auto 0 !important;
 }
 
 .contact-map-grid {
   display: grid;
-  grid-template-columns: 1fr 1.35fr;
-  gap: 2.5rem;
+  grid-template-columns: 1fr 1.25fr;
+  gap: 1.75rem;
   align-items: center;
 }
 
 @media (max-width: 992px) {
   .contact-cards-grid {
     grid-template-columns: 1fr;
-    gap: 2rem;
+    gap: 1.5rem;
   }
   .contact-map-grid {
     grid-template-columns: 1fr;
-    gap: 2rem;
+    gap: 1.5rem;
   }
 }
 
