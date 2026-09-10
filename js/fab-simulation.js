@@ -112,7 +112,7 @@
     dpr = window.devicePixelRatio || 1;
     const parent = canvas.parentElement;
     width = parent ? (parent.offsetWidth || 540) : 540;
-    height = parent ? (parent.offsetHeight || 480) : 480;
+    height = parent ? (parent.offsetHeight || 520) : 520;
 
     canvas.width = Math.floor(width * dpr);
     canvas.height = Math.floor(height * dpr);
@@ -121,6 +121,13 @@
 
   window.addEventListener('resize', resize);
   setTimeout(resize, 50);
+  setTimeout(resize, 250);
+
+  if (typeof ResizeObserver !== 'undefined' && canvas.parentElement) {
+    new ResizeObserver(() => {
+      resize();
+    }).observe(canvas.parentElement);
+  }
 
   // User Interaction: Switch Stage or Adjust Speed
   canvas.addEventListener('click', function (e) {

@@ -580,34 +580,38 @@
        ======================================================================== -->
   <section class="section-padding">
     <div class="container">
-      <div class="split-layout-grid">
-        <div>
-          <span class="section-tag">Technical Prowess</span>
-          <h2 class="section-title">Industry-Standard EDA Toolchains & <span class="highlight">Foundry Readiness</span></h2>
-          <p style="margin-bottom: 1.5rem;">
-            Power Silicon Technologies engineers operate natively within Tier-1 commercial EDA environments from Synopsys, Cadence, and Siemens EDA. We support leading semiconductor foundry design kits (PDKs) across TSMC, Intel Foundry Services, Samsung, and GlobalFoundries.
-          </p>
-          
-          <div class="mini-features-grid">
-            <div style="background: #ffffff; padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid #e2e8f0; box-shadow: 0 4px 14px rgba(0,0,0,0.12);">
-              <h5 style="color: #0284c7; margin-bottom: 0.35rem; font-weight: 700;">EDA Tool Proficiency</h5>
-              <p style="font-size: 0.88rem; color: #475569; margin: 0;">Synopsys PrimeTime, Design Compiler, ICC2, Cadence Innovus, Genus, Xcelium, Siemens Questa.</p>
-            </div>
-            <div style="background: #ffffff; padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid #e2e8f0; box-shadow: 0 4px 14px rgba(0,0,0,0.12);">
-              <h5 style="color: #ea580c; margin-bottom: 0.35rem; font-weight: 700;">Foundry Process Nodes</h5>
-              <p style="font-size: 0.88rem; color: #475569; margin: 0;">Experience spanning 28nm, 16nm/12nm FinFET, 7nm, 5nm, down to cutting-edge 3nm and 2nm.</p>
+      <div class="split-layout-grid" style="align-items: stretch;">
+        <div style="display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <span class="section-tag">Technical Prowess</span>
+            <h2 class="section-title">Industry-Standard EDA Toolchains & <span class="highlight">Foundry Readiness</span></h2>
+            <p style="margin-bottom: 1.5rem;">
+              Power Silicon Technologies engineers operate natively within Tier-1 commercial EDA environments from Synopsys, Cadence, and Siemens EDA. We support leading semiconductor foundry design kits (PDKs) across TSMC, Intel Foundry Services, Samsung, and GlobalFoundries.
+            </p>
+            
+            <div class="mini-features-grid">
+              <div style="background: #ffffff; padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid #e2e8f0; box-shadow: 0 4px 14px rgba(0,0,0,0.12);">
+                <h5 style="color: #0284c7; margin-bottom: 0.35rem; font-weight: 700;">EDA Tool Proficiency</h5>
+                <p style="font-size: 0.88rem; color: #475569; margin: 0;">Synopsys PrimeTime, Design Compiler, ICC2, Cadence Innovus, Genus, Xcelium, Siemens Questa.</p>
+              </div>
+              <div style="background: #ffffff; padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid #e2e8f0; box-shadow: 0 4px 14px rgba(0,0,0,0.12);">
+                <h5 style="color: #ea580c; margin-bottom: 0.35rem; font-weight: 700;">Foundry Process Nodes</h5>
+                <p style="font-size: 0.88rem; color: #475569; margin: 0;">Experience spanning 28nm, 16nm/12nm FinFET, 7nm, 5nm, down to cutting-edge 3nm and 2nm.</p>
+              </div>
             </div>
           </div>
 
-          <a href="about.html" class="btn btn-secondary">Learn More About Our Team & Tools →</a>
+          <div>
+            <a href="about.html" class="btn btn-secondary">Learn More About Our Team & Tools →</a>
+          </div>
         </div>
 
         <!-- Right Column: Fast-Moving 60FPS Continuous Silicon Fabrication Simulation -->
-        <div style="position: relative; height: 100%; min-height: 380px;">
-          <div class="card" style="border: 1px solid rgba(0, 210, 255, 0.45); padding: 0; overflow: hidden; height: 380px; min-height: 380px; background: #020612; position: relative; border-radius: var(--radius-lg); box-shadow: 0 12px 48px rgba(0, 210, 255, 0.22); display: flex; flex-direction: column;">
+        <div style="position: relative; height: 100%; min-height: 520px; display: flex; flex-direction: column;">
+          <div class="card" style="border: 1px solid rgba(0, 210, 255, 0.45); padding: 0; overflow: hidden; height: 100%; min-height: 520px; background: #020612; position: relative; border-radius: var(--radius-lg); box-shadow: 0 12px 48px rgba(0, 210, 255, 0.22); display: flex; flex-direction: column; flex: 1;">
             
             <!-- Real-Time Fast 60FPS Hardware-Accelerated Fabrication Canvas -->
-            <div style="position: relative; width: 100%; height: 100%; flex: 1; overflow: hidden; background: #020612;">
+            <div style="position: relative; width: 100%; height: 100%; flex: 1; min-height: 520px; overflow: hidden; background: #020612;">
               <canvas id="fab-canvas" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: block;"></canvas>
             </div>
 
