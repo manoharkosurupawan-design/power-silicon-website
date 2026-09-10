@@ -137,7 +137,7 @@
   border: 1px solid rgba(229, 184, 76, 0.3);
 }
 
-/* 90% VLSI / 10% Embedded Special Badge */
+/* VLSI & Embedded Special Badge */
 .weighting-pill {
   display: inline-flex;
   align-items: center;
@@ -446,6 +446,59 @@
 .card-feature-list {
   margin-top: 0.75rem;
   margin-bottom: 1.25rem;
+}
+
+/* --------------------------------------------------------------------------
+   JOB POSITION CARDS (CAREERS PAGE)
+   -------------------------------------------------------------------------- */
+.job-position-card {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 2rem !important;
+  padding: 1.75rem 2.25rem !important;
+  background: #f4f6f9 !important;
+  border-radius: var(--radius-lg);
+}
+
+.job-position-card .job-info {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.job-position-card .job-action {
+  flex-shrink: 0;
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.job-position-card .job-action .btn {
+  white-space: nowrap;
+  min-width: 135px;
+  padding: 0.6rem 1.4rem;
+}
+
+@media (max-width: 768px) {
+  .job-position-card {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 1.25rem !important;
+    padding: 1.5rem !important;
+  }
+  
+  .job-position-card .job-action {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin-left: auto;
+  }
+  
+  .job-position-card .job-action .btn {
+    min-width: 140px;
+  }
 }
 
 .card-feature-list li {

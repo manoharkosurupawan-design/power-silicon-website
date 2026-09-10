@@ -173,28 +173,37 @@ document.addEventListener('DOMContentLoaded', function () {
     if (rect.top <= window.innerHeight * 0.9) {
       countersAnimated = true;
       counters.forEach(counter => {
+        const start = parseFloat(counter.getAttribute('data-start') || '0');
         const target = parseFloat(counter.getAttribute('data-target') || '0');
-        const duration = 1800; // ms
-        const startTime = performance.now();
+        const customDuration = parseFloat(counter.getAttribute('data-duration') || '0');
+        const delay = parseFloat(counter.getAttribute('data-delay') || '350');
         const suffix = counter.getAttribute('data-suffix') || '';
-        const isDecimal = target % 1 !== 0;
+        const isDecimal = target % 1 !== 0 || start % 1 !== 0;
+        const isCountdown = start > target;
+        const duration = customDuration || (isCountdown ? 2400 : 1800);
 
-        function updateCount(currentTime) {
-          const elapsed = currentTime - startTime;
-          const progress = Math.min(elapsed / duration, 1);
-          const easeProgress = 1 - Math.pow(1 - progress, 3);
-          const currentVal = easeProgress * target;
+        setTimeout(() => {
+          const startTime = performance.now();
 
-          counter.innerText = isDecimal ? currentVal.toFixed(1) + suffix : Math.floor(currentVal) + suffix;
+          function updateCount(currentTime) {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const easeProgress = isCountdown
+              ? (1 - Math.pow(1 - progress, 2))
+              : (1 - Math.pow(1 - progress, 3));
+            const currentVal = start + easeProgress * (target - start);
 
-          if (progress < 1) {
-            requestAnimationFrame(updateCount);
-          } else {
-            counter.innerText = (isDecimal ? target.toFixed(1) : target) + suffix;
+            counter.innerText = isDecimal ? currentVal.toFixed(1) + suffix : Math.round(currentVal) + suffix;
+
+            if (progress < 1) {
+              requestAnimationFrame(updateCount);
+            } else {
+              counter.innerText = (isDecimal ? target.toFixed(1) : target) + suffix;
+            }
           }
-        }
 
-        requestAnimationFrame(updateCount);
+          requestAnimationFrame(updateCount);
+        }, delay);
       });
     }
   }
