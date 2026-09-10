@@ -1,8 +1,8 @@
 /**
- * Power Silicon Technologies — Hyper-Realistic Fast-Moving 2nm Silicon Fabrication Engine
- * Blazing 60 FPS hardware-accelerated semiconductor manufacturing lifecycle:
- * - Stage 1: 13.5nm High-NA EUV Laser Lithography (Extreme Precision Scanning)
- * - Stage 2: High-Speed Multi-Beam Laser Etching & 2nm Nanoscale Routing
+ * Power Silicon Technologies — Hyper-Realistic Cleanroom & 2nm Silicon Process Showcase
+ * 60 FPS hardware-accelerated semiconductor manufacturing lifecycle:
+ * - Stage 1: 13.5nm High-NA EUV Laser Lithography (Extreme Precision Cleanroom)
+ * - Stage 2: High-Speed Multi-Beam Laser Etching & 2nm Nanoscale Wafer Processing
  * - Stage 3: High-Speed Automated Multi-Axis Robotic Die Assembly & 3D Packaging
  * - Stage 4: 16-Layer Interconnect Metallization & 6.0GHz Silicon Timing Signoff
  */
@@ -15,7 +15,7 @@
   let width = 0, height = 0, dpr = 1;
   let animId = null;
   let time = 0;
-  let speedMultiplier = 2.0; // Fast-moving default speed
+  let speedMultiplier = 1.8; // Smooth fast-moving default speed
   let currentStageIndex = 0;
   let stageTimer = 0;
   let isPaused = false;
@@ -28,7 +28,7 @@
     { src: 'images/fab-cleanroom-wafer.jpg', img: new Image(), loaded: false }
   ];
 
-  textureImages.forEach((tex, idx) => {
+  textureImages.forEach((tex) => {
     tex.img.onload = () => { tex.loaded = true; };
     tex.img.src = tex.src;
   });
@@ -43,7 +43,7 @@
       color: '#00e5ff',
       accent: '#38bdf8',
       texIndex: 0,
-      duration: 3.2,
+      duration: 3.5,
       statName: 'LASER WAVELENGTH',
       statVal: '13.5 nm EUV',
       statName2: 'BEAM POWER',
@@ -57,7 +57,7 @@
       color: '#f58220',
       accent: '#ffb74d',
       texIndex: 1,
-      duration: 3.2,
+      duration: 3.5,
       statName: 'SCAN SPEED',
       statVal: '1,450 mm/s',
       statName2: 'BEAM CHANNELS',
@@ -71,7 +71,7 @@
       color: '#a855f7',
       accent: '#c084fc',
       texIndex: 2,
-      duration: 3.2,
+      duration: 3.5,
       statName: 'BUMP PITCH',
       statVal: '9.0 µm 3D',
       statName2: 'PICK RATE',
@@ -85,7 +85,7 @@
       color: '#10b981',
       accent: '#34d399',
       texIndex: 3,
-      duration: 3.2,
+      duration: 3.5,
       statName: 'CLOCK CLOSURE',
       statVal: '6.00 GHz+',
       statName2: 'SILICON YIELD',
@@ -93,31 +93,18 @@
     }
   ];
 
-  // Particle System: Sparks & Photon Bursts
-  const sparks = [];
-  for (let i = 0; i < 110; i++) {
-    sparks.push({
-      x: 0,
-      y: 0,
-      vx: (Math.random() - 0.5) * 18,
-      vy: (Math.random() - 0.5) * 18,
-      size: Math.random() * 3 + 1,
-      life: Math.random(),
-      decay: Math.random() * 0.04 + 0.02,
-      color: Math.random() > 0.5 ? '#00e5ff' : (Math.random() > 0.5 ? '#f58220' : '#ffffff')
-    });
-  }
-
-  // Fast Circuit Pulses
-  const pulses = [];
-  for (let i = 0; i < 28; i++) {
-    pulses.push({
+  // Subtle Floating Photon Sparkles (No artificial lines)
+  const sparkles = [];
+  for (let i = 0; i < 45; i++) {
+    sparkles.push({
       x: Math.random() * 800,
       y: Math.random() * 600,
-      len: Math.random() * 80 + 40,
-      speed: Math.random() * 8 + 5,
-      dir: Math.random() > 0.5 ? 'h' : 'v',
-      color: i % 2 === 0 ? '#00e5ff' : '#f58220'
+      vx: (Math.random() - 0.5) * 1.5,
+      vy: -Math.random() * 2 - 0.5,
+      size: Math.random() * 2.5 + 0.8,
+      life: Math.random(),
+      decay: Math.random() * 0.015 + 0.008,
+      color: Math.random() > 0.5 ? '#00e5ff' : '#f58220'
     });
   }
 
@@ -144,9 +131,9 @@
     // Check if clicked near speed buttons (bottom right)
     if (clickY > height - 42 && clickX > width - 180) {
       if (clickX > width - 60) {
-        speedMultiplier = 4.0; // Ultra fast
+        speedMultiplier = 3.5; // Ultra fast
       } else if (clickX > width - 120) {
-        speedMultiplier = 2.5; // Fast
+        speedMultiplier = 2.0; // Fast
       } else {
         speedMultiplier = 1.0; // Normal
       }
@@ -194,19 +181,19 @@
 
     const stage = STAGES[currentStageIndex];
     const nextStage = STAGES[(currentStageIndex + 1) % STAGES.length];
-    const transitionPhase = Math.max(0, (stageTimer - (stage.duration - 0.75)) / 0.75); // 0 to 1 crossfade
+    const transitionPhase = Math.max(0, (stageTimer - (stage.duration - 0.8)) / 0.8); // Smooth 0.8s crossfade
 
     // 1. Clear Frame
     ctx.fillStyle = '#020614';
     ctx.fillRect(0, 0, width, height);
 
-    // 2. Render High-Resolution Texture Background with Cinematic Pan & Zoom
+    // 2. Render Photorealistic High-Definition Media with Cinematic Motion
     const currentTex = textureImages[stage.texIndex];
     const nextTex = textureImages[nextStage.texIndex];
 
-    const zoom = 1.0 + 0.04 * Math.sin(time * 0.8);
-    const panX = Math.cos(time * 0.6) * 12;
-    const panY = Math.sin(time * 0.9) * 8;
+    const zoom = 1.0 + 0.035 * Math.sin(time * 0.6);
+    const panX = Math.cos(time * 0.4) * 10;
+    const panY = Math.sin(time * 0.5) * 6;
 
     ctx.save();
     ctx.translate(width / 2 + panX, height / 2 + panY);
@@ -214,7 +201,7 @@
     ctx.translate(-width / 2, -height / 2);
 
     if (currentTex && currentTex.loaded) {
-      ctx.globalAlpha = 1.0 - transitionPhase * 0.75;
+      ctx.globalAlpha = 1.0 - transitionPhase;
       drawCoverImage(currentTex.img, 0, 0, width, height);
     }
 
@@ -224,102 +211,51 @@
     }
     ctx.restore();
 
-    // 3. Dark Futuristic High-Contrast Cleanroom Vignette
-    const vignette = ctx.createRadialGradient(width * 0.5, height * 0.5, width * 0.2, width * 0.5, height * 0.5, width * 0.75);
-    vignette.addColorStop(0, 'rgba(2, 6, 20, 0.15)');
-    vignette.addColorStop(0.65, 'rgba(2, 6, 20, 0.45)');
-    vignette.addColorStop(1, 'rgba(2, 6, 20, 0.92)');
+    // 3. Subtle Cinematic Lighting & Edge Vignette
+    ctx.save();
+    const vignette = ctx.createRadialGradient(
+      width * 0.5, height * 0.5, width * 0.3,
+      width * 0.5, height * 0.5, width * 0.78
+    );
+    vignette.addColorStop(0, 'rgba(2, 6, 20, 0.0)');
+    vignette.addColorStop(0.7, 'rgba(2, 6, 20, 0.35)');
+    vignette.addColorStop(1, 'rgba(2, 6, 20, 0.88)');
     ctx.fillStyle = vignette;
     ctx.fillRect(0, 0, width, height);
-
-    // 4. Fast Dynamic Multi-Beam Laser Scanning Across the Wafer
-    const scanProgress = (time * 1.6) % 1.0;
-    const scanX = width * 0.15 + scanProgress * (width * 0.7);
-    const laserY = height * 0.42 + Math.sin(time * 3.5) * 45;
-
-    // Glowing Laser Line Sweep
-    ctx.save();
-    ctx.shadowBlur = 18;
-    ctx.shadowColor = stage.color;
-
-    const laserGrad = ctx.createLinearGradient(scanX - 35, 0, scanX + 35, 0);
-    laserGrad.addColorStop(0, 'rgba(0,0,0,0)');
-    laserGrad.addColorStop(0.5, stage.color);
-    laserGrad.addColorStop(1, 'rgba(0,0,0,0)');
-
-    ctx.fillStyle = laserGrad;
-    ctx.fillRect(scanX - 18, 0, 36, height);
-
-    // Ultra-bright core beam
-    ctx.strokeStyle = '#ffffff';
-    ctx.lineWidth = 2.2;
-    ctx.beginPath();
-    ctx.moveTo(scanX, 0);
-    ctx.lineTo(scanX, height);
-    ctx.stroke();
-
-    // Secondary Crosshair Beam (Horizontal)
-    const scanH = height * 0.2 + ((time * 2.2) % 1.0) * (height * 0.6);
-    ctx.strokeStyle = 'rgba(245, 130, 32, 0.45)';
-    ctx.lineWidth = 1.2;
-    ctx.beginPath();
-    ctx.moveTo(0, scanH);
-    ctx.lineTo(width, scanH);
-    ctx.stroke();
     ctx.restore();
 
-    // 5. High-Speed Laser Focal Point & Plasma Glow
+    // 4. Soft Ambient Laser Glow (Natural, no lines)
     ctx.save();
-    const focalX = scanX;
-    const focalY = laserY;
-
-    const focalGlow = ctx.createRadialGradient(focalX, focalY, 0, focalX, focalY, 70);
-    focalGlow.addColorStop(0, '#ffffff');
-    focalGlow.addColorStop(0.2, stage.color);
-    focalGlow.addColorStop(0.6, 'rgba(245, 130, 32, 0.35)');
-    focalGlow.addColorStop(1, 'rgba(0,0,0,0)');
-
-    ctx.fillStyle = focalGlow;
+    const glowX = width * 0.5 + Math.cos(time * 1.2) * (width * 0.25);
+    const glowY = height * 0.55 + Math.sin(time * 1.5) * (height * 0.15);
+    const ambientGlow = ctx.createRadialGradient(glowX, glowY, 0, glowX, glowY, 140);
+    ambientGlow.addColorStop(0, 'rgba(0, 229, 255, 0.22)');
+    ambientGlow.addColorStop(0.4, 'rgba(245, 130, 32, 0.12)');
+    ambientGlow.addColorStop(1, 'rgba(0, 0, 0, 0)');
+    ctx.fillStyle = ambientGlow;
     ctx.beginPath();
-    ctx.arc(focalX, focalY, 70, 0, Math.PI * 2);
+    ctx.arc(glowX, glowY, 140, 0, Math.PI * 2);
     ctx.fill();
-
-    // Concentric Precision Target Ring
-    ctx.strokeStyle = stage.accent;
-    ctx.lineWidth = 1.5;
-    ctx.beginPath();
-    ctx.arc(focalX, focalY, 22 + Math.sin(time * 8) * 4, 0, Math.PI * 2);
-    ctx.stroke();
-
-    // Crosshairs
-    ctx.strokeStyle = '#ffffff';
-    ctx.lineWidth = 1;
-    ctx.beginPath();
-    ctx.moveTo(focalX - 16, focalY);
-    ctx.lineTo(focalX + 16, focalY);
-    ctx.moveTo(focalX, focalY - 16);
-    ctx.lineTo(focalX, focalY + 16);
-    ctx.stroke();
     ctx.restore();
 
-    // 6. Real-Time Laser Sparks Spray
+    // 5. Floating Cleanroom Photon Sparkles
     ctx.save();
-    sparks.forEach(p => {
+    sparkles.forEach(p => {
       p.life -= p.decay * dt * 60 * speedMultiplier;
       if (p.life <= 0) {
         p.life = 1.0;
-        p.x = focalX + (Math.random() - 0.5) * 10;
-        p.y = focalY + (Math.random() - 0.5) * 10;
-        p.vx = (Math.random() - 0.5) * 18;
-        p.vy = (Math.random() - 0.5) * 18 - 2.5; // Slight upward buoyancy
+        p.x = Math.random() * width;
+        p.y = height + 10;
+        p.vx = (Math.random() - 0.5) * 1.2;
+        p.vy = -Math.random() * 2 - 0.5;
       }
 
-      p.x += p.vx * dt * 45 * speedMultiplier;
-      p.y += p.vy * dt * 45 * speedMultiplier;
+      p.x += p.vx * dt * 45;
+      p.y += p.vy * dt * 45;
 
       ctx.fillStyle = p.color;
-      ctx.globalAlpha = p.life * 0.9;
-      ctx.shadowBlur = 8;
+      ctx.globalAlpha = p.life * 0.6;
+      ctx.shadowBlur = 6;
       ctx.shadowColor = p.color;
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
@@ -327,37 +263,10 @@
     });
     ctx.restore();
 
-    // 7. Fast Moving Micro-Circuit Nano-Bus Pulses
-    ctx.save();
-    pulses.forEach(pulse => {
-      ctx.strokeStyle = pulse.color;
-      ctx.lineWidth = 1.5;
-      ctx.globalAlpha = 0.65;
-      ctx.shadowBlur = 6;
-      ctx.shadowColor = pulse.color;
-
-      if (pulse.dir === 'h') {
-        pulse.x += pulse.speed * dt * 60 * speedMultiplier;
-        if (pulse.x > width + 100) pulse.x = -100;
-        ctx.beginPath();
-        ctx.moveTo(pulse.x, pulse.y);
-        ctx.lineTo(pulse.x + pulse.len, pulse.y);
-        ctx.stroke();
-      } else {
-        pulse.y += pulse.speed * dt * 60 * speedMultiplier;
-        if (pulse.y > height + 100) pulse.y = -100;
-        ctx.beginPath();
-        ctx.moveTo(pulse.x, pulse.y);
-        ctx.lineTo(pulse.x, pulse.y + pulse.len);
-        ctx.stroke();
-      }
-    });
-    ctx.restore();
-
-    // 8. TOP HUD: Real-Time Process Badge & Stage Banner
+    // 6. TOP HUD: Real-Time Process Badge & Stage Banner
     drawTopHUD(stage);
 
-    // 9. BOTTOM HUD: Live Telemetry Metrics, Stage Tabs & Speed Toggle
+    // 7. BOTTOM HUD: Live Telemetry Metrics, Stage Dots & Speed Toggle
     drawBottomHUD(stage);
   }
 
@@ -448,8 +357,8 @@
     const coordX = width * 0.65;
     ctx.font = '600 9.5px "JetBrains Mono", monospace';
     ctx.fillStyle = '#64748b';
-    const liveX = (120 + Math.sin(time * 4) * 80).toFixed(2);
-    const liveY = (340 + Math.cos(time * 3) * 60).toFixed(2);
+    const liveX = (120 + Math.sin(time * 2) * 80).toFixed(2);
+    const liveY = (340 + Math.cos(time * 1.8) * 60).toFixed(2);
     ctx.fillText(`STEPPER: X:${liveX} Y:${liveY}`, coordX, hudY + 22);
     ctx.fillText(`PRECISION: ±0.05nm (GAA-FET)`, coordX, hudY + 38);
 
@@ -469,11 +378,11 @@
     ctx.fillStyle = speedMultiplier === 1.0 ? '#00e5ff' : '#64748b';
     ctx.fillText('1x', width - 125, hudY + 58);
 
-    ctx.fillStyle = speedMultiplier === 2.0 || speedMultiplier === 2.5 ? '#f58220' : '#64748b';
-    ctx.fillText('FAST 2.5x', width - 72, hudY + 58);
+    ctx.fillStyle = speedMultiplier >= 1.8 && speedMultiplier < 3.0 ? '#f58220' : '#64748b';
+    ctx.fillText('FAST 2x', width - 72, hudY + 58);
 
-    ctx.fillStyle = speedMultiplier >= 4.0 ? '#10b981' : '#64748b';
-    ctx.fillText('5x ULTRA', width - 26, hudY + 58);
+    ctx.fillStyle = speedMultiplier >= 3.0 ? '#10b981' : '#64748b';
+    ctx.fillText('4x ULTRA', width - 26, hudY + 58);
 
     ctx.restore();
   }
