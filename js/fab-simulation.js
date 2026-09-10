@@ -1,11 +1,10 @@
 /**
- * Power Silicon Technologies — Fast-Moving Silicon Fabrication & Wafer Simulation Engine
+ * Power Silicon Technologies — Hyper-Realistic Fast-Moving 2nm Silicon Fabrication Engine
  * Blazing 60 FPS hardware-accelerated semiconductor manufacturing lifecycle:
- * Stage 1: 300mm Raw Silicon Ingot & High-Speed Wafer Spin (12,000 RPM)
- * Stage 2: 13.5nm High-NA EUV Laser Lithography & Sub-2nm Etching
- * Stage 3: 16-Layer Copper Interconnect Metallization & High-Speed Bus Routing
- * Stage 4: High-Speed Robotic Die Pick & 2.5D/3D Chiplet Packaging
- * Stage 5: ATE Wafer Sort, 5.4 GHz Timing Closure & Silicon Signoff
+ * - Stage 1: 13.5nm High-NA EUV Laser Lithography (Extreme Precision Scanning)
+ * - Stage 2: High-Speed Multi-Beam Laser Etching & 2nm Nanoscale Routing
+ * - Stage 3: High-Speed Automated Multi-Axis Robotic Die Assembly & 3D Packaging
+ * - Stage 4: 16-Layer Interconnect Metallization & 6.0GHz Silicon Timing Signoff
  */
 
 (function () {
@@ -16,104 +15,117 @@
   let width = 0, height = 0, dpr = 1;
   let animId = null;
   let time = 0;
-  let speedMultiplier = 1.35; // Fast-moving default speed
+  let speedMultiplier = 2.0; // Fast-moving default speed
+  let currentStageIndex = 0;
+  let stageTimer = 0;
+  let isPaused = false;
 
-  // Process Stages
+  // High-Resolution Stage Textures
+  const textureImages = [
+    { src: 'images/fab-cleanroom-euv.jpg', img: new Image(), loaded: false },
+    { src: 'images/fab-euv-fast-scanner.jpg', img: new Image(), loaded: false },
+    { src: 'images/fab-cleanroom-robotics.jpg', img: new Image(), loaded: false },
+    { src: 'images/fab-cleanroom-wafer.jpg', img: new Image(), loaded: false }
+  ];
+
+  textureImages.forEach((tex, idx) => {
+    tex.img.onload = () => { tex.loaded = true; };
+    tex.img.src = tex.src;
+  });
+
+  // Fast-Moving Process Stages
   const STAGES = [
     {
       id: 1,
-      name: '01. 300mm WAFER SPIN & ALIGNMENT',
-      subtitle: 'CRYSTAL SEED • 12,000 RPM POLISH',
-      tag: 'INGOT TO SLICE',
-      color: '#00f0ff',
-      node: '300mm RAW SILICON',
-      duration: 3.2
+      title: '01. HIGH-NA 2nm EUV LITHOGRAPHY',
+      sub: '13.5nm EXTREME UV LASER • 0.55 HIGH-NA OPTICS',
+      tag: 'SUB-2nm SCAN',
+      color: '#00e5ff',
+      accent: '#38bdf8',
+      texIndex: 0,
+      duration: 3.2,
+      statName: 'LASER WAVELENGTH',
+      statVal: '13.5 nm EUV',
+      statName2: 'BEAM POWER',
+      statVal2: '500 W'
     },
     {
       id: 2,
-      name: '02. 13.5nm HIGH-NA EUV LITHOGRAPHY',
-      subtitle: 'SUB-2nm PHOTO-ETCH • 0.55 NA',
-      tag: 'EUV LASER SCAN',
-      color: '#38bdf8',
-      node: '2nm GAA-FET',
-      duration: 3.2
+      title: '02. HIGH-SPEED MULTI-BEAM ETCHING',
+      sub: '260,000 CONCURRENT BEAMS • NANO-TRANSISTOR FORMATION',
+      tag: 'MULTI-BEAM ETCH',
+      color: '#f58220',
+      accent: '#ffb74d',
+      texIndex: 1,
+      duration: 3.2,
+      statName: 'SCAN SPEED',
+      statVal: '1,450 mm/s',
+      statName2: 'BEAM CHANNELS',
+      statVal2: '260K BEAMS'
     },
     {
       id: 3,
-      name: '03. 16-LAYER COPPER METALLIZATION',
-      subtitle: '112G PAM4 BUS • DUAL-DAMASCENE',
-      tag: 'NANO-ROUTING',
-      color: '#f58220',
-      node: '16 METAL LAYERS',
-      duration: 3.2
+      title: '03. ROBOTIC DIE PICK & 3D CHIPLET PACKAGING',
+      sub: 'MICRO-BUMP BONDING • CO-PACKAGED OPTICS INTERPOSER',
+      tag: '3D CHIPLET BOND',
+      color: '#a855f7',
+      accent: '#c084fc',
+      texIndex: 2,
+      duration: 3.2,
+      statName: 'BUMP PITCH',
+      statVal: '9.0 µm 3D',
+      statName2: 'PICK RATE',
+      statVal2: '3,600 DPH'
     },
     {
       id: 4,
-      name: '04. ROBOTIC DIE PICK & 3D PACKAGING',
-      subtitle: 'MICRO-BUMP BOND • CO-PACKAGED OPTICS',
-      tag: 'FLIP-CHIP 3D',
-      color: '#a855f7',
-      node: 'CHIPLET ASSEMBLY',
-      duration: 3.2
-    },
-    {
-      id: 5,
-      name: '05. ATE TIMING CLOSURE & SIGNOFF',
-      subtitle: '5.40 GHz CLOSURE • 0.00ps SLACK',
-      tag: '100% SIGNOFF',
+      title: '04. 16-LAYER METALLIZATION & 6.0GHz SIGNOFF',
+      sub: 'DUAL-DAMASCENE COPPER • 0.00ps TIMING SLACK',
+      tag: 'TAPE-OUT SIGNOFF',
       color: '#10b981',
-      node: 'FIRST-PASS SILICON',
-      duration: 3.2
+      accent: '#34d399',
+      texIndex: 3,
+      duration: 3.2,
+      statName: 'CLOCK CLOSURE',
+      statVal: '6.00 GHz+',
+      statName2: 'SILICON YIELD',
+      statVal2: '99.98%'
     }
   ];
 
-  const TOTAL_CYCLE = STAGES.reduce((acc, s) => acc + s.duration, 0);
-
-  // Fast Laser Sparks
+  // Particle System: Sparks & Photon Bursts
   const sparks = [];
-  for (let i = 0; i < 90; i++) {
+  for (let i = 0; i < 110; i++) {
     sparks.push({
       x: 0,
       y: 0,
-      vx: (Math.random() - 0.5) * 14,
-      vy: (Math.random() - 0.5) * 14,
-      size: Math.random() * 3.5 + 1,
+      vx: (Math.random() - 0.5) * 18,
+      vy: (Math.random() - 0.5) * 18,
+      size: Math.random() * 3 + 1,
       life: Math.random(),
       decay: Math.random() * 0.04 + 0.02,
-      color: Math.random() > 0.45 ? '#00f0ff' : (Math.random() > 0.5 ? '#f58220' : '#ffffff')
+      color: Math.random() > 0.5 ? '#00e5ff' : (Math.random() > 0.5 ? '#f58220' : '#ffffff')
     });
   }
 
-  // Blazing Bus Packets
-  const packets = [];
-  for (let i = 0; i < 45; i++) {
-    packets.push({
+  // Fast Circuit Pulses
+  const pulses = [];
+  for (let i = 0; i < 28; i++) {
+    pulses.push({
       x: Math.random() * 800,
       y: Math.random() * 600,
-      speed: Math.random() * 6 + 4,
-      size: Math.random() * 3 + 1.5,
-      axis: Math.random() > 0.5 ? 'x' : 'y',
-      color: Math.random() > 0.4 ? '#00f0ff' : '#f58220'
-    });
-  }
-
-  // High-Speed Circuit Traces
-  const traces = [];
-  for (let i = 0; i < 36; i++) {
-    const angle = (i / 36) * Math.PI * 2;
-    traces.push({
-      angle: angle,
-      length: 120 + (i % 6) * 35,
-      speed: 1.5 + (i % 5) * 0.6,
-      color: i % 2 === 0 ? '#00f0ff' : '#f58220'
+      len: Math.random() * 80 + 40,
+      speed: Math.random() * 8 + 5,
+      dir: Math.random() > 0.5 ? 'h' : 'v',
+      color: i % 2 === 0 ? '#00e5ff' : '#f58220'
     });
   }
 
   function resize() {
     dpr = window.devicePixelRatio || 1;
     const parent = canvas.parentElement;
-    width = parent ? (parent.offsetWidth || 500) : 500;
-    height = parent ? (parent.offsetHeight || 460) : 460;
+    width = parent ? (parent.offsetWidth || 540) : 540;
+    height = parent ? (parent.offsetHeight || 480) : 480;
 
     canvas.width = Math.floor(width * dpr);
     canvas.height = Math.floor(height * dpr);
@@ -123,377 +135,372 @@
   window.addEventListener('resize', resize);
   setTimeout(resize, 50);
 
-  // Draw 300mm Silicon Wafer with Iridescent Thin-Film Diffraction
-  function drawWafer(cx, cy, radius, rotation, stageProgress, stageId) {
-    ctx.save();
-    ctx.translate(cx, cy);
+  // User Interaction: Switch Stage or Adjust Speed
+  canvas.addEventListener('click', function (e) {
+    const rect = canvas.getBoundingClientRect();
+    const clickX = e.clientX - rect.left;
+    const clickY = e.clientY - rect.top;
 
-    // Dynamic 3D tilt perspective based on stage
-    const tilt = 0.88 + 0.08 * Math.cos(time * 2);
-    ctx.scale(1.0, tilt);
-    ctx.rotate(rotation);
-
-    // Wafer Bevel Edge
-    const rimGrad = ctx.createRadialGradient(0, 0, radius * 0.85, 0, 0, radius);
-    rimGrad.addColorStop(0, 'rgba(15, 23, 42, 0.95)');
-    rimGrad.addColorStop(0.7, 'rgba(8, 14, 30, 0.98)');
-    rimGrad.addColorStop(0.92, 'rgba(0, 240, 255, 0.25)');
-    rimGrad.addColorStop(1, 'rgba(0, 240, 255, 0.7)');
-
-    ctx.fillStyle = rimGrad;
-    ctx.beginPath();
-    ctx.arc(0, 0, radius, 0, Math.PI * 2);
-    ctx.fill();
-
-    ctx.lineWidth = 2.5;
-    ctx.strokeStyle = 'rgba(0, 240, 255, 0.65)';
-    ctx.stroke();
-
-    // Alignment Notch
-    ctx.beginPath();
-    ctx.arc(0, -radius, 7, 0, Math.PI);
-    ctx.fillStyle = '#020612';
-    ctx.fill();
-    ctx.strokeStyle = '#00f0ff';
-    ctx.stroke();
-
-    // High-Density Silicon Die Matrix (Grid)
-    const dieSize = Math.max(16, Math.floor(radius / 10));
-    const cols = Math.floor((radius * 2) / dieSize);
-    ctx.lineWidth = 1;
-
-    const fastSweep = (time * 4.5) % (radius * 2) - radius;
-
-    for (let r = -cols / 2; r < cols / 2; r++) {
-      for (let c = -cols / 2; c < cols / 2; c++) {
-        const dx = c * dieSize;
-        const dy = r * dieSize;
-        const dist = Math.hypot(dx + dieSize / 2, dy + dieSize / 2);
-
-        if (dist < radius - 10) {
-          // Dynamic Die Activity
-          const isScanned = (dx - fastSweep) < dieSize * 2 && (dx - fastSweep) > -dieSize * 2;
-          const dieSeed = Math.sin(r * 13 + c * 29 + time * 3);
-
-          if (stageId === 2) {
-            // Lithography: Laser exposure glow
-            if (isScanned) {
-              ctx.fillStyle = 'rgba(0, 240, 255, 0.85)';
-            } else if (dieSeed > 0.2) {
-              ctx.fillStyle = 'rgba(0, 240, 255, 0.28)';
-            } else {
-              ctx.fillStyle = 'rgba(15, 23, 42, 0.55)';
-            }
-          } else if (stageId === 3) {
-            // Metallization: Copper traces glowing
-            if ((r + c) % 2 === 0) {
-              ctx.fillStyle = 'rgba(245, 130, 32, ' + (0.25 + 0.35 * Math.abs(dieSeed)) + ')';
-            } else {
-              ctx.fillStyle = 'rgba(0, 240, 255, ' + (0.2 + 0.25 * Math.abs(dieSeed)) + ')';
-            }
-          } else if (stageId === 4) {
-            // Packaging: Gold micro-bump contacts
-            ctx.fillStyle = (r * c) % 3 === 0 ? 'rgba(168, 85, 247, 0.4)' : 'rgba(15, 23, 42, 0.55)';
-          } else if (stageId === 5) {
-            // Testing: 100% Pass Green Flash
-            ctx.fillStyle = dieSeed > -0.7 ? 'rgba(16, 185, 129, 0.35)' : 'rgba(0, 240, 255, 0.3)';
-          } else {
-            // Stage 1: Mirror polished raw silicon
-            ctx.fillStyle = 'rgba(15, 23, 42, 0.6)';
-          }
-
-          ctx.fillRect(dx + 1, dy + 1, dieSize - 2, dieSize - 2);
-
-          // Grid line
-          ctx.strokeStyle = 'rgba(0, 240, 255, 0.18)';
-          ctx.strokeRect(dx, dy, dieSize, dieSize);
-
-          // Micro-core transistor dot
-          if ((r + c) % 2 === 0) {
-            ctx.fillStyle = stageId === 3 ? '#f58220' : (stageId === 5 ? '#10b981' : '#00f0ff');
-            ctx.fillRect(dx + dieSize / 2 - 1, dy + dieSize / 2 - 1, 2, 2);
-          }
-        }
+    // Check if clicked near speed buttons (bottom right)
+    if (clickY > height - 42 && clickX > width - 180) {
+      if (clickX > width - 60) {
+        speedMultiplier = 4.0; // Ultra fast
+      } else if (clickX > width - 120) {
+        speedMultiplier = 2.5; // Fast
+      } else {
+        speedMultiplier = 1.0; // Normal
       }
+      return;
     }
 
-    // Iridescent Thin-Film Spectral Sheen (Rainbow interference across wafer)
-    const sheenGrad = ctx.createLinearGradient(
-      Math.cos(time * 1.5) * radius,
-      Math.sin(time * 1.5) * radius,
-      -Math.cos(time * 1.5) * radius,
-      -Math.sin(time * 1.5) * radius
-    );
-    sheenGrad.addColorStop(0.0, 'rgba(0, 240, 255, 0.04)');
-    sheenGrad.addColorStop(0.25, 'rgba(168, 85, 247, 0.14)');
-    sheenGrad.addColorStop(0.5, 'rgba(245, 130, 32, 0.12)');
-    sheenGrad.addColorStop(0.75, 'rgba(16, 185, 129, 0.14)');
-    sheenGrad.addColorStop(1.0, 'rgba(0, 240, 255, 0.04)');
+    // Check if clicked stage tabs (bottom left)
+    if (clickY > height - 42 && clickX < 240) {
+      const tabIdx = Math.floor(clickX / 60);
+      if (tabIdx >= 0 && tabIdx < STAGES.length) {
+        currentStageIndex = tabIdx;
+        stageTimer = 0;
+      }
+      return;
+    }
 
-    ctx.fillStyle = sheenGrad;
-    ctx.beginPath();
-    ctx.arc(0, 0, radius, 0, Math.PI * 2);
-    ctx.fill();
+    // Otherwise cycle to next stage
+    currentStageIndex = (currentStageIndex + 1) % STAGES.length;
+    stageTimer = 0;
+  });
 
-    ctx.restore();
+  let lastTs = performance.now();
+
+  function animate(now) {
+    animId = requestAnimationFrame(animate);
+    const dt = Math.min((now - lastTs) / 1000, 0.1);
+    lastTs = now;
+
+    if (isPaused) return;
+
+    time += dt * speedMultiplier;
+    stageTimer += dt * speedMultiplier;
+
+    const stage = STAGES[currentStageIndex];
+    if (stageTimer >= stage.duration) {
+      stageTimer = 0;
+      currentStageIndex = (currentStageIndex + 1) % STAGES.length;
+    }
+
+    render(dt);
   }
 
-  // Fast-Moving EUV Laser Lithography Head & Focal Arc
-  function drawEUVLaser(cx, cy, radius, currentStage) {
-    const scanSpeed = time * 6.5; // Fast high-velocity rastering
-    const spotX = cx + Math.sin(scanSpeed) * (radius * 0.75);
-    const spotY = cy + Math.cos(scanSpeed * 0.6) * (radius * 0.65);
+  function render(dt) {
+    if (width === 0 || height === 0) return;
 
-    // 1. High-Power Overhead EUV Laser Beam
-    const beamGrad = ctx.createLinearGradient(spotX, 0, spotX, spotY);
-    beamGrad.addColorStop(0.0, 'rgba(0, 240, 255, 0.95)');
-    beamGrad.addColorStop(0.4, 'rgba(56, 189, 248, 0.65)');
-    beamGrad.addColorStop(0.8, 'rgba(168, 85, 247, 0.45)');
-    beamGrad.addColorStop(1.0, 'rgba(255, 255, 255, 1.0)');
+    const stage = STAGES[currentStageIndex];
+    const nextStage = STAGES[(currentStageIndex + 1) % STAGES.length];
+    const transitionPhase = Math.max(0, (stageTimer - (stage.duration - 0.75)) / 0.75); // 0 to 1 crossfade
 
-    ctx.fillStyle = beamGrad;
-    ctx.beginPath();
-    ctx.moveTo(spotX - 16, 0);
-    ctx.lineTo(spotX + 16, 0);
-    ctx.lineTo(spotX + 2, spotY);
-    ctx.lineTo(spotX - 2, spotY);
-    ctx.closePath();
-    ctx.fill();
+    // 1. Clear Frame
+    ctx.fillStyle = '#020614';
+    ctx.fillRect(0, 0, width, height);
 
-    // Laser Core Beam
+    // 2. Render High-Resolution Texture Background with Cinematic Pan & Zoom
+    const currentTex = textureImages[stage.texIndex];
+    const nextTex = textureImages[nextStage.texIndex];
+
+    const zoom = 1.0 + 0.04 * Math.sin(time * 0.8);
+    const panX = Math.cos(time * 0.6) * 12;
+    const panY = Math.sin(time * 0.9) * 8;
+
+    ctx.save();
+    ctx.translate(width / 2 + panX, height / 2 + panY);
+    ctx.scale(zoom, zoom);
+    ctx.translate(-width / 2, -height / 2);
+
+    if (currentTex && currentTex.loaded) {
+      ctx.globalAlpha = 1.0 - transitionPhase * 0.75;
+      drawCoverImage(currentTex.img, 0, 0, width, height);
+    }
+
+    if (transitionPhase > 0 && nextTex && nextTex.loaded) {
+      ctx.globalAlpha = transitionPhase;
+      drawCoverImage(nextTex.img, 0, 0, width, height);
+    }
+    ctx.restore();
+
+    // 3. Dark Futuristic High-Contrast Cleanroom Vignette
+    const vignette = ctx.createRadialGradient(width * 0.5, height * 0.5, width * 0.2, width * 0.5, height * 0.5, width * 0.75);
+    vignette.addColorStop(0, 'rgba(2, 6, 20, 0.15)');
+    vignette.addColorStop(0.65, 'rgba(2, 6, 20, 0.45)');
+    vignette.addColorStop(1, 'rgba(2, 6, 20, 0.92)');
+    ctx.fillStyle = vignette;
+    ctx.fillRect(0, 0, width, height);
+
+    // 4. Fast Dynamic Multi-Beam Laser Scanning Across the Wafer
+    const scanProgress = (time * 1.6) % 1.0;
+    const scanX = width * 0.15 + scanProgress * (width * 0.7);
+    const laserY = height * 0.42 + Math.sin(time * 3.5) * 45;
+
+    // Glowing Laser Line Sweep
+    ctx.save();
+    ctx.shadowBlur = 18;
+    ctx.shadowColor = stage.color;
+
+    const laserGrad = ctx.createLinearGradient(scanX - 35, 0, scanX + 35, 0);
+    laserGrad.addColorStop(0, 'rgba(0,0,0,0)');
+    laserGrad.addColorStop(0.5, stage.color);
+    laserGrad.addColorStop(1, 'rgba(0,0,0,0)');
+
+    ctx.fillStyle = laserGrad;
+    ctx.fillRect(scanX - 18, 0, 36, height);
+
+    // Ultra-bright core beam
     ctx.strokeStyle = '#ffffff';
-    ctx.lineWidth = 2.5;
-    ctx.shadowColor = '#00f0ff';
-    ctx.shadowBlur = 16;
+    ctx.lineWidth = 2.2;
     ctx.beginPath();
-    ctx.moveTo(spotX, 0);
-    ctx.lineTo(spotX, spotY);
+    ctx.moveTo(scanX, 0);
+    ctx.lineTo(scanX, height);
     ctx.stroke();
-    ctx.shadowBlur = 0;
 
-    // 2. High-Energy Plasma Flare on Wafer Surface
-    const pulse = 1.0 + 0.35 * Math.sin(time * 24);
-    const flare = ctx.createRadialGradient(spotX, spotY, 0, spotX, spotY, 48 * pulse);
-    flare.addColorStop(0.0, '#ffffff');
-    flare.addColorStop(0.18, 'rgba(0, 240, 255, 0.95)');
-    flare.addColorStop(0.45, 'rgba(245, 130, 32, 0.6)');
-    flare.addColorStop(0.8, 'rgba(168, 85, 247, 0.2)');
-    flare.addColorStop(1.0, 'rgba(0, 0, 0, 0)');
-
-    ctx.fillStyle = flare;
+    // Secondary Crosshair Beam (Horizontal)
+    const scanH = height * 0.2 + ((time * 2.2) % 1.0) * (height * 0.6);
+    ctx.strokeStyle = 'rgba(245, 130, 32, 0.45)';
+    ctx.lineWidth = 1.2;
     ctx.beginPath();
-    ctx.arc(spotX, spotY, 48 * pulse, 0, Math.PI * 2);
+    ctx.moveTo(0, scanH);
+    ctx.lineTo(width, scanH);
+    ctx.stroke();
+    ctx.restore();
+
+    // 5. High-Speed Laser Focal Point & Plasma Glow
+    ctx.save();
+    const focalX = scanX;
+    const focalY = laserY;
+
+    const focalGlow = ctx.createRadialGradient(focalX, focalY, 0, focalX, focalY, 70);
+    focalGlow.addColorStop(0, '#ffffff');
+    focalGlow.addColorStop(0.2, stage.color);
+    focalGlow.addColorStop(0.6, 'rgba(245, 130, 32, 0.35)');
+    focalGlow.addColorStop(1, 'rgba(0,0,0,0)');
+
+    ctx.fillStyle = focalGlow;
+    ctx.beginPath();
+    ctx.arc(focalX, focalY, 70, 0, Math.PI * 2);
     ctx.fill();
 
-    // 3. Laser Targeting Crosshair Reticle
-    const b = 18;
-    ctx.strokeStyle = '#00f0ff';
+    // Concentric Precision Target Ring
+    ctx.strokeStyle = stage.accent;
     ctx.lineWidth = 1.5;
     ctx.beginPath();
-    ctx.moveTo(spotX - b, spotY - b + 6); ctx.lineTo(spotX - b, spotY - b); ctx.lineTo(spotX - b + 6, spotY - b);
-    ctx.moveTo(spotX + b - 6, spotY - b); ctx.lineTo(spotX + b, spotY - b); ctx.lineTo(spotX + b, spotY - b + 6);
-    ctx.moveTo(spotX - b, spotY + b - 6); ctx.lineTo(spotX - b, spotY + b); ctx.lineTo(spotX - b + 6, spotY + b);
-    ctx.moveTo(spotX + b - 6, spotY + b); ctx.lineTo(spotX + b, spotY + b); ctx.lineTo(spotX + b, spotY + b - 6);
+    ctx.arc(focalX, focalY, 22 + Math.sin(time * 8) * 4, 0, Math.PI * 2);
     ctx.stroke();
 
-    // 4. Update & Render Fast Sparks / Silicon Ejecta
-    sparks.forEach(s => {
-      s.x += s.vx;
-      s.y += s.vy;
-      s.life -= s.decay;
+    // Crosshairs
+    ctx.strokeStyle = '#ffffff';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(focalX - 16, focalY);
+    ctx.lineTo(focalX + 16, focalY);
+    ctx.moveTo(focalX, focalY - 16);
+    ctx.lineTo(focalX, focalY + 16);
+    ctx.stroke();
+    ctx.restore();
 
-      if (s.life <= 0) {
-        s.x = spotX;
-        s.y = spotY;
-        const angle = Math.random() * Math.PI * 2;
-        const speed = Math.random() * 12 + 4;
-        s.vx = Math.cos(angle) * speed;
-        s.vy = Math.sin(angle) * speed;
-        s.life = 1.0;
+    // 6. Real-Time Laser Sparks Spray
+    ctx.save();
+    sparks.forEach(p => {
+      p.life -= p.decay * dt * 60 * speedMultiplier;
+      if (p.life <= 0) {
+        p.life = 1.0;
+        p.x = focalX + (Math.random() - 0.5) * 10;
+        p.y = focalY + (Math.random() - 0.5) * 10;
+        p.vx = (Math.random() - 0.5) * 18;
+        p.vy = (Math.random() - 0.5) * 18 - 2.5; // Slight upward buoyancy
       }
 
-      ctx.fillStyle = s.color;
-      ctx.globalAlpha = Math.max(0, s.life);
-      ctx.beginPath();
-      ctx.arc(s.x, s.y, s.size * s.life, 0, Math.PI * 2);
-      ctx.fill();
-    });
-    ctx.globalAlpha = 1.0;
-  }
+      p.x += p.vx * dt * 45 * speedMultiplier;
+      p.y += p.vy * dt * 45 * speedMultiplier;
 
-  // Fast Electrical Signal Bus & Circuit Routing Streams
-  function drawHighSpeedSignals() {
-    // 1. High-speed perimeter packet streams
-    packets.forEach(p => {
-      if (p.axis === 'x') {
-        p.x += p.speed;
-        if (p.x > width) p.x = 0;
-      } else {
-        p.y += p.speed;
-        if (p.y > height) p.y = 0;
-      }
       ctx.fillStyle = p.color;
+      ctx.globalAlpha = p.life * 0.9;
+      ctx.shadowBlur = 8;
       ctx.shadowColor = p.color;
-      ctx.shadowBlur = 10;
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
       ctx.fill();
     });
-    ctx.shadowBlur = 0;
+    ctx.restore();
 
-    // 2. High-speed circuit traces radiating out
-    const cx = width / 2;
-    const cy = height / 2;
+    // 7. Fast Moving Micro-Circuit Nano-Bus Pulses
+    ctx.save();
+    pulses.forEach(pulse => {
+      ctx.strokeStyle = pulse.color;
+      ctx.lineWidth = 1.5;
+      ctx.globalAlpha = 0.65;
+      ctx.shadowBlur = 6;
+      ctx.shadowColor = pulse.color;
 
-    traces.forEach(tr => {
-      const traceDist = ((time * 70 * tr.speed) % tr.length);
-      const px = cx + Math.cos(tr.angle) * (140 + traceDist);
-      const py = cy + Math.sin(tr.angle) * (140 + traceDist) * 0.85;
-
-      ctx.fillStyle = tr.color;
-      ctx.beginPath();
-      ctx.arc(px, py, 2.2, 0, Math.PI * 2);
-      ctx.fill();
+      if (pulse.dir === 'h') {
+        pulse.x += pulse.speed * dt * 60 * speedMultiplier;
+        if (pulse.x > width + 100) pulse.x = -100;
+        ctx.beginPath();
+        ctx.moveTo(pulse.x, pulse.y);
+        ctx.lineTo(pulse.x + pulse.len, pulse.y);
+        ctx.stroke();
+      } else {
+        pulse.y += pulse.speed * dt * 60 * speedMultiplier;
+        if (pulse.y > height + 100) pulse.y = -100;
+        ctx.beginPath();
+        ctx.moveTo(pulse.x, pulse.y);
+        ctx.lineTo(pulse.x, pulse.y + pulse.len);
+        ctx.stroke();
+      }
     });
+    ctx.restore();
+
+    // 8. TOP HUD: Real-Time Process Badge & Stage Banner
+    drawTopHUD(stage);
+
+    // 9. BOTTOM HUD: Live Telemetry Metrics, Stage Tabs & Speed Toggle
+    drawBottomHUD(stage);
   }
 
-  // Live Cleanroom HUD & Real-Time Diagnostics Overlay
-  function drawLiveHUD(currentStage, stageProgress) {
-    // Top Bar Container
-    const topH = 46;
-    ctx.fillStyle = 'rgba(2, 6, 18, 0.9)';
-    ctx.fillRect(14, 14, width - 28, topH);
-    ctx.strokeStyle = 'rgba(0, 240, 255, 0.4)';
+  function drawTopHUD(stage) {
+    ctx.save();
+    // Top Bar Background
+    ctx.fillStyle = 'rgba(3, 7, 18, 0.88)';
+    ctx.strokeStyle = 'rgba(0, 210, 255, 0.35)';
     ctx.lineWidth = 1;
-    ctx.strokeRect(14, 14, width - 28, topH);
-
-    // Blinking REC Status
-    const blink = Math.sin(time * 8) > 0;
-    ctx.fillStyle = blink ? '#ef4444' : 'rgba(239, 68, 68, 0.4)';
     ctx.beginPath();
-    ctx.arc(30, 37, 5, 0, Math.PI * 2);
+    ctx.roundRect(14, 14, width - 28, 48, 8);
     ctx.fill();
-
-    ctx.font = 'bold 11px "Courier New", monospace';
-    ctx.fillStyle = '#ffffff';
-    ctx.fillText('LIVE FAB 60FPS', 42, 41);
-
-    // Current Stage Title
-    ctx.font = 'bold 12px "Courier New", monospace';
-    ctx.fillStyle = currentStage.color;
-    const stageTitle = currentStage.name;
-    ctx.fillText(stageTitle, 160, 41);
-
-    // Process Tag (Right aligned)
-    ctx.fillStyle = '#f58220';
-    ctx.font = 'bold 11px "Courier New", monospace';
-    const tagText = `[${currentStage.tag}]`;
-    const tagW = ctx.measureText(tagText).width;
-    ctx.fillText(tagText, width - 24 - tagW, 41);
-
-    // Stage Progress Bar under Top Bar
-    ctx.fillStyle = 'rgba(0, 240, 255, 0.15)';
-    ctx.fillRect(14, 14 + topH - 3, width - 28, 3);
-    ctx.fillStyle = currentStage.color;
-    ctx.fillRect(14, 14 + topH - 3, (width - 28) * stageProgress, 3);
-
-    // Bottom Left Telemetry Data Box
-    const tbW = Math.min(220, width * 0.46);
-    const tbH = 78;
-    const tbX = 14;
-    const tbY = height - tbH - 14;
-
-    ctx.fillStyle = 'rgba(2, 6, 18, 0.88)';
-    ctx.fillRect(tbX, tbY, tbW, tbH);
-    ctx.strokeStyle = 'rgba(0, 240, 255, 0.3)';
-    ctx.strokeRect(tbX, tbY, tbW, tbH);
-
-    const curX = (142.0 + Math.sin(time * 4) * 85).toFixed(2);
-    const curY = (390.0 + Math.cos(time * 3) * 65).toFixed(2);
-    const liveGhz = (5.2 + Math.sin(time * 5) * 0.25).toFixed(2);
-
-    ctx.font = '10px "Courier New", monospace';
-    ctx.fillStyle = '#38bdf8';
-    ctx.fillText(`• STEPPER: X:${curX} Y:${curY} µm`, tbX + 10, tbY + 20);
-    ctx.fillStyle = '#f58220';
-    ctx.fillText(`• DIE YIELD: 99.92% (1,198 PASS)`, tbX + 10, tbY + 38);
-    ctx.fillStyle = '#10b981';
-    ctx.fillText(`• FREQUENCY: ${liveGhz} GHz SIGNOFF`, tbX + 10, tbY + 56);
-    ctx.fillStyle = '#a855f7';
-    ctx.fillText(`• SLACK: +0.024ps (MET)`, tbX + 10, tbY + 72);
-
-    // Bottom Right High-Speed Oscilloscope Waveform
-    const oscW = Math.min(180, width * 0.42);
-    const oscH = 54;
-    const oscX = width - oscW - 14;
-    const oscY = height - oscH - 14;
-
-    ctx.fillStyle = 'rgba(2, 6, 18, 0.88)';
-    ctx.fillRect(oscX, oscY, oscW, oscH);
-    ctx.strokeStyle = 'rgba(245, 130, 32, 0.4)';
-    ctx.strokeRect(oscX, oscY, oscW, oscH);
-
-    ctx.beginPath();
-    ctx.strokeStyle = '#00f0ff';
-    ctx.lineWidth = 1.8;
-    for (let x = 0; x < oscW; x += 3) {
-      const y = oscY + oscH / 2 +
-        Math.sin((x * 0.22) + (time * 18)) * (oscH * 0.28) +
-        Math.cos((x * 0.11) - (time * 9)) * (oscH * 0.12);
-      if (x === 0) ctx.moveTo(oscX + x, y);
-      else ctx.lineTo(oscX + x, y);
-    }
     ctx.stroke();
 
-    ctx.font = '9px "Courier New", monospace';
+    // Live Pulsing Dot
+    const pulseAlpha = 0.5 + 0.5 * Math.sin(time * 6);
+    ctx.fillStyle = `rgba(239, 68, 68, ${pulseAlpha})`;
+    ctx.shadowBlur = 10;
+    ctx.shadowColor = '#ef4444';
+    ctx.beginPath();
+    ctx.arc(28, 38, 5, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Live Text
+    ctx.shadowBlur = 0;
+    ctx.font = '700 11px "JetBrains Mono", monospace';
+    ctx.fillStyle = '#f8fafc';
+    ctx.fillText('LIVE FAB 60FPS', 40, 42);
+
+    // Stage Name
+    ctx.font = '600 11.5px "Outfit", sans-serif';
+    ctx.fillStyle = stage.color;
+    ctx.fillText(stage.title, 155, 42);
+
+    // Right Tag
+    ctx.font = '700 10.5px "JetBrains Mono", monospace';
     ctx.fillStyle = '#f58220';
-    ctx.fillText('SIGNAL INTEGRITY: 100%', oscX + 8, oscY + 13);
+    ctx.textAlign = 'right';
+    ctx.fillText(`[${stage.tag}]`, width - 26, 42);
+
+    // Thin Progress Bar
+    const progress = stageTimer / stage.duration;
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
+    ctx.fillRect(14, 60, width - 28, 2.5);
+
+    ctx.fillStyle = stage.color;
+    ctx.shadowBlur = 8;
+    ctx.shadowColor = stage.color;
+    ctx.fillRect(14, 60, (width - 28) * progress, 2.5);
+    ctx.restore();
   }
 
-  // Main 60FPS Render Loop
-  function loop() {
-    time += 0.016 * speedMultiplier;
+  function drawBottomHUD(stage) {
+    ctx.save();
+    // Bottom Telemetry Bar Background
+    const hudHeight = 72;
+    const hudY = height - hudHeight - 14;
 
-    ctx.clearRect(0, 0, width, height);
+    ctx.fillStyle = 'rgba(3, 7, 18, 0.9)';
+    ctx.strokeStyle = 'rgba(0, 210, 255, 0.28)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.roundRect(14, hudY, width - 28, hudHeight, 8);
+    ctx.fill();
+    ctx.stroke();
 
-    // Deep high-contrast semiconductor cleanroom background
-    ctx.fillStyle = '#020612';
-    ctx.fillRect(0, 0, width, height);
+    // Metric 1
+    ctx.font = '600 10px "JetBrains Mono", monospace';
+    ctx.fillStyle = '#94a3b8';
+    ctx.textAlign = 'left';
+    ctx.fillText(stage.statName, 26, hudY + 22);
 
-    // Calculate current manufacturing stage
-    const currentCycleTime = time % TOTAL_CYCLE;
-    let accumulated = 0;
-    let currentStage = STAGES[0];
-    let stageProgress = 0;
+    ctx.font = '700 13px "Outfit", sans-serif';
+    ctx.fillStyle = '#00e5ff';
+    ctx.fillText(stage.statVal, 26, hudY + 40);
 
+    // Metric 2
+    const midX = width * 0.38;
+    ctx.font = '600 10px "JetBrains Mono", monospace';
+    ctx.fillStyle = '#94a3b8';
+    ctx.fillText(stage.statName2, midX, hudY + 22);
+
+    ctx.font = '700 13px "Outfit", sans-serif';
+    ctx.fillStyle = '#f58220';
+    ctx.fillText(stage.statVal2, midX, hudY + 40);
+
+    // Live Coordinate Telemetry
+    const coordX = width * 0.65;
+    ctx.font = '600 9.5px "JetBrains Mono", monospace';
+    ctx.fillStyle = '#64748b';
+    const liveX = (120 + Math.sin(time * 4) * 80).toFixed(2);
+    const liveY = (340 + Math.cos(time * 3) * 60).toFixed(2);
+    ctx.fillText(`STEPPER: X:${liveX} Y:${liveY}`, coordX, hudY + 22);
+    ctx.fillText(`PRECISION: ±0.05nm (GAA-FET)`, coordX, hudY + 38);
+
+    // Interactive Stage Dots (Bottom Row)
     for (let i = 0; i < STAGES.length; i++) {
-      if (currentCycleTime >= accumulated && currentCycleTime < accumulated + STAGES[i].duration) {
-        currentStage = STAGES[i];
-        stageProgress = (currentCycleTime - accumulated) / STAGES[i].duration;
-        break;
-      }
-      accumulated += STAGES[i].duration;
+      const dotX = 28 + i * 22;
+      const dotY = hudY + 56;
+      ctx.beginPath();
+      ctx.arc(dotX, dotY, i === currentStageIndex ? 4.5 : 2.5, 0, Math.PI * 2);
+      ctx.fillStyle = i === currentStageIndex ? STAGES[i].color : 'rgba(148, 163, 184, 0.4)';
+      ctx.fill();
     }
 
-    const cx = width / 2;
-    const cy = height / 2;
-    const waferRadius = Math.min(width, height) * 0.38;
+    // Interactive Speed Buttons on the right
+    ctx.textAlign = 'right';
+    ctx.font = '700 9.5px "JetBrains Mono", monospace';
+    ctx.fillStyle = speedMultiplier === 1.0 ? '#00e5ff' : '#64748b';
+    ctx.fillText('1x', width - 125, hudY + 58);
 
-    // 1. Draw Wafer with rapid rotation & iridescent reflection
-    const rotationSpeed = time * 1.8; // Fast spin
-    drawWafer(cx, cy, waferRadius, rotationSpeed, stageProgress, currentStage.id);
+    ctx.fillStyle = speedMultiplier === 2.0 || speedMultiplier === 2.5 ? '#f58220' : '#64748b';
+    ctx.fillText('FAST 2.5x', width - 72, hudY + 58);
 
-    // 2. Fast EUV Laser Scanner with Focal Plasma Arc
-    drawEUVLaser(cx, cy, waferRadius, currentStage);
+    ctx.fillStyle = speedMultiplier >= 4.0 ? '#10b981' : '#64748b';
+    ctx.fillText('5x ULTRA', width - 26, hudY + 58);
 
-    // 3. High-Speed Bus Signals & Circuit Routing Streams
-    drawHighSpeedSignals();
-
-    // 4. Live Cleanroom HUD & Diagnostics Overlay
-    drawLiveHUD(currentStage, stageProgress);
-
-    animId = requestAnimationFrame(loop);
+    ctx.restore();
   }
 
-  loop();
+  // Utility: Cover Aspect Ratio Draw
+  function drawCoverImage(img, x, y, w, h) {
+    if (!img.complete || img.naturalWidth === 0) return;
+    const imgRatio = img.naturalWidth / img.naturalHeight;
+    const canvasRatio = w / h;
+    let sW, sH, sX, sY;
+
+    if (imgRatio > canvasRatio) {
+      sH = img.naturalHeight;
+      sW = sH * canvasRatio;
+      sX = (img.naturalWidth - sW) / 2;
+      sY = 0;
+    } else {
+      sW = img.naturalWidth;
+      sH = sW / canvasRatio;
+      sX = 0;
+      sY = (img.naturalHeight - sH) / 2;
+    }
+
+    ctx.drawImage(img, sX, sY, sW, sH, x, y, w, h);
+  }
+
+  // Start Engine
+  animId = requestAnimationFrame(animate);
+
 })();
