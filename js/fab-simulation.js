@@ -263,60 +263,8 @@
     });
     ctx.restore();
 
-    // 6. TOP HUD: Real-Time Process Badge & Stage Banner
-    drawTopHUD(stage);
-
-    // 7. BOTTOM HUD: Live Telemetry Metrics, Stage Dots & Speed Toggle
+    // 6. BOTTOM HUD: Live Telemetry Metrics, Stage Dots & Speed Toggle
     drawBottomHUD(stage);
-  }
-
-  function drawTopHUD(stage) {
-    ctx.save();
-    // Top Bar Background
-    ctx.fillStyle = 'rgba(3, 7, 18, 0.88)';
-    ctx.strokeStyle = 'rgba(0, 210, 255, 0.35)';
-    ctx.lineWidth = 1;
-    ctx.beginPath();
-    ctx.roundRect(14, 14, width - 28, 48, 8);
-    ctx.fill();
-    ctx.stroke();
-
-    // Live Pulsing Dot
-    const pulseAlpha = 0.5 + 0.5 * Math.sin(time * 6);
-    ctx.fillStyle = `rgba(239, 68, 68, ${pulseAlpha})`;
-    ctx.shadowBlur = 10;
-    ctx.shadowColor = '#ef4444';
-    ctx.beginPath();
-    ctx.arc(28, 38, 5, 0, Math.PI * 2);
-    ctx.fill();
-
-    // Live Text
-    ctx.shadowBlur = 0;
-    ctx.font = '700 11px "JetBrains Mono", monospace';
-    ctx.fillStyle = '#f8fafc';
-    ctx.fillText('LIVE FAB 60FPS', 40, 42);
-
-    // Stage Name
-    ctx.font = '600 11.5px "Outfit", sans-serif';
-    ctx.fillStyle = stage.color;
-    ctx.fillText(stage.title, 155, 42);
-
-    // Right Tag
-    ctx.font = '700 10.5px "JetBrains Mono", monospace';
-    ctx.fillStyle = '#f58220';
-    ctx.textAlign = 'right';
-    ctx.fillText(`[${stage.tag}]`, width - 26, 42);
-
-    // Thin Progress Bar
-    const progress = stageTimer / stage.duration;
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
-    ctx.fillRect(14, 60, width - 28, 2.5);
-
-    ctx.fillStyle = stage.color;
-    ctx.shadowBlur = 8;
-    ctx.shadowColor = stage.color;
-    ctx.fillRect(14, 60, (width - 28) * progress, 2.5);
-    ctx.restore();
   }
 
   function drawBottomHUD(stage) {
