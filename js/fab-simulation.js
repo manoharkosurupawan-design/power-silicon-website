@@ -112,7 +112,7 @@
     dpr = window.devicePixelRatio || 1;
     const parent = canvas.parentElement;
     width = parent ? (parent.offsetWidth || 540) : 540;
-    height = parent ? (parent.offsetHeight || 520) : 520;
+    height = parent ? (parent.offsetHeight || 468) : 468;
 
     canvas.width = Math.floor(width * dpr);
     canvas.height = Math.floor(height * dpr);
