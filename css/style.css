@@ -627,15 +627,15 @@ p:last-child {
   top: 0;
   right: -100%;
   width: 320px;
-  max-width: 85vw;
+  max-width: 88vw;
   height: 100vh;
   background: rgba(8, 16, 28, 0.98);
   backdrop-filter: blur(24px);
   border-left: 1px solid var(--border-color);
-  padding: 6rem 2rem 2rem;
+  padding: 5rem 1.5rem 2rem;
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: 0.65rem;
   transition: right var(--transition-normal);
   z-index: 999;
   overflow-y: auto;
@@ -665,16 +665,30 @@ p:last-child {
 }
 
 .mobile-link {
-  font-size: 1.1rem;
+  font-size: 1.02rem;
   font-weight: 600;
   color: var(--text-secondary);
-  padding: 0.5rem 0;
+  padding: 0.38rem 0;
   display: block;
   border-bottom: 1px solid var(--border-subtle);
+  transition: all var(--transition-fast);
+}
+
+.mobile-link.sub-link {
+  padding-left: 0.85rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: rgba(0, 210, 255, 0.88);
+  border-bottom: 1px dashed rgba(0, 210, 255, 0.12);
 }
 
 .mobile-link:hover, .mobile-link.active {
+  color: #ffffff;
+}
+
+.mobile-link.sub-link:hover, .mobile-link.sub-link.active {
   color: var(--accent-cyan);
+  padding-left: 1.1rem;
 }
 
 @media (max-width: 1024px) {
