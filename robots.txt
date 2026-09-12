@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /scratch/
 
 Sitemap: https://powersilicontech.com/sitemap.xml
