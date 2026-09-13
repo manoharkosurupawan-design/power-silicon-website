@@ -329,12 +329,17 @@
 }
   </script>
 
-    <!-- Preconnect & Modern Google Fonts Loading -->
+      <!-- High-Performance Async Google Fonts (Zero Render-Blocking) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" media="print" onload="this.media='all'">
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap">
+  </noscript>
 
-    <link rel="preload" as="image" href="images/fab-cleanroom-wafer.webp" type="image/webp" fetchpriority="high">
+    <link rel="preload" as="image" href="images/fab-cleanroom-wafer-mobile.webp" type="image/webp" media="(max-width: 768px)" fetchpriority="high">
+    <link rel="preload" as="image" href="images/fab-cleanroom-wafer.webp" type="image/webp" media="(min-width: 769px)" fetchpriority="high">
 
   <!-- Core Stylesheets -->
   <link rel="stylesheet" href="css/style.css">
@@ -349,7 +354,6 @@
        ======================================================================== -->
   <div class="site-preloader" id="site-preloader" aria-hidden="false">
     <div class="preloader-bg-media">
-      <img src="images/contact-vlsi-bg.webp" alt="VLSI Silicon Wafer Microchip Architecture">
       <div class="preloader-overlay"></div>
     </div>
     <div class="preloader-content">
@@ -471,10 +475,11 @@
        ======================================================================== -->
   <section class="hero-section" id="hero">
     <!-- Semiconductor Wafer Fabrication Background Visual -->
-    <div class="hero-bg-media">
+    <picture class="hero-bg-media">
+      <source media="(max-width: 768px)" srcset="images/fab-cleanroom-wafer-mobile.webp" type="image/webp">
       <img src="images/fab-cleanroom-wafer.webp" alt="Advanced Cleanroom Silicon Wafer Fabrication" class="hero-bg-img" fetchpriority="high" decoding="async" width="800" height="500">
       <div class="hero-bg-overlay"></div>
-    </div>
+    </picture>
 
     <canvas id="circuit-canvas" class="hero-canvas-bg"></canvas>
     <div class="container">
@@ -1012,8 +1017,8 @@
   </footer>
 
   <!-- Scripts -->
-  <script src="js/main.js"></script>
-  <script src="js/circuit-animation.js"></script>
-  <script src="js/fab-simulation.js"></script>
+  <script src="js/main.js" defer></script>
+  <script src="js/circuit-animation.js" defer></script>
+  <script src="js/fab-simulation.js" defer></script>
 </body>
 </html>

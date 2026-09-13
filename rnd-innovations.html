@@ -286,10 +286,14 @@
 }
   </script>
 
-    <!-- Preconnect & Modern Google Fonts Loading -->
+      <!-- High-Performance Async Google Fonts (Zero Render-Blocking) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" media="print" onload="this.media='all'">
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap">
+  </noscript>
 
     <link rel="preload" as="image" href="images/rnd-innovations-bg.webp" type="image/webp" fetchpriority="high">
 
@@ -306,7 +310,6 @@
        ======================================================================== -->
   <div class="site-preloader" id="site-preloader" aria-hidden="false">
     <div class="preloader-bg-media">
-      <img src="images/contact-vlsi-bg.webp" alt="VLSI Silicon Wafer Microchip Architecture">
       <div class="preloader-overlay"></div>
     </div>
     <div class="preloader-content">
@@ -654,6 +657,6 @@
     </div>
   </footer>
 
-  <script src="js/main.js"></script>
+  <script src="js/main.js" defer></script>
 </body>
 </html>

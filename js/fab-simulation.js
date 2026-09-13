@@ -20,18 +20,23 @@
   let stageTimer = 0;
   let isPaused = false;
 
-  // High-Resolution Stage Textures
+  // High-Resolution WebP Stage Textures
   const textureImages = [
-    { src: 'images/fab-cleanroom-euv.jpg', img: new Image(), loaded: false },
-    { src: 'images/fab-euv-fast-scanner.jpg', img: new Image(), loaded: false },
-    { src: 'images/fab-cleanroom-robotics.jpg', img: new Image(), loaded: false },
-    { src: 'images/fab-cleanroom-wafer.jpg', img: new Image(), loaded: false }
+    { src: 'images/fab-cleanroom-euv.webp', img: null, loaded: false },
+    { src: 'images/fab-euv-fast-scanner.webp', img: null, loaded: false },
+    { src: 'images/fab-cleanroom-robotics.webp', img: null, loaded: false },
+    { src: 'images/fab-cleanroom-wafer.webp', img: null, loaded: false }
   ];
 
-  textureImages.forEach((tex) => {
-    tex.img.onload = () => { tex.loaded = true; };
-    tex.img.src = tex.src;
-  });
+  function loadTextures() {
+    textureImages.forEach((tex) => {
+      if (!tex.img) {
+        tex.img = new Image();
+        tex.img.onload = () => { tex.loaded = true; };
+        tex.img.src = tex.src;
+      }
+    });
+  }
 
   // Fast-Moving Process Stages
   const STAGES = [
@@ -364,7 +369,24 @@
     ctx.drawImage(img, sX, sY, sW, sH, x, y, w, h);
   }
 
-  // Start Engine
-  animId = requestAnimationFrame(animate);
-
+  // Start Engine via Observer (Zero initial main thread block)
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          loadTextures();
+          if (!animId) animId = requestAnimationFrame(animate);
+        } else {
+          if (animId) {
+            cancelAnimationFrame(animId);
+            animId = null;
+          }
+        }
+      });
+    }, { threshold: 0.05 });
+    observer.observe(canvas);
+  } else {
+    loadTextures();
+    animId = requestAnimationFrame(animate);
+  }
 })();

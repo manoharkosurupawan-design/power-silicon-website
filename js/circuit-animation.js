@@ -469,7 +469,24 @@
     mouse.targetTiltY = 0;
   });
 
-  // Initialize & Start
+  // Initialize & Start via Observer
   resize();
-  render(0);
+
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          if (!animationFrameId) render(0);
+        } else {
+          if (animationFrameId) {
+            cancelAnimationFrame(animationFrameId);
+            animationFrameId = null;
+          }
+        }
+      });
+    }, { threshold: 0.05 });
+    observer.observe(canvas);
+  } else {
+    render(0);
+  }
 })();
