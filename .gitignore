@@ -5,3 +5,5 @@ convert-logo.js
 dist/
 scratch/
 powersilicontech_deploy.zip
+powersilicontech_production.zip
+dist_upload/
