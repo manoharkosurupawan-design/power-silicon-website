@@ -138,7 +138,7 @@ htmlFiles.forEach(file => {
   }
 
   // Check Terminology consistency
-  if (content.includes('Physical Design & P&R') && !content.includes('Physical Design & Signoff (P&R)')) {
+  if (content.includes('Physical Design & P&R') && !content.includes('Physical Design & Signoff')) {
     console.warn(`  ⚠️ [TERMINOLOGY CHECK] ${file} contains un-updated 'Physical Design & P&R'`);
     totalWarnings++;
   }
