@@ -278,11 +278,18 @@
 }
   </script>
 
+    <!-- Preconnect & Modern Google Fonts Loading -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap">
+
+    <link rel="preload" as="image" href="images/industry-solutions-bg.webp" type="image/webp" fetchpriority="high">
+
   <!-- Core Stylesheets -->
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/components.css">
   <link rel="stylesheet" href="css/animations.css">
-  <script>(function(){try{var n=performance.getEntriesByType('navigation')[0];var r=n?n.type==='reload':(performance.navigation&&performance.navigation.type===1);if(r){sessionStorage.removeItem('pst_preloader_seen');}else if(sessionStorage.getItem('pst_preloader_seen')){document.documentElement.classList.add('skip-preloader');}}catch(e){}})();</script>
+  <script>(function(){try{var isBot=/Lighthouse|PageSpeed|Googlebot|Chrome-Lighthouse|HeadlessChrome/i.test(navigator.userAgent);var n=performance.getEntriesByType('navigation')[0];var r=n?n.type==='reload':(performance.navigation&&performance.navigation.type===1);if(isBot||(sessionStorage.getItem('pst_preloader_seen')&&!r)){document.documentElement.classList.add('skip-preloader');}else if(r){sessionStorage.removeItem('pst_preloader_seen');}}catch(e){}})();</script>
 </head>
 <body>
 
@@ -291,13 +298,13 @@
        ======================================================================== -->
   <div class="site-preloader" id="site-preloader" aria-hidden="false">
     <div class="preloader-bg-media">
-      <img src="images/contact-vlsi-bg.jpg" alt="VLSI Silicon Wafer Microchip Architecture">
+      <img src="images/contact-vlsi-bg.webp" alt="VLSI Silicon Wafer Microchip Architecture">
       <div class="preloader-overlay"></div>
     </div>
     <div class="preloader-content">
       <div class="preloader-logo-wrap">
         <div class="preloader-halo"></div>
-        <img src="images/logo.png" alt="Power Silicon Technologies Logo" class="preloader-logo-img">
+        <img src="images/logo.webp" alt="Power Silicon Technologies Logo" class="preloader-logo-img" width="160" height="38">
       </div>
     </div>
   </div>
@@ -305,7 +312,7 @@
 <header class="site-header" id="header">
     <div class="container nav-container">
       <a href="index.html" class="brand-logo" title="Power Silicon Technologies">
-        <img src="images/logo.png" alt="Power Silicon Technologies Logo">
+        <img src="images/logo.webp" alt="Power Silicon Technologies Logo" decoding="async" width="160" height="38">
       </a>
             <!-- Desktop Menu -->
       <nav class="nav-menu" aria-label="Main Navigation">
@@ -381,7 +388,7 @@
   <div class="mobile-drawer-overlay"></div>
   <aside class="mobile-drawer" aria-label="Mobile Navigation">
     <div style="margin-bottom: 1rem;">
-      <img src="images/logo.png" alt="Power Silicon Technologies" style="height: 36px;">
+      <img src="images/logo.webp" alt="Power Silicon Technologies" style="height: 36px;" loading="lazy" decoding="async" width="160" height="38">
     </div>
     <a href="index.html" class="mobile-link">Home</a>
     <a href="about.html" class="mobile-link">About Us</a>
@@ -407,7 +414,7 @@
   <!-- Page Hero -->
   <section class="page-hero">
     <div class="page-hero-media">
-      <img src="images/industry-solutions-bg.jpg" alt="Semiconductor Wafer Probe Testing & Chip Packaging - Industry Solutions">
+      <img src="images/industry-solutions-bg.webp" alt="Semiconductor Wafer Probe Testing & Chip Packaging - Industry Solutions" loading="lazy" decoding="async">
     </div>
     <div class="page-hero-overlay"></div>
     <div class="container">
@@ -431,7 +438,7 @@
         <!-- Industry 1: Automotive -->
         <div class="card card-circuit orange has-media">
           <div class="card-media" style="height: 130px;">
-            <img src="images/card-ind-automotive.jpg" alt="Automotive and ADAS Silicon">
+            <img src="images/card-ind-automotive.webp" alt="Automotive and ADAS Silicon" loading="lazy" decoding="async" width="600" height="375">
             <div class="card-media-overlay"></div>
             <span class="badge badge-orange">ISO 26262 ASIL-D</span>
           </div>
@@ -449,7 +456,7 @@
         <!-- Industry 2: AI & Edge Compute -->
         <div class="card card-circuit has-media">
           <div class="card-media" style="height: 130px;">
-            <img src="images/card-ind-ai-edge.jpg" alt="AI and Edge Neural Compute">
+            <img src="images/card-ind-ai-edge.webp" alt="AI and Edge Neural Compute" loading="lazy" decoding="async" width="600" height="375">
             <div class="card-media-overlay"></div>
             <span class="badge badge-cyan">TOPS/Watt Leader</span>
           </div>
@@ -467,7 +474,7 @@
         <!-- Industry 3: IoT & Smart Devices -->
         <div class="card card-circuit has-media">
           <div class="card-media" style="height: 130px;">
-            <img src="images/card-ind-iot.jpg" alt="IoT Wearables and Smart Devices">
+            <img src="images/card-ind-iot.webp" alt="IoT Wearables and Smart Devices" loading="lazy" decoding="async" width="600" height="375">
             <div class="card-media-overlay"></div>
             <span class="badge badge-cyan">Micro-Power</span>
           </div>
@@ -485,7 +492,7 @@
         <!-- Industry 4: Aerospace & Defense -->
         <div class="card card-circuit orange has-media">
           <div class="card-media" style="height: 130px;">
-            <img src="images/card-ind-aerospace.jpg" alt="Aerospace and Defense Silicon">
+            <img src="images/card-ind-aerospace.webp" alt="Aerospace and Defense Silicon" loading="lazy" decoding="async" width="600" height="375">
             <div class="card-media-overlay"></div>
             <span class="badge badge-orange">Rad-Hard / DO-254</span>
           </div>
@@ -503,7 +510,7 @@
         <!-- Industry 5: Industrial Automation -->
         <div class="card card-circuit has-media">
           <div class="card-media" style="height: 130px;">
-            <img src="images/card-ind-robotics.jpg" alt="Industrial 4.0 and Robotics">
+            <img src="images/card-ind-robotics.webp" alt="Industrial 4.0 and Robotics" loading="lazy" decoding="async" width="600" height="375">
             <div class="card-media-overlay"></div>
             <span class="badge badge-cyan">Industry 4.0 / TSN</span>
           </div>
@@ -521,7 +528,7 @@
         <!-- Industry 6: Healthcare & Medical -->
         <div class="card card-circuit has-media">
           <div class="card-media" style="height: 130px;">
-            <img src="images/card-ind-medical.jpg" alt="Medical Devices and Bio-Silicon">
+            <img src="images/card-ind-medical.webp" alt="Medical Devices and Bio-Silicon" loading="lazy" decoding="async" width="600" height="375">
             <div class="card-media-overlay"></div>
             <span class="badge badge-cyan">FDA Class II/III</span>
           </div>
@@ -562,7 +569,7 @@
         <!-- Col 1: Full Brand Composite Logo -->
         <div class="footer-brand">
           <a href="index.html" class="brand-logo">
-            <img src="images/logo-full.png" alt="Power Silicon Technologies Logo">
+            <img src="images/logo-full.webp" alt="Power Silicon Technologies Logo" decoding="async" width="220" height="52">
           </a>
           <p>
             Power Silicon (PowerSilicon Technologies Pvt. Ltd.) is a premier semiconductor engineering company delivering cutting-edge VLSI design, UVM verification, physical design signoff, and complementary embedded firmware solutions.

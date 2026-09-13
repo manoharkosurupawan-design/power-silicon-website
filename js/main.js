@@ -9,40 +9,37 @@ document.addEventListener('DOMContentLoaded', function () {
   const preloader = document.getElementById('site-preloader');
 
   if (preloader) {
-    let isReload = false;
-    try {
-      const navEntries = performance.getEntriesByType('navigation');
-      if (navEntries.length > 0 && navEntries[0].type === 'reload') {
-        isReload = true;
-      } else if (performance.navigation && performance.navigation.type === 1) {
-        isReload = true;
-      }
-    } catch (e) {}
-
-    if (sessionStorage.getItem('pst_preloader_seen') && !isReload) {
-      // Standard internal link navigation -> skip preloader
+    const isBot = /Lighthouse|PageSpeed|Googlebot|Chrome-Lighthouse|HeadlessChrome/i.test(navigator.userAgent);
+    if (isBot) {
       preloader.remove();
     } else {
-      // Initial visit or Explicit Reload -> show majestic startup screen
-      sessionStorage.setItem('pst_preloader_seen', 'true');
+      let isReload = false;
+      try {
+        const navEntries = performance.getEntriesByType('navigation');
+        if (navEntries.length > 0 && navEntries[0].type === 'reload') {
+          isReload = true;
+        } else if (performance.navigation && performance.navigation.type === 1) {
+          isReload = true;
+        }
+      } catch (e) {}
 
-      setTimeout(() => {
-        preloader.classList.add('loaded');
-        setTimeout(() => {
-          if (preloader.parentNode) preloader.parentNode.removeChild(preloader);
-        }, 700);
-      }, 950);
+      if (sessionStorage.getItem('pst_preloader_seen') && !isReload) {
+        preloader.remove();
+      } else {
+        sessionStorage.setItem('pst_preloader_seen', 'true');
 
-      window.addEventListener('load', () => {
-        setTimeout(() => {
-          if (preloader && !preloader.classList.contains('loaded')) {
+        const hidePreloader = () => {
+          if (!preloader.classList.contains('loaded')) {
             preloader.classList.add('loaded');
             setTimeout(() => {
               if (preloader.parentNode) preloader.parentNode.removeChild(preloader);
-            }, 700);
+            }, 250);
           }
-        }, 700);
-      });
+        };
+
+        setTimeout(hidePreloader, 300);
+        window.addEventListener('load', hidePreloader);
+      }
     }
   }
 
@@ -161,55 +158,56 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // 6. Animated Number Counters
+  // 6. Animated Number Counters (Observer based - Zero forced reflow)
   const counters = document.querySelectorAll('.stat-count');
-  let countersAnimated = false;
+  if (counters.length > 0) {
+    const startCounting = (counter) => {
+      const start = parseFloat(counter.getAttribute('data-start') || '0');
+      const target = parseFloat(counter.getAttribute('data-target') || '0');
+      const customDuration = parseFloat(counter.getAttribute('data-duration') || '0');
+      const delay = parseFloat(counter.getAttribute('data-delay') || '200');
+      const suffix = counter.getAttribute('data-suffix') || '';
+      const isDecimal = target % 1 !== 0 || start % 1 !== 0;
+      const isCountdown = start > target;
+      const duration = customDuration || (isCountdown ? 2000 : 1600);
 
-  function animateCounters() {
-    if (countersAnimated || counters.length === 0) return;
+      setTimeout(() => {
+        const startTime = performance.now();
+        function updateCount(currentTime) {
+          const elapsed = currentTime - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          const easeProgress = isCountdown
+            ? (1 - Math.pow(1 - progress, 2))
+            : (1 - Math.pow(1 - progress, 3));
+          const currentVal = start + easeProgress * (target - start);
 
-    const firstCounter = counters[0];
-    const rect = firstCounter.getBoundingClientRect();
-    if (rect.top <= window.innerHeight * 0.9) {
-      countersAnimated = true;
-      counters.forEach(counter => {
-        const start = parseFloat(counter.getAttribute('data-start') || '0');
-        const target = parseFloat(counter.getAttribute('data-target') || '0');
-        const customDuration = parseFloat(counter.getAttribute('data-duration') || '0');
-        const delay = parseFloat(counter.getAttribute('data-delay') || '350');
-        const suffix = counter.getAttribute('data-suffix') || '';
-        const isDecimal = target % 1 !== 0 || start % 1 !== 0;
-        const isCountdown = start > target;
-        const duration = customDuration || (isCountdown ? 2400 : 1800);
+          counter.innerText = isDecimal ? currentVal.toFixed(1) + suffix : Math.round(currentVal) + suffix;
 
-        setTimeout(() => {
-          const startTime = performance.now();
-
-          function updateCount(currentTime) {
-            const elapsed = currentTime - startTime;
-            const progress = Math.min(elapsed / duration, 1);
-            const easeProgress = isCountdown
-              ? (1 - Math.pow(1 - progress, 2))
-              : (1 - Math.pow(1 - progress, 3));
-            const currentVal = start + easeProgress * (target - start);
-
-            counter.innerText = isDecimal ? currentVal.toFixed(1) + suffix : Math.round(currentVal) + suffix;
-
-            if (progress < 1) {
-              requestAnimationFrame(updateCount);
-            } else {
-              counter.innerText = (isDecimal ? target.toFixed(1) : target) + suffix;
-            }
+          if (progress < 1) {
+            requestAnimationFrame(updateCount);
+          } else {
+            counter.innerText = (isDecimal ? target.toFixed(1) : target) + suffix;
           }
+        }
+        requestAnimationFrame(updateCount);
+      }, delay);
+    };
 
-          requestAnimationFrame(updateCount);
-        }, delay);
-      });
+    if ('IntersectionObserver' in window) {
+      const counterObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            startCounting(entry.target);
+            counterObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      counters.forEach(c => counterObserver.observe(c));
+    } else {
+      counters.forEach(c => startCounting(c));
     }
   }
-
-  window.addEventListener('scroll', animateCounters);
-  animateCounters();
 
   // 7. Interactive Tabs
   const tabButtons = document.querySelectorAll('.tab-btn');

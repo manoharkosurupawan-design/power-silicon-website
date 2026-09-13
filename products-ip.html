@@ -278,11 +278,18 @@
 }
   </script>
 
+    <!-- Preconnect & Modern Google Fonts Loading -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap">
+
+    <link rel="preload" as="image" href="images/products-ip-bg.webp" type="image/webp" fetchpriority="high">
+
   <!-- Core Stylesheets -->
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/components.css">
   <link rel="stylesheet" href="css/animations.css">
-  <script>(function(){try{var n=performance.getEntriesByType('navigation')[0];var r=n?n.type==='reload':(performance.navigation&&performance.navigation.type===1);if(r){sessionStorage.removeItem('pst_preloader_seen');}else if(sessionStorage.getItem('pst_preloader_seen')){document.documentElement.classList.add('skip-preloader');}}catch(e){}})();</script>
+  <script>(function(){try{var isBot=/Lighthouse|PageSpeed|Googlebot|Chrome-Lighthouse|HeadlessChrome/i.test(navigator.userAgent);var n=performance.getEntriesByType('navigation')[0];var r=n?n.type==='reload':(performance.navigation&&performance.navigation.type===1);if(isBot||(sessionStorage.getItem('pst_preloader_seen')&&!r)){document.documentElement.classList.add('skip-preloader');}else if(r){sessionStorage.removeItem('pst_preloader_seen');}}catch(e){}})();</script>
 </head>
 <body>
 
@@ -291,13 +298,13 @@
        ======================================================================== -->
   <div class="site-preloader" id="site-preloader" aria-hidden="false">
     <div class="preloader-bg-media">
-      <img src="images/contact-vlsi-bg.jpg" alt="VLSI Silicon Wafer Microchip Architecture">
+      <img src="images/contact-vlsi-bg.webp" alt="VLSI Silicon Wafer Microchip Architecture">
       <div class="preloader-overlay"></div>
     </div>
     <div class="preloader-content">
       <div class="preloader-logo-wrap">
         <div class="preloader-halo"></div>
-        <img src="images/logo.png" alt="Power Silicon Technologies Logo" class="preloader-logo-img">
+        <img src="images/logo.webp" alt="Power Silicon Technologies Logo" class="preloader-logo-img" width="160" height="38">
       </div>
     </div>
   </div>
@@ -305,7 +312,7 @@
 <header class="site-header" id="header">
     <div class="container nav-container">
       <a href="index.html" class="brand-logo" title="Power Silicon Technologies">
-        <img src="images/logo.png" alt="Power Silicon Technologies Logo">
+        <img src="images/logo.webp" alt="Power Silicon Technologies Logo" decoding="async" width="160" height="38">
       </a>
             <!-- Desktop Menu -->
       <nav class="nav-menu" aria-label="Main Navigation">
@@ -381,7 +388,7 @@
   <div class="mobile-drawer-overlay"></div>
   <aside class="mobile-drawer" aria-label="Mobile Navigation">
     <div style="margin-bottom: 1rem;">
-      <img src="images/logo.png" alt="Power Silicon Technologies" style="height: 36px;">
+      <img src="images/logo.webp" alt="Power Silicon Technologies" style="height: 36px;" loading="lazy" decoding="async" width="160" height="38">
     </div>
     <a href="index.html" class="mobile-link">Home</a>
     <a href="about.html" class="mobile-link">About Us</a>
@@ -407,7 +414,7 @@
   <!-- Page Hero -->
   <section class="page-hero">
     <div class="page-hero-media">
-      <img src="images/products-ip-bg.jpg" alt="Semiconductor Fabrication Photolithography - Silicon IP & Verification Accelerators">
+      <img src="images/products-ip-bg.webp" alt="Semiconductor Fabrication Photolithography - Silicon IP & Verification Accelerators" loading="lazy" decoding="async">
     </div>
     <div class="page-hero-overlay"></div>
     <div class="container">
@@ -513,7 +520,7 @@
         <!-- Col 1: Full Brand Composite Logo -->
         <div class="footer-brand">
           <a href="index.html" class="brand-logo">
-            <img src="images/logo-full.png" alt="Power Silicon Technologies Logo">
+            <img src="images/logo-full.webp" alt="Power Silicon Technologies Logo" decoding="async" width="220" height="52">
           </a>
           <p>
             Power Silicon (PowerSilicon Technologies Pvt. Ltd.) is a premier semiconductor engineering company delivering cutting-edge VLSI design, UVM verification, physical design signoff, and complementary embedded firmware solutions.

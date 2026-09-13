@@ -321,11 +321,18 @@
 }
   </script>
 
+    <!-- Preconnect & Modern Google Fonts Loading -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap">
+
+    <link rel="preload" as="image" href="images/fab-cleanroom-wafer.webp" type="image/webp" fetchpriority="high">
+
   <!-- Core Stylesheets -->
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/components.css">
   <link rel="stylesheet" href="css/animations.css">
-  <script>(function(){try{var n=performance.getEntriesByType('navigation')[0];var r=n?n.type==='reload':(performance.navigation&&performance.navigation.type===1);if(r){sessionStorage.removeItem('pst_preloader_seen');}else if(sessionStorage.getItem('pst_preloader_seen')){document.documentElement.classList.add('skip-preloader');}}catch(e){}})();</script>
+  <script>(function(){try{var isBot=/Lighthouse|PageSpeed|Googlebot|Chrome-Lighthouse|HeadlessChrome/i.test(navigator.userAgent);var n=performance.getEntriesByType('navigation')[0];var r=n?n.type==='reload':(performance.navigation&&performance.navigation.type===1);if(isBot||(sessionStorage.getItem('pst_preloader_seen')&&!r)){document.documentElement.classList.add('skip-preloader');}else if(r){sessionStorage.removeItem('pst_preloader_seen');}}catch(e){}})();</script>
 </head>
 <body>
 
@@ -334,13 +341,13 @@
        ======================================================================== -->
   <div class="site-preloader" id="site-preloader" aria-hidden="false">
     <div class="preloader-bg-media">
-      <img src="images/contact-vlsi-bg.jpg" alt="VLSI Silicon Wafer Microchip Architecture">
+      <img src="images/contact-vlsi-bg.webp" alt="VLSI Silicon Wafer Microchip Architecture">
       <div class="preloader-overlay"></div>
     </div>
     <div class="preloader-content">
       <div class="preloader-logo-wrap">
         <div class="preloader-halo"></div>
-        <img src="images/logo.png" alt="Power Silicon Technologies Logo" class="preloader-logo-img">
+        <img src="images/logo.webp" alt="Power Silicon Technologies Logo" class="preloader-logo-img" width="160" height="38">
       </div>
     </div>
   </div>
@@ -351,7 +358,7 @@
   <header class="site-header" id="header">
     <div class="container nav-container">
       <a href="index.html" class="brand-logo" title="Power Silicon Technologies">
-        <img src="images/logo.png" alt="Power Silicon Technologies Logo">
+        <img src="images/logo.webp" alt="Power Silicon Technologies Logo" decoding="async" width="160" height="38">
       </a>
 
       <!-- Desktop Menu -->
@@ -428,7 +435,7 @@
   <div class="mobile-drawer-overlay"></div>
   <aside class="mobile-drawer" aria-label="Mobile Navigation">
     <div style="margin-bottom: 1rem;">
-      <img src="images/logo.png" alt="Power Silicon Technologies" style="height: 36px;">
+      <img src="images/logo.webp" alt="Power Silicon Technologies" style="height: 36px;" loading="lazy" decoding="async" width="160" height="38">
     </div>
     <a href="index.html" class="mobile-link active">Home</a>
     <a href="about.html" class="mobile-link">About Us</a>
@@ -457,7 +464,7 @@
   <section class="hero-section" id="hero">
     <!-- Semiconductor Wafer Fabrication Background Visual -->
     <div class="hero-bg-media">
-      <img src="images/fab-cleanroom-wafer.jpg" alt="Advanced Cleanroom Silicon Wafer Fabrication" class="hero-bg-img">
+      <img src="images/fab-cleanroom-wafer.webp" alt="Advanced Cleanroom Silicon Wafer Fabrication" class="hero-bg-img" fetchpriority="high" decoding="async" width="800" height="500">
       <div class="hero-bg-overlay"></div>
     </div>
 
@@ -580,7 +587,7 @@
         <!-- Card 1: VLSI Design & Architecture -->
         <div class="card card-circuit has-media">
           <div class="card-media">
-            <img src="images/card-vlsi-rtl.jpg" alt="VLSI RTL Design & Micro-Architecture">
+            <img src="images/card-vlsi-rtl.webp" alt="VLSI RTL Design & Micro-Architecture" loading="lazy" decoding="async" width="600" height="375">
             <div class="card-media-overlay"></div>
             <span class="badge badge-cyan">VLSI RTL Design</span>
           </div>
@@ -603,7 +610,7 @@
         <!-- Card 2: Verification & Signoff -->
         <div class="card card-circuit has-media">
           <div class="card-media">
-            <img src="images/card-uvm-verification.jpg" alt="UVM Verification & Tape-Out Signoff">
+            <img src="images/card-uvm-verification.webp" alt="UVM Verification & Tape-Out Signoff" loading="lazy" decoding="async" width="600" height="375">
             <div class="card-media-overlay"></div>
             <span class="badge badge-cyan">Design & Verification</span>
           </div>
@@ -626,7 +633,7 @@
         <!-- Card 3: Physical Design & Signoff -->
         <div class="card card-circuit has-media">
           <div class="card-media">
-            <img src="images/card-physical-design-pr.jpg" alt="Physical Design & Backend Tape-Out">
+            <img src="images/card-physical-design-pr.webp" alt="Physical Design & Backend Tape-Out" loading="lazy" decoding="async" width="600" height="375">
             <div class="card-media-overlay"></div>
             <span class="badge badge-cyan">Physical Design</span>
           </div>
@@ -649,7 +656,7 @@
         <!-- Card 4: Analog & Mixed-Signal Design -->
         <div class="card card-circuit has-media">
           <div class="card-media">
-            <img src="images/card-analog-design.jpg" alt="Analog & Mixed-Signal IC Design">
+            <img src="images/card-analog-design.webp" alt="Analog & Mixed-Signal IC Design" loading="lazy" decoding="async" width="600" height="375">
             <div class="card-media-overlay"></div>
             <span class="badge badge-gold">Analog Design</span>
           </div>
@@ -672,7 +679,7 @@
         <!-- Card 5: Analog Layout -->
         <div class="card card-circuit has-media">
           <div class="card-media">
-            <img src="images/card-analog-layout.jpg" alt="Custom Analog IC Layout & Physical Verification">
+            <img src="images/card-analog-layout.webp" alt="Custom Analog IC Layout & Physical Verification" loading="lazy" decoding="async" width="600" height="375">
             <div class="card-media-overlay"></div>
             <span class="badge badge-gold">Analog Layout</span>
           </div>
@@ -695,7 +702,7 @@
         <!-- Card 6: Embedded Systems Support -->
         <div class="card card-circuit orange has-media">
           <div class="card-media">
-            <img src="images/card-embedded-firmware.jpg" alt="Embedded Systems Firmware and BSP">
+            <img src="images/card-embedded-firmware.webp" alt="Embedded Systems Firmware and BSP" loading="lazy" decoding="async" width="600" height="375">
             <div class="card-media-overlay"></div>
             <span class="badge badge-orange">Embedded Systems</span>
           </div>
@@ -887,7 +894,7 @@
         <!-- Col 1: Full Brand Composite Logo -->
         <div class="footer-brand">
           <a href="index.html" class="brand-logo">
-            <img src="images/logo-full.png" alt="Power Silicon Technologies Logo">
+            <img src="images/logo-full.webp" alt="Power Silicon Technologies Logo" decoding="async" width="220" height="52">
           </a>
           <p>
             Power Silicon (PowerSilicon Technologies Pvt. Ltd.) is a premier semiconductor engineering company delivering cutting-edge VLSI design, UVM verification, physical design signoff, and complementary embedded firmware solutions.

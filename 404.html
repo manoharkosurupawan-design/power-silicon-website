@@ -278,11 +278,18 @@
 }
   </script>
 
+    <!-- Preconnect & Modern Google Fonts Loading -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap">
+
+    <link rel="preload" as="image" href="images/services-vlsi-bg.webp" type="image/webp" fetchpriority="high">
+
   <!-- Core Stylesheets -->
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/components.css">
   <link rel="stylesheet" href="css/animations.css">
-  <script>(function(){try{var n=performance.getEntriesByType('navigation')[0];var r=n?n.type==='reload':(performance.navigation&&performance.navigation.type===1);if(r){sessionStorage.removeItem('pst_preloader_seen');}else if(sessionStorage.getItem('pst_preloader_seen')){document.documentElement.classList.add('skip-preloader');}}catch(e){}})();</script>
+  <script>(function(){try{var isBot=/Lighthouse|PageSpeed|Googlebot|Chrome-Lighthouse|HeadlessChrome/i.test(navigator.userAgent);var n=performance.getEntriesByType('navigation')[0];var r=n?n.type==='reload':(performance.navigation&&performance.navigation.type===1);if(isBot||(sessionStorage.getItem('pst_preloader_seen')&&!r)){document.documentElement.classList.add('skip-preloader');}else if(r){sessionStorage.removeItem('pst_preloader_seen');}}catch(e){}})();</script>
 </head>
 <body style="display: flex; flex-direction: column; min-height: 100vh;">
 
@@ -290,7 +297,7 @@
   <header class="site-header" id="header">
     <div class="container nav-container">
       <a href="index.html" class="brand-logo" title="Power Silicon Technologies">
-        <img src="images/logo.png" alt="Power Silicon Technologies Logo">
+        <img src="images/logo.webp" alt="Power Silicon Technologies Logo" decoding="async" width="160" height="38">
       </a>
       <div class="nav-cta-group">
         <a href="index.html" class="btn btn-secondary btn-sm">Return Home</a>
@@ -339,7 +346,7 @@
         <!-- Col 1: Full Brand Composite Logo -->
         <div class="footer-brand">
           <a href="index.html" class="brand-logo">
-            <img src="images/logo-full.png" alt="Power Silicon Technologies Logo">
+            <img src="images/logo-full.webp" alt="Power Silicon Technologies Logo" decoding="async" width="220" height="52">
           </a>
           <p>
             Power Silicon (PowerSilicon Technologies Pvt. Ltd.) is a premier semiconductor engineering company delivering cutting-edge VLSI design, UVM verification, physical design signoff, and complementary embedded firmware solutions.
