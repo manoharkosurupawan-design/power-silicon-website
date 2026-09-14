@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Power Silicon | Hiring Video Generator & Downloader</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #060b14;
+      color: #e2e8f0;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px 16px;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    h1 {
+      font-size: 24px;
+      color: #00f0ff;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    .subtitle {
+      color: #94a3b8;
+      font-size: 14px;
+      margin-top: 6px;
+    }
+    .controls-panel {
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      padding: 14px 24px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 18px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .btn {
+      background: linear-gradient(135deg, #0284c7, #0369a1);
+      color: #ffffff;
+      border: none;
+      padding: 10px 22px;
+      font-size: 15px;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 10px rgba(2, 132, 199, 0.3);
+    }
+    .btn:hover {
+      background: linear-gradient(135deg, #0ea5e9, #0284c7);
+      transform: translateY(-1px);
+    }
+    .btn-record {
+      background: linear-gradient(135deg, #ea580c, #c2410c);
+      box-shadow: 0 2px 10px rgba(234, 88, 12, 0.4);
+    }
+    .btn-record:hover {
+      background: linear-gradient(135deg, #f97316, #ea580c);
+    }
+    .status-badge {
+      font-family: monospace;
+      font-size: 13px;
+      padding: 8px 14px;
+      background: #1e293b;
+      border-radius: 6px;
+      color: #38bdf8;
+      border: 1px solid #334155;
+    }
+    .viewport-box {
+      position: relative;
+      width: 960px;
+      height: 540px;
+      border: 2px solid #0284c7;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #020617;
+      box-shadow: 0 0 35px rgba(0, 240, 255, 0.15);
+    }
+    canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    .download-card {
+      margin-top: 24px;
+      width: 960px;
+      background: #0f172a;
+      border: 2px solid #10b981;
+      border-radius: 12px;
+      padding: 20px;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      box-shadow: 0 0 30px rgba(16, 185, 129, 0.2);
+    }
+    .download-card h3 {
+      color: #10b981;
+      font-size: 18px;
+    }
+    video {
+      width: 640px;
+      border-radius: 8px;
+      border: 1px solid #334155;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>⚡ Power Silicon Technologies | LinkedIn Hiring Video Generator ⚡</h1>
+    <p class="subtitle">1080p Motion Graphics Reel • Physical Design Engineer / Trainee • 16-Second Spot</p>
+  </header>
+
+  <div class="controls-panel">
+    <button id="btn-play" class="btn" onclick="togglePlay()">▶ Play Preview</button>
+    <button id="btn-record" class="btn btn-record" onclick="startRecordAndExport()">🎬 Record & Download Video</button>
+    <div id="status-bar" class="status-badge">Ready to preview or record</div>
+  </div>
+
+  <div class="viewport-box">
+    <canvas id="video-canvas" width="1920" height="1080"></canvas>
+  </div>
+
+  <div id="download-card" class="download-card">
+    <h3>🎉 Video Successfully Rendered & Ready for LinkedIn!</h3>
+    <video id="output-video" controls autoplay loop playsinline></video>
+    <div style="display: flex; gap: 12px;">
+      <a id="btn-direct-download" class="btn btn-record" download="PowerSilicon_PD_Hiring.webm">⬇ Download Video File Again</a>
+    </div>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('video-canvas');
+    const ctx = canvas.getContext('2d');
+    const W = 1920;
+    const H = 1080;
+    const statusBar = document.getElementById('status-bar');
+
+    const DURATION = 16.0; // 16 seconds total duration
+    const FPS = 60;
+    const TOTAL_FRAMES = Math.floor(DURATION * FPS);
+    let currentFrame = 0;
+    let isPlaying = true;
+    let isRecording = false;
+    let animId = null;
+    let mediaRecorder = null;
+    let recordedChunks = [];
+
+    // Preload logo and wafer textures
+    const logoImg = new Image();
+    logoImg.src = 'images/logo-full.png';
+
+    const emblemImg = new Image();
+    emblemImg.src = 'images/emblem.png';
+
+    const waferBg = new Image();
+    waferBg.src = 'images/fab-macro-lithography.jpg';
+
+    // Particle background
+    const nodes = [];
+    for (let i = 0; i < 70; i++) {
+      nodes.push({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        vx: (Math.random() - 0.5) * 1.5,
+        vy: (Math.random() - 0.5) * 1.5,
+        radius: Math.random() * 3 + 1.5,
+        color: Math.random() > 0.4 ? '#00f0ff' : '#f58220'
+      });
+    }
+
+    function updateNodes() {
+      for (const n of nodes) {
+        n.x += n.vx;
+        n.y += n.vy;
+        if (n.x < 0 || n.x > W) n.vx *= -1;
+        if (n.y < 0 || n.y > H) n.vy *= -1;
+      }
+    }
+
+    function drawCircuitGrid(time) {
+      ctx.save();
+      ctx.strokeStyle = 'rgba(0, 240, 255, 0.07)';
+      ctx.lineWidth = 1;
+      const gridSize = 60;
+      for (let x = 0; x < W; x += gridSize) {
+        ctx.beginPath();
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, H);
+        ctx.stroke();
+      }
+      for (let y = 0; y < H; y += gridSize) {
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(W, y);
+        ctx.stroke();
+      }
+
+      // Interconnecting lines
+      ctx.lineWidth = 0.8;
+      for (let i = 0; i < nodes.length; i++) {
+        for (let j = i + 1; j < nodes.length; j++) {
+          const dx = nodes[i].x - nodes[j].x;
+          const dy = nodes[i].y - nodes[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 150) {
+            ctx.strokeStyle = `rgba(0, 240, 255, ${0.2 * (1 - dist / 150)})`;
+            ctx.beginPath();
+            ctx.moveTo(nodes[i].x, nodes[i].y);
+            ctx.lineTo(nodes[j].x, nodes[j].y);
+            ctx.stroke();
+          }
+        }
+        ctx.fillStyle = nodes[i].color;
+        ctx.beginPath();
+        ctx.arc(nodes[i].x, nodes[i].y, nodes[i].radius, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.restore();
+    }
+
+    function drawHeaderBadge(time) {
+      ctx.save();
+      // Top subtle badge
+      ctx.fillStyle = 'rgba(15, 23, 42, 0.85)';
+      ctx.strokeStyle = 'rgba(0, 240, 255, 0.3)';
+      ctx.lineWidth = 2;
+      roundRect(ctx, W / 2 - 280, 40, 560, 52, 26);
+      ctx.fill();
+      ctx.stroke();
+
+      ctx.fillStyle = '#00f0ff';
+      ctx.font = 'bold 22px "Segoe UI", sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('⚡ POWER SILICON TECHNOLOGIES • HYDERABAD ⚡', W / 2, 66);
+      ctx.restore();
+    }
+
+    function drawScene1(t) {
+      // 0s to 4.0s: Announcement & Hook
+      const alpha = t < 0.8 ? t / 0.8 : (t > 3.4 ? Math.max(0, (4.0 - t) / 0.6) : 1);
+      ctx.save();
+      ctx.globalAlpha = alpha;
+
+      // Glow circle behind logo
+      const pulse = 1.0 + 0.05 * Math.sin(t * 5);
+      const grad = ctx.createRadialGradient(W / 2, 280, 10, W / 2, 280, 260 * pulse);
+      grad.addColorStop(0, 'rgba(0, 240, 255, 0.35)');
+      grad.addColorStop(0.5, 'rgba(245, 130, 32, 0.18)');
+      grad.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.arc(W / 2, 280, 260 * pulse, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Draw Full Official Power Silicon Logo (No clipped emblem edges!)
+      if (logoImg.complete && logoImg.naturalWidth > 0) {
+        const logoW = 520 * pulse;
+        const logoH = logoW * (286 / 800);
+        ctx.drawImage(logoImg, W / 2 - logoW / 2, 280 - logoH / 2, logoW, logoH);
+      } else if (emblemImg.complete && emblemImg.naturalWidth > 0) {
+        const size = 160 * pulse;
+        ctx.drawImage(emblemImg, W / 2 - size / 2, 280 - size / 2, size, size);
+      }
+
+      // Title Banner
+      ctx.fillStyle = '#f58220';
+      ctx.font = 'bold 36px "Segoe UI", sans-serif';
+      ctx.textAlign = 'center';
+      ctx.letterSpacing = '4px';
+      ctx.fillText('🚀 WE ARE HIRING — JOIN THE CORE TEAM', W / 2, 470);
+
+      // Main Role
+      ctx.fillStyle = '#ffffff';
+      ctx.font = '900 68px "Segoe UI", sans-serif';
+      ctx.shadowColor = '#00f0ff';
+      ctx.shadowBlur = 25;
+      ctx.fillText('PHYSICAL DESIGN ENGINEER', W / 2, 565);
+      ctx.shadowBlur = 0;
+
+      // Sub-badge: TRAINED FRESHERS / 0–2 YEARS (Wider box with solid backing so no text clipping or stray particles!)
+      const badgeW = 660;
+      const badgeH = 64;
+      const badgeX = W / 2 - badgeW / 2;
+      const badgeY = 620;
+
+      ctx.fillStyle = '#060d1d';
+      roundRect(ctx, badgeX, badgeY, badgeW, badgeH, 16);
+      ctx.fill();
+
+      ctx.fillStyle = 'rgba(0, 240, 255, 0.15)';
+      ctx.strokeStyle = '#00f0ff';
+      ctx.lineWidth = 2.5;
+      roundRect(ctx, badgeX, badgeY, badgeW, badgeH, 16);
+      ctx.fill();
+      ctx.stroke();
+
+      ctx.fillStyle = '#00f0ff';
+      ctx.font = 'bold 28px "Segoe UI", sans-serif';
+      ctx.fillText('TRAINED FRESHERS / 0–2 YEARS', W / 2, badgeY + 42);
+
+      // Location & Notice Period: Two distinct, high-contrast, glowing pill badges
+      const pillY = 715;
+      const pillH = 54;
+      const pillGap = 24;
+      const locW = 360;
+      const notW = 520;
+      const totalPillsW = locW + pillGap + notW;
+      const locX = W / 2 - totalPillsW / 2;
+      const notX = locX + locW + pillGap;
+
+      // Location Pill
+      ctx.fillStyle = 'rgba(15, 23, 42, 0.95)';
+      ctx.strokeStyle = 'rgba(0, 240, 255, 0.6)';
+      ctx.lineWidth = 1.8;
+      roundRect(ctx, locX, pillY, locW, pillH, 14);
+      ctx.fill();
+      ctx.stroke();
+
+      ctx.fillStyle = '#38bdf8';
+      ctx.font = 'bold 22px "Segoe UI", sans-serif';
+      ctx.fillText('📍 LOCATION: HYDERABAD', locX + locW / 2, pillY + 34);
+
+      // Notice Period Pill
+      ctx.fillStyle = 'rgba(15, 23, 42, 0.95)';
+      ctx.strokeStyle = 'rgba(245, 130, 32, 0.7)';
+      ctx.lineWidth = 1.8;
+      roundRect(ctx, notX, pillY, notW, pillH, 14);
+      ctx.fill();
+      ctx.stroke();
+
+      ctx.fillStyle = '#f58220';
+      ctx.font = 'bold 22px "Segoe UI", sans-serif';
+      ctx.fillText('⏳ NOTICE PERIOD: IMMEDIATE TO 30 DAYS', notX + notW / 2, pillY + 34);
+
+      ctx.restore();
+    }
+
+    function drawScene2(t) {
+      // 4.0s to 8.0s: RTL-to-GDSII Flow & Technical Skills
+      const st = t - 4.0;
+      const alpha = st < 0.6 ? st / 0.6 : (st > 3.4 ? Math.max(0, (4.0 - st) / 0.6) : 1);
+      ctx.save();
+      ctx.globalAlpha = alpha;
+
+      ctx.fillStyle = '#f58220';
+      ctx.font = 'bold 34px "Segoe UI", sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('🛠️ END-TO-END SILICON IMPLEMENTATION FLOW', W / 2, 170);
+
+      ctx.fillStyle = '#ffffff';
+      ctx.font = '800 48px "Segoe UI", sans-serif';
+      ctx.fillText('Complete Hands-On RTL-to-GDSII Exposure', W / 2, 230);
+
+      // 5 Steps Pipeline (Spacious layout with no border collisions!)
+      const steps = [
+        { num: '01', title: 'Floorplanning', sub: '& Power Mesh' },
+        { num: '02', title: 'Placement', sub: '& Congestion' },
+        { num: '03', title: 'Clock Tree (CTS)', sub: 'Skew & Latency' },
+        { num: '04', title: 'Routing', sub: '& Optimization' },
+        { num: '05', title: 'STA & Signoff', sub: 'DRC • LVS • Timing' }
+      ];
+
+      const cardW = 230;
+      const cardH = 260;
+      const cardGap = 70; // 70px gives 35px clearance on both sides of arrows!
+      const totalWidth = 5 * cardW + 4 * cardGap; // 1430px
+      const startX = (W - totalWidth) / 2; // 245px
+      const cardY = 320;
+
+      steps.forEach((step, idx) => {
+        const cardX = startX + idx * (cardW + cardGap);
+        const activeHighlight = Math.floor((st * 2.5) % 5) === idx;
+
+        ctx.fillStyle = activeHighlight ? 'rgba(0, 240, 255, 0.22)' : 'rgba(15, 23, 42, 0.95)';
+        ctx.strokeStyle = activeHighlight ? '#00f0ff' : '#334155';
+        ctx.lineWidth = activeHighlight ? 3 : 1.5;
+        roundRect(ctx, cardX, cardY, cardW, cardH, 16);
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.fillStyle = activeHighlight ? '#f58220' : '#00f0ff';
+        ctx.font = '900 36px "Segoe UI", sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText(step.num, cardX + cardW / 2, cardY + 60);
+
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 20px "Segoe UI", sans-serif';
+        ctx.fillText(step.title, cardX + cardW / 2, cardY + 120);
+
+        ctx.fillStyle = '#94a3b8';
+        ctx.font = '16px "Segoe UI", sans-serif';
+        ctx.fillText(step.sub, cardX + cardW / 2, cardY + 160);
+
+        // Arrow between cards (Positioned at exact center of the 70px gap with 35px safety margin)
+        if (idx < steps.length - 1) {
+          const arrowX = cardX + cardW + cardGap / 2;
+          ctx.fillStyle = activeHighlight ? '#f58220' : '#00f0ff';
+          ctx.font = 'bold 26px sans-serif';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText('➔', arrowX, cardY + cardH / 2);
+        }
+      });
+
+      // Bottom Note
+      ctx.fillStyle = '#38bdf8';
+      ctx.font = '600 24px "Segoe UI", sans-serif';
+      ctx.fillText('✨ Work with Senior VLSI Architects on Advanced Node Chip Implementations', W / 2, 700);
+
+      ctx.restore();
+    }
+
+    function drawScene3(t) {
+      // 8.0s to 12.0s: Why Join Power Silicon Technologies
+      const st = t - 8.0;
+      const alpha = st < 0.6 ? st / 0.6 : (st > 3.4 ? Math.max(0, (4.0 - st) / 0.6) : 1);
+      ctx.save();
+      ctx.globalAlpha = alpha;
+
+      ctx.fillStyle = '#f58220';
+      ctx.font = 'bold 32px "Segoe UI", sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('🌟 WHY POWER SILICON TECHNOLOGIES?', W / 2, 170);
+
+      ctx.fillStyle = '#ffffff';
+      ctx.font = '800 48px "Segoe UI", sans-serif';
+      ctx.fillText('Accelerate Your Semiconductor Career', W / 2, 230);
+
+      const perks = [
+        '⚡ Practical exposure to real-world chip tapeouts',
+        '⚡ Direct technical mentorship from industry veterans',
+        '⚡ Deep dive into timing closure, congestion & power signoff',
+        '⚡ Fast-growing semiconductor team in Hyderabad'
+      ];
+
+      perks.forEach((perk, i) => {
+        const py = 330 + i * 85;
+        ctx.fillStyle = 'rgba(15, 23, 42, 0.85)';
+        ctx.strokeStyle = i % 2 === 0 ? 'rgba(0, 240, 255, 0.4)' : 'rgba(245, 130, 32, 0.4)';
+        ctx.lineWidth = 1.5;
+        roundRect(ctx, W / 2 - 450, py - 35, 900, 68, 12);
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.fillStyle = '#ffffff';
+        ctx.font = '600 26px "Segoe UI", sans-serif';
+        ctx.textAlign = 'left';
+        ctx.fillText(perk, W / 2 - 410, py + 8);
+      });
+
+      ctx.restore();
+    }
+
+    function drawScene4(t) {
+      // 12.0s to 16.0s: Call to Action & Contact
+      const st = t - 12.0;
+      const alpha = st < 0.6 ? st / 0.6 : 1;
+      ctx.save();
+      ctx.globalAlpha = alpha;
+
+      // Pulsing glow
+      const pulse = 1.0 + 0.05 * Math.sin(t * 6);
+
+      ctx.fillStyle = '#00f0ff';
+      ctx.font = 'bold 36px "Segoe UI", sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('🎯 READY TO BUILD SILICON?', W / 2, 180);
+
+      ctx.fillStyle = '#ffffff';
+      ctx.font = '900 60px "Segoe UI", sans-serif';
+      ctx.shadowColor = '#f58220';
+      ctx.shadowBlur = 20;
+      ctx.fillText('APPLY NOW & GROW WITH US', W / 2, 260);
+      ctx.shadowBlur = 0;
+
+      // Contact Box
+      ctx.fillStyle = 'rgba(15, 23, 42, 0.95)';
+      ctx.strokeStyle = '#00f0ff';
+      ctx.lineWidth = 3;
+      roundRect(ctx, W / 2 - 480, 330, 960, 330, 20);
+      ctx.fill();
+      ctx.stroke();
+
+      // Email
+      ctx.fillStyle = '#f58220';
+      ctx.font = 'bold 28px "Segoe UI", sans-serif';
+      ctx.fillText('📧 Send Your Resume To:', W / 2, 390);
+
+      ctx.fillStyle = '#38bdf8';
+      ctx.font = '900 44px monospace';
+      ctx.fillText('hr@powersilicontech.com', W / 2, 450);
+
+      // Subject hint
+      ctx.fillStyle = '#94a3b8';
+      ctx.font = 'italic 20px "Segoe UI", sans-serif';
+      ctx.fillText('Subject: Application - Physical Design Engineer - [Your Name]', W / 2, 495);
+
+      // Contact & Web
+      ctx.fillStyle = '#ffffff';
+      ctx.font = 'bold 26px "Segoe UI", sans-serif';
+      ctx.fillText('📱 +91 94931 36675    |    🌐 www.powersilicontech.com', W / 2, 560);
+
+      ctx.fillStyle = '#00f0ff';
+      ctx.font = '600 22px "Segoe UI", sans-serif';
+      ctx.fillText('📍 Power Silicon Technologies Pvt. Ltd. • Hyderabad, India', W / 2, 615);
+
+      // Bottom tagline
+      ctx.fillStyle = '#e2e8f0';
+      ctx.font = 'bold 26px "Segoe UI", sans-serif';
+      ctx.fillText('Design • Innovate • Deliver', W / 2, 720);
+
+      ctx.restore();
+    }
+
+    function drawProgress(time) {
+      ctx.save();
+      const p = time / DURATION;
+      ctx.fillStyle = 'rgba(15, 23, 42, 0.8)';
+      ctx.fillRect(0, H - 12, W, 12);
+
+      const grad = ctx.createLinearGradient(0, 0, W * p, 0);
+      grad.addColorStop(0, '#0284c7');
+      grad.addColorStop(1, '#f58220');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, H - 12, W * p, 12);
+      ctx.restore();
+    }
+
+    function roundRect(context, x, y, width, height, radius) {
+      context.beginPath();
+      context.moveTo(x + radius, y);
+      context.lineTo(x + width - radius, y);
+      context.quadraticCurveTo(x + width, y, x + width, y + radius);
+      context.lineTo(x + width, y + height - radius);
+      context.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+      context.lineTo(x + radius, y + height);
+      context.quadraticCurveTo(x, y + height, x, y + height - radius);
+      context.lineTo(x, y + radius);
+      context.quadraticCurveTo(x, y, x + radius, y);
+      context.closePath();
+    }
+
+    function render(time) {
+      // Background gradient
+      ctx.fillStyle = '#020617';
+      ctx.fillRect(0, 0, W, H);
+
+      // Background wafer texture if available
+      if (waferBg.complete && waferBg.naturalWidth > 0) {
+        ctx.save();
+        ctx.globalAlpha = 0.15;
+        ctx.drawImage(waferBg, 0, 0, W, H);
+        ctx.restore();
+      }
+
+      updateNodes();
+      drawCircuitGrid(time);
+      drawHeaderBadge(time);
+
+      if (time >= 0 && time < 4.0) {
+        drawScene1(time);
+      } else if (time >= 4.0 && time < 8.0) {
+        drawScene2(time);
+      } else if (time >= 8.0 && time < 12.0) {
+        drawScene3(time);
+      } else {
+        drawScene4(time);
+      }
+
+      drawProgress(time);
+    }
+
+    function loop() {
+      if (!isPlaying && !isRecording) return;
+
+      const time = (currentFrame / TOTAL_FRAMES) * DURATION;
+      render(time);
+
+      if (isRecording) {
+        statusBar.innerText = `🔴 Recording Frame ${currentFrame}/${TOTAL_FRAMES} (${time.toFixed(1)}s / ${DURATION}s)...`;
+        if (currentFrame >= TOTAL_FRAMES) {
+          stopRecording();
+          return;
+        }
+        currentFrame++;
+        requestAnimationFrame(loop);
+      } else {
+        statusBar.innerText = `Previewing: ${time.toFixed(1)}s / ${DURATION}s`;
+        currentFrame = (currentFrame + 1) % TOTAL_FRAMES;
+        animId = requestAnimationFrame(loop);
+      }
+    }
+
+    function stopRecording() {
+      if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+        mediaRecorder.stop();
+      }
+    }
+
+    function togglePlay() {
+      isPlaying = !isPlaying;
+      document.getElementById('btn-play').innerText = isPlaying ? '⏸ Pause Preview' : '▶ Resume Preview';
+      if (isPlaying) loop();
+    }
+
+    function startRecordAndExport() {
+      if (isRecording) return;
+      isRecording = true;
+      isPlaying = false;
+      if (animId) cancelAnimationFrame(animId);
+
+      currentFrame = 0;
+      recordedChunks = [];
+      statusBar.innerText = "Initializing 60 FPS Video Stream...";
+
+      const stream = canvas.captureStream(60);
+      let mimeType = '';
+      if (MediaRecorder.isTypeSupported('video/webm;codecs=vp9')) mimeType = 'video/webm;codecs=vp9';
+      else if (MediaRecorder.isTypeSupported('video/webm')) mimeType = 'video/webm';
+      else if (MediaRecorder.isTypeSupported('video/mp4')) mimeType = 'video/mp4';
+
+      mediaRecorder = new MediaRecorder(stream, {
+        mimeType: mimeType || undefined,
+        videoBitsPerSecond: 16000000 // 16 Mbps ultra-clear bitrate
+      });
+
+      mediaRecorder.ondataavailable = (e) => {
+        if (e.data && e.data.size > 0) recordedChunks.push(e.data);
+      };
+
+      let recordInterval = null;
+
+      mediaRecorder.onstop = () => {
+        if (recordInterval) clearInterval(recordInterval);
+        const blob = new Blob(recordedChunks, { type: mimeType || 'video/webm' });
+        const videoUrl = URL.createObjectURL(blob);
+
+        const card = document.getElementById('download-card');
+        const videoElem = document.getElementById('output-video');
+        const dlBtn = document.getElementById('btn-direct-download');
+
+        videoElem.src = videoUrl;
+        dlBtn.href = videoUrl;
+        dlBtn.download = `PowerSilicon_PD_Hiring_${Date.now()}.webm`;
+        card.style.display = 'flex';
+
+        // Auto trigger download to browser
+        const a = document.createElement('a');
+        a.href = videoUrl;
+        a.download = `PowerSilicon_PD_Hiring_${Date.now()}.webm`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+
+        // Also save to server videos/ folder if local server is active
+        try {
+          fetch('/api/save-hiring-video', { method: 'POST', body: blob })
+            .then(r => r.json())
+            .then(res => {
+              console.log('Saved to videos/ folder:', res);
+              console.log('VIDEO_EXPORT_COMPLETED_SUCCESSFULLY');
+            })
+            .catch(() => {});
+        } catch (e) {}
+
+        // Direct write if running inside Electron with Node integration
+        if (typeof require !== 'undefined') {
+          try {
+            const fs = require('fs');
+            const path = require('path');
+            blob.arrayBuffer().then(buf => {
+              const buffer = Buffer.from(buf);
+              const vDir = path.join(__dirname, 'videos');
+              if (!fs.existsSync(vDir)) fs.mkdirSync(vDir, { recursive: true });
+              fs.writeFileSync(path.join(vDir, 'powersilicon-pd-hiring.webm'), buffer);
+              fs.writeFileSync(path.join(vDir, 'powersilicon-pd-hiring.mp4'), buffer);
+              console.log('Saved to videos/ folder directly via Node!');
+              console.log('VIDEO_EXPORT_COMPLETED_SUCCESSFULLY');
+            });
+          } catch (e) {
+            console.error('Node write error:', e);
+          }
+        }
+
+        isRecording = false;
+        isPlaying = true;
+        statusBar.innerText = `✅ Video Generated & Downloaded (${(blob.size / (1024 * 1024)).toFixed(2)} MB)! Ready for LinkedIn!`;
+        loop();
+      };
+
+      mediaRecorder.start(100);
+      recordInterval = setInterval(() => {
+        if (currentFrame >= TOTAL_FRAMES) {
+          clearInterval(recordInterval);
+          stopRecording();
+        } else {
+          const time = (currentFrame / TOTAL_FRAMES) * DURATION;
+          render(time);
+          statusBar.innerText = `🔴 Recording Frame ${currentFrame}/${TOTAL_FRAMES} (${time.toFixed(1)}s / ${DURATION}s)...`;
+          currentFrame++;
+        }
+      }, 16);
+    }
+
+    // Start preview immediately
+    loop();
+
+    // Auto-record if ?auto parameter is passed
+    if (new URLSearchParams(window.location.search).has('auto')) {
+      setTimeout(() => {
+        console.log('AUTO-RECORD TRIGGERED');
+        startRecordAndExport();
+      }, 800);
+    }
+  </script>
+</body>
+</html>

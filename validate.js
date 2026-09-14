@@ -155,7 +155,7 @@ console.log('\n👉 [5/5] Validating Site Manifests & SEO Configs...');
 if (fs.existsSync('sitemap.xml')) {
   const sitemap = fs.readFileSync('sitemap.xml', 'utf8');
   htmlFiles.forEach(file => {
-    if (file !== 'generator-fabrication-video.html' && file !== '404.html') {
+    if (file !== 'generator-fabrication-video.html' && file !== 'generator-hiring-video.html' && file !== '404.html') {
       const isListed = file === 'index.html' 
         ? (sitemap.includes('https://powersilicontech.com/') || sitemap.includes('index.html'))
         : sitemap.includes(file);

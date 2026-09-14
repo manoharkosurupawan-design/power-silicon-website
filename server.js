@@ -29,7 +29,7 @@ const server = http.createServer((req, res) => {
   let cleanUrl = req.url.split('?')[0].split('#')[0];
 
   // API endpoint to save recorded video from browser
-  if (req.method === 'POST' && cleanUrl === '/api/save-video') {
+  if (req.method === 'POST' && (cleanUrl === '/api/save-video' || cleanUrl === '/api/save-hiring-video')) {
     const chunks = [];
     req.on('data', chunk => chunks.push(chunk));
     req.on('end', () => {
@@ -37,15 +37,16 @@ const server = http.createServer((req, res) => {
       const videosDir = path.join(__dirname, 'videos');
       if (!fs.existsSync(videosDir)) fs.mkdirSync(videosDir, { recursive: true });
 
-      const webmPath = path.join(videosDir, 'fabrication-loop.webm');
-      const mp4Path = path.join(videosDir, 'fabrication-loop.mp4');
+      const filename = cleanUrl === '/api/save-hiring-video' ? 'powersilicon-pd-hiring' : 'fabrication-loop';
+      const webmPath = path.join(videosDir, `${filename}.webm`);
+      const mp4Path = path.join(videosDir, `${filename}.mp4`);
 
       fs.writeFileSync(webmPath, buffer);
       fs.writeFileSync(mp4Path, buffer);
 
       console.log(`[Video Saver] Saved ${buffer.length} bytes to ${webmPath} and ${mp4Path}`);
       res.writeHead(200, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify({ success: true, size: buffer.length }));
+      res.end(JSON.stringify({ success: true, size: buffer.length, filename }));
     });
     return;
   }
