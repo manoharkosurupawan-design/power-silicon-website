@@ -6,4 +6,5 @@ dist/
 scratch/
 powersilicontech_deploy.zip
 powersilicontech_production.zip
+*.zip
 dist_upload/
